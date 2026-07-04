@@ -64,8 +64,12 @@ const TIERS = { brons: 'Brons', zilver: 'Zilver', goud: 'Goud', platina: 'Platin
     row('Порода', esc(pet.breed)),
     row('Пол', pet.sex ? (SEX[pet.sex] ?? esc(pet.sex)) : '—'),
     row('Дата рождения', fmtDate(pet.birth_date)),
+    row('Окрас', esc(pet.coat_color) || '—'),
     row('№ микрочипа', esc(pet.microchip_number) || '—'),
+    pet.microchip_date ? row('Дата чипирования', fmtDate(pet.microchip_date)) : '',
     row('№ ветпаспорта', esc(pet.passport_number) || '—'),
+    row('Стерилизация', pet.is_sterilized == null ? '—' : (pet.is_sterilized ? 'да' : 'нет')),
+    pet.special_marks ? row('Особые приметы', esc(pet.special_marks)) : '',
   ].join('');
 
   const vacs = d.vaccinations.map(v => {
