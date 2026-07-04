@@ -85,6 +85,12 @@ const fmtDate = iso => {
 };
 const fail = msg => { app.innerHTML = `<div class="card center">${msg}</div>`; };
 
+const BREEDS = {"Лабрадор": "Labrador", "Золотистый ретривер": "Golden Retriever", "Немецкая овчарка": "German Shepherd", "Хаски": "Husky", "Маламут": "Malamute", "Французский бульдог": "French Bulldog", "Английский бульдог": "English Bulldog", "Мопс": "Pug", "Бигль": "Beagle", "Боксёр": "Boxer", "Йоркширский терьер": "Yorkshire Terrier", "Чихуахуа": "Chihuahua", "Шпиц": "Spitz", "Померанский шпиц": "Pomeranian", "Самоед": "Samoyed", "Бордер-колли": "Border Collie", "Корги": "Corgi", "Далматин": "Dalmatian", "Доберман": "Doberman", "Ротвейлер": "Rottweiler", "Джек-рассел терьер": "Jack Russell Terrier", "Такса": "Dachshund", "Мальтезе": "Maltese", "Бишон фризе": "Bichon Frise", "Акита": "Akita", "Шиба-ину": "Shiba Inu", "Кавказская овчарка": "Caucasian Shepherd", "Метис": "Mixed breed", "Британская короткошёрстная": "British Shorthair", "Шотландская вислоухая": "Scottish Fold", "Мейн-кун": "Maine Coon", "Сибирская": "Siberian", "Бенгальская": "Bengal", "Персидская": "Persian", "Сфинкс": "Sphynx", "Русская голубая": "Russian Blue", "Абиссинская": "Abyssinian", "Бирманская": "Burmese", "Норвежская лесная": "Norwegian Forest", "Рагдолл": "Ragdoll", "Ориентальная": "Oriental", "Турецкая ангора": "Turkish Angora", "Невская маскарадная": "Neva Masquerade", "Волнистый попугай": "Budgerigar", "Корелла": "Cockatiel", "Ара": "Macaw", "Какаду": "Cockatoo", "Амазон": "Amazon Parrot", "Канарейка": "Canary", "Зяблик": "Finch", "Неразлучник": "Lovebird", "Розелла": "Rosella", "Африканский серый": "African Grey", "Вислоухий декоративный": "Holland Lop", "Ангорский": "Angora", "Рекс": "Rex", "Шиншилла": "Chinchilla", "Калифорнийский": "Californian", "Нидерландский карлик": "Netherland Dwarf", "Черепаха": "Turtle", "Хомяк": "Hamster", "Морская свинка": "Guinea Pig", "Крыса декоративная": "Pet Rat", "Мышь декоративная": "Pet Mouse", "Игуана": "Iguana", "Хорёк": "Ferret", "Дегу": "Degu", "Лабрадор ретривер": "Labrador Retriever"};
+const COATS = {"белый": "white", "чёрный": "black", "черный": "black", "рыжий": "red", "серый": "grey", "коричневый": "brown", "бело-коричневый": "white and brown", "бело-чёрный": "white and black", "бело-черный": "white and black", "чёрно-белый": "black and white", "черно-белый": "black and white", "трёхцветный": "tricolor", "трехцветный": "tricolor", "полосатый": "tabby", "тигровый": "brindle", "кремовый": "cream", "палевый": "fawn", "голубой": "blue", "шоколадный": "chocolate", "мраморный": "marble", "черепаховый": "tortoiseshell", "золотистый": "golden", "пятнистый": "spotted", "дымчатый": "smoke", "соболиный": "sable", "абрикосовый": "apricot", "чёрно-подпалый": "black and tan", "черно-подпалый": "black and tan"};
+// Порода/окрас хранятся по-русски; на en-странице переводим по словарям,
+// незнакомые значения показываем как есть.
+const trBreed = s => lang === 'en' && s ? (BREEDS[s.trim()] ?? s) : s;
+const trCoat  = s => lang === 'en' && s ? (COATS[s.trim().toLowerCase()] ?? s) : s;
 const PROVIDERS = { ohra: 'OHRA', petplan: 'Petplan', inshared: 'InShared',
                     reaal: 'Reaal', proteq: 'Proteq', hollandse: 'Hollandse Pet' };
 const TIERS = { brons: 'Brons', zilver: 'Zilver', goud: 'Goud', platina: 'Platina' };
@@ -106,10 +112,10 @@ const TIERS = { brons: 'Brons', zilver: 'Zilver', goud: 'Goud', platina: 'Platin
   const row = (k, v) => `<tr><td>${k}</td><td>${v}</td></tr>`;
   const info = [
     row(L.species, esc(L.speciesMap[pet.species] ?? pet.species)),
-    row(L.breed, esc(pet.breed)),
+    row(L.breed, esc(trBreed(pet.breed))),
     row(L.sex, pet.sex ? (L.sexMap[pet.sex] ?? esc(pet.sex)) : '—'),
     row(L.birth, fmtDate(pet.birth_date)),
-    row(L.coat, esc(pet.coat_color) || '—'),
+    row(L.coat, esc(trCoat(pet.coat_color)) || '—'),
     row(L.chip, esc(pet.microchip_number) || '—'),
     pet.microchip_date ? row(L.chipDate, fmtDate(pet.microchip_date)) : '',
     row(L.passport, esc(pet.passport_number) || '—'),
@@ -150,7 +156,7 @@ const TIERS = { brons: 'Brons', zilver: 'Zilver', goud: 'Goud', platina: 'Platin
       ${avatar}
       <div>
         <h1>${esc(pet.name)}</h1>
-        <p class="sub">${esc(L.speciesMap[pet.species] ?? pet.species)} · ${esc(pet.breed)}</p>
+        <p class="sub">${esc(L.speciesMap[pet.species] ?? pet.species)} · ${esc(trBreed(pet.breed))}</p>
       </div>
     </div></div>
     <h2>${L.info}</h2><div class="card"><table>${info}</table></div>
