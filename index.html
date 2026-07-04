@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>PawMatch — ветпаспорт</title>
+<style>
+  body{font-family:-apple-system,system-ui,sans-serif;margin:0;background:#faf7f8;color:#1c1c1e}
+  .wrap{max-width:640px;margin:0 auto;padding:24px 16px}
+  .card{background:#fff;border-radius:16px;padding:16px 18px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+  h1{font-size:22px;margin:0 0 2px}
+  h2{font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:#8e8e93;margin:22px 0 8px}
+  .sub{color:#8e8e93;font-size:14px;margin:0}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  td{padding:7px 0;border-bottom:1px solid #f0f0f2;vertical-align:top}
+  td:last-child{text-align:right;color:#8e8e93}
+  tr:last-child td{border-bottom:none}
+  .pill{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:6px}
+  .ok{background:#e6f6ec;color:#1f8a4c}.warn{background:#fdeeea;color:#c4441c}
+  .foot{color:#c7c7cc;font-size:12px;text-align:center;margin-top:24px}
+  .center{padding:60px 0;text-align:center;color:#8e8e93}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"><p class="center">Загружаем ветпаспорт…</p></div>
+<script>
+const API = 'https://ltvgxpdcxejxhzemlamj.supabase.co/functions/v1/vet-passport';
+const app = document.getElementById('app');
+
+const esc = s => String(s ?? '').replace(/[&<>"']/g,
+  c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmtDate = iso => {
+  if (!iso) return '—';
+  const d = new Date(iso);
+  return isNaN(+d) ? esc(iso)
+    : d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
+};
+const fail = msg => { app.innerHTML = `<div class="card center">${msg}</div>`; };
+
+const SPECIES = { dog: 'Собака', cat: 'Кошка', bird: 'Птица', rabbit: 'Кролик', other: 'Другое' };
+const SEX = { male: 'самец', female: 'самка' };
+const PROVIDERS = { ohra: 'OHRA', petplan: 'Petplan', inshared: 'InShared',
+                    reaal: 'Reaal', proteq: 'Proteq', hollandse: 'Hollandse Pet' };
+const TIERS = { brons: 'Brons', zilver: 'Zilver', goud: 'Goud', platina: 'Platina' };
+
+(async () => {
+  const id = new URLSearchParams(location.search).get('id');
+  if (!id) return fail('Ссылка некорректна.');
+
+  let res;
+  try { res = await fetch(`${API}?id=${encodeURIComponent(id)}`); }
+  catch { return fail('Нет соединения. Попробуйте ещё раз.'); }
+
+  if (res.status === 410) return fail('Срок действия ссылки истёк. Попросите владельца создать новую.');
+  if (!res.ok) return fail('Ссылка не найдена или отозвана.');
+
+  const d = await res.json();
+  const pet = d.pet;
+
+  const row = (k, v) => `<tr><td>${k}</td><td>${v}</td></tr>`;
+  const info = [
+    row('Вид', esc(SPECIES[pet.species] ?? pet.species)),
+    row('Порода', esc(pet.breed)),
+    row('Пол', pet.sex ? (SEX[pet.sex] ?? esc(pet.sex)) : '—'),
+    row('Дата рождения', fmtDate(pet.birth_date)),
+    row('№ микрочипа', esc(pet.microchip_number) || '—'),
+    row('№ ветпаспорта', esc(pet.passport_number) || '—'),
+  ].join('');
+
+  const vacs = d.vaccinations.map(v => {
+    const due = v.next_due_date ? new Date(v.next_due_date) : null;
+    const badge = due ? (due >= new Date()
+      ? `<span class="pill ok">действует до ${fmtDate(v.next_due_date)}</span>`
+      : `<span class="pill warn">просрочена с ${fmtDate(v.next_due_date)}</span>`) : '';
+    return `<tr><td><b>${esc(v.vaccine_name)}</b>${v.batch_number ? `<br><small>серия ${esc(v.batch_number)}</small>` : ''}<br>${badge}</td><td>${fmtDate(v.date_given)}</td></tr>`;
+  }).join('') || '<tr><td>Нет записей</td></tr>';
+
+  const rxs = d.prescriptions.map(r =>
+    `<tr><td><b>${esc(r.drug_name)}</b>${r.dosage ? `<br><small>${esc(r.dosage)}</small>` : ''}${r.is_active ? '<br><span class="pill ok">активно</span>' : ''}</td><td>${fmtDate(r.prescribed_at)}</td></tr>`
+  ).join('') || '<tr><td>Нет записей</td></tr>';
+
+  const visits = d.visits.map(a =>
+    `<tr><td><b>${esc(a.vet_name)}</b>${a.clinic_name ? ` · ${esc(a.clinic_name)}` : ''}${a.notes ? `<br><small>${esc(a.notes)}</small>` : ''}</td><td>${fmtDate(a.date)}</td></tr>`
+  ).join('') || '<tr><td>Нет записей</td></tr>';
+
+  const ins = d.insurance ? `
+    <h2>Страховка</h2><div class="card"><table>
+      ${row('Страховщик', esc(PROVIDERS[d.insurance.provider_id] ?? d.insurance.provider_id))}
+      ${row('Тариф', esc(TIERS[d.insurance.plan_tier] ?? d.insurance.plan_tier))}
+      ${d.insurance.policy_number ? row('№ полиса', esc(d.insurance.policy_number)) : ''}
+      ${row('Действует с', fmtDate(d.insurance.started_at))}
+    </table></div>` : '';
+
+  app.innerHTML = `
+    <div class="card">
+      <h1>🐾 ${esc(pet.name)}</h1>
+      <p class="sub">${esc(SPECIES[pet.species] ?? pet.species)} · ${esc(pet.breed)}</p>
+    </div>
+    <h2>Общая информация</h2><div class="card"><table>${info}</table></div>
+    <h2>Прививки</h2><div class="card"><table>${vacs}</table></div>
+    <h2>Назначения</h2><div class="card"><table>${rxs}</table></div>
+    <h2>Прошлые визиты</h2><div class="card"><table>${visits}</table></div>
+    ${ins}
+    <p class="foot">Сформировано в PawMatch · ссылка действительна до ${fmtDate(d.expires_at)}</p>`;
+})();
+</script>
+</body>
+</html>
