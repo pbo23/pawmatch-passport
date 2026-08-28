@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PawMatch — Условия использования PawMatch</title>
+<style>
+  body{{font-family:-apple-system,system-ui,sans-serif;margin:0;background:#faf7f8;color:#1c1c1e;line-height:1.6}}
+  .wrap{{max-width:720px;margin:0 auto;padding:32px 20px 60px}}
+  h1{{font-size:26px;margin:0 0 4px}}
+  h2{{font-size:16px;margin:28px 0 6px}}
+  p{{margin:0 0 10px;font-size:15px}}
+  .upd{{color:#8e8e93;font-size:13px;margin-bottom:24px}}
+  .lang{{display:flex;gap:8px;margin-bottom:24px}}
+  .lang a{{font-size:13px;text-decoration:none;color:#e84b7a;border:1px solid #e84b7a;
+          border-radius:99px;padding:4px 14px}}
+  .lang a.on{{background:#e84b7a;color:#fff}}
+  footer{{margin-top:40px;color:#8e8e93;font-size:13px}}
+  @media (prefers-color-scheme: dark){{
+    body{{background:#000;color:#f2f2f7}} .upd,footer{{color:#8e8e93}}
+  }}
+</style>
+</head>
+<body><div class="wrap">
+<div class="lang">
+  <a href="?lang=ru" id="l-ru">Русский</a>
+  <a href="?lang=en" id="l-en">English</a>
+</div>
+<div id="ru">
+<h1>Условия использования PawMatch</h1>
+<p class="upd">Обновлено: июль 2026</p>
+<h2>1. О сервисе</h2>
+<p>PawMatch — приложение для владельцев домашних животных: подбор пары для питомца, общение владельцев, ведение медицинских записей и подбор страховки.</p>
+<h2>2. Аккаунт</h2>
+<p>Вы отвечаете за достоверность данных о себе и питомцах. Один человек — один аккаунт. Минимальный возраст — 16 лет.</p>
+<h2>3. Правила поведения</h2>
+<p>Запрещены: оскорбления и травля, спам и реклама без согласования, мошенничество, публикация чужих персональных данных, контент 18+, жестокое обращение с животными в любом виде.</p>
+<h2>4. Контент</h2>
+<p>Фото и тексты, которые вы публикуете, остаются вашими. Публикуя их, вы разрешаете показывать этот контент другим пользователям в рамках работы сервиса (анкеты, матчи, чат).</p>
+<h2>5. Модерация</h2>
+<p>Нарушение правил ведёт к удалению контента и блокировке аккаунта. Пожаловаться на пользователя можно из чата (меню ⋯). Мы рассматриваем жалобы в течение 72 часов.</p>
+<h2>6. Здоровье питомцев</h2>
+<p>Напоминания и записи в разделе «Здоровье» носят информационный характер и не заменяют консультацию ветеринара.</p>
+<h2>7. Ответственность</h2>
+<p>Сервис предоставляется «как есть». Мы не являемся стороной договорённостей между владельцами (вязка, продажа, усыновление) и не несём ответственности за их результат.</p>
+<h2>8. Контакты</h2>
+<p>support@pawmatch.app</p>
+</div>
+<div id="en" hidden>
+<h1>PawMatch Terms of Use</h1>
+<p class="upd">Updated: July 2026</p>
+<h2>1. About the service</h2>
+<p>PawMatch is an app for pet owners: find a mate for your pet, chat with other owners, keep medical records and pick insurance.</p>
+<h2>2. Account</h2>
+<p>You are responsible for the accuracy of your and your pets&#x27; data. One person — one account. Minimum age: 16.</p>
+<h2>3. Conduct rules</h2>
+<p>Prohibited: harassment and bullying, spam and unsolicited advertising, fraud, publishing other people&#x27;s personal data, 18+ content, and any form of animal cruelty.</p>
+<h2>4. Content</h2>
+<p>Photos and texts you publish remain yours. By publishing you allow us to show this content to other users as part of the service (profiles, matches, chat).</p>
+<h2>5. Moderation</h2>
+<p>Breaking the rules leads to content removal and account suspension. You can report a user from the chat (⋯ menu). Reports are reviewed within 72 hours.</p>
+<h2>6. Pet health</h2>
+<p>Reminders and records in the Health section are informational and do not replace a veterinarian&#x27;s advice.</p>
+<h2>7. Liability</h2>
+<p>The service is provided &quot;as is&quot;. We are not a party to arrangements between owners (breeding, sales, adoption) and are not responsible for their outcome.</p>
+<h2>8. Contact</h2>
+<p>support@pawmatch.app</p>
+</div>
+<footer>PawMatch · support@pawmatch.app</footer>
+</div>
+<script>
+  var lang = new URLSearchParams(location.search).get('lang') === 'en' ? 'en' : 'ru';
+  document.documentElement.lang = lang;
+  document.getElementById('ru').hidden = lang !== 'ru';
+  document.getElementById('en').hidden = lang !== 'en';
+  document.getElementById('l-' + lang).className = 'on';
+</script>
+</body></html>
