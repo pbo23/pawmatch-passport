@@ -26,12 +26,18 @@
   .lang a{font-size:13px;text-decoration:none;color:#e84b7a;border:1px solid #e84b7a;
           border-radius:99px;padding:4px 14px}
   .lang a.on{background:#e84b7a;color:#fff}
+  .btn{display:inline-block;background:#e84b7a;color:#fff;font-size:15px;font-weight:600;
+       border:none;border-radius:12px;padding:12px 18px;cursor:pointer;-webkit-appearance:none}
+  .btn:disabled{background:#e0dfe2;color:#8e8e93;cursor:default}
+  .upmsg{font-size:13px;margin:12px 0 0}
+  .upmsg.ok{color:#1f8a4c}.upmsg.err{color:#c4441c}.upmsg.wait{color:#8e8e93}
 </style>
 </head>
 <body>
 <div class="wrap" id="app"><p class="center">…</p></div>
 <script>
 const API = 'https://ltvgxpdcxejxhzemlamj.supabase.co/functions/v1/vet-passport';
+const UPLOAD_API = 'https://ltvgxpdcxejxhzemlamj.supabase.co/functions/v1/vet-upload';
 const app = document.getElementById('app');
 const params = new URLSearchParams(location.search);
 const lang = params.get('lang') === 'en' ? 'en' : 'ru';
@@ -59,6 +65,15 @@ const L = {
     homeHint: 'Эта страница также показывает ветпаспорт питомца по ссылке из приложения.',
     privacy: 'Политика конфиденциальности', terms: 'Условия использования',
     support: 'Поддержка',
+    upTitle: 'Счёт за приём',
+    upHint: 'Прикрепите счёт — он придёт владельцу в приложение, и оттуда его можно '
+          + 'отправить в страховую. Ничего заполнять не нужно.',
+    upPick: 'Выбрать файл', upAnother: 'Приложить ещё один',
+    upSending: 'Отправляем…', upDone: 'Счёт отправлен владельцу',
+    upTooLarge: 'Файл больше 25 МБ.', upBadType: 'Нужен PDF или фотография счёта.',
+    upTooMany: 'По этой ссылке уже отправлено 5 файлов.',
+    upExpired: 'Срок действия ссылки истёк. Попросите владельца открыть новую.',
+    upFailed: 'Не удалось отправить. Попробуйте ещё раз.',
     speciesMap: { dog: 'Собака', cat: 'Кошка', bird: 'Птица', rabbit: 'Кролик', other: 'Другое' },
     sexMap: { male: 'самец', female: 'самка' },
     locale: 'ru-RU',
@@ -83,6 +98,15 @@ const L = {
     homeHint: 'This page also renders a pet\u2019s vet passport opened from the app.',
     privacy: 'Privacy Policy', terms: 'Terms of Service',
     support: 'Support',
+    upTitle: 'Invoice for this visit',
+    upHint: 'Attach the invoice — it reaches the owner in the app, where it can be '
+          + 'sent on to the insurer. Nothing to fill in.',
+    upPick: 'Choose a file', upAnother: 'Attach another one',
+    upSending: 'Sending…', upDone: 'Invoice sent to the owner',
+    upTooLarge: 'The file is larger than 25 MB.', upBadType: 'A PDF or a photo of the invoice is required.',
+    upTooMany: 'Five files have already been sent through this link.',
+    upExpired: 'This link has expired. Ask the owner to open a new one.',
+    upFailed: 'Could not send it. Please try again.',
     speciesMap: { dog: 'Dog', cat: 'Cat', bird: 'Bird', rabbit: 'Rabbit', other: 'Other' },
     sexMap: { male: 'male', female: 'female' },
     locale: 'en-GB',
@@ -207,7 +231,60 @@ const TIERS = { brons: 'Brons', zilver: 'Zilver', goud: 'Goud', platina: 'Platin
     <h2>${L.prescriptions}</h2><div class="card"><table>${rxs}</table></div>
     <h2>${L.visits}</h2><div class="card"><table>${visits}</table></div>
     ${ins}
+    <h2>${L.upTitle}</h2>
+    <div class="card">
+      <p class="sub" style="margin:0 0 14px">${L.upHint}</p>
+      <button class="btn" id="upBtn" type="button">${L.upPick}</button>
+      <input type="file" id="upFile" hidden
+             accept="application/pdf,image/jpeg,image/png,image/heic">
+      <p class="upmsg" id="upMsg"></p>
+    </div>
     <p class="foot">${L.foot} ${fmtDate(d.expires_at)}</p>`;
+
+  // Отправка счёта. Врач на приёме торопится, поэтому файл уходит сразу после
+  // выбора — без второго подтверждающего экрана.
+  const btn = document.getElementById('upBtn');
+  const file = document.getElementById('upFile');
+  const msg = document.getElementById('upMsg');
+  const say = (text, kind) => { msg.textContent = text; msg.className = 'upmsg ' + kind; };
+
+  // Ответы функции приёма: у каждого отказа своя причина, и врачу важно
+  // понимать, переснимать ли файл или звать владельца за новой ссылкой.
+  const failures = {
+    413: L.upTooLarge, 415: L.upBadType, 429: L.upTooMany,
+    410: L.upExpired, 404: L.upExpired,
+  };
+
+  btn.addEventListener('click', () => file.click());
+  file.addEventListener('change', async () => {
+    const chosen = file.files && file.files[0];
+    if (!chosen) return;
+    btn.disabled = true;
+    say(L.upSending, 'wait');
+
+    const body = new FormData();
+    body.append('file', chosen);
+    let res;
+    try {
+      res = await fetch(`${UPLOAD_API}?id=${encodeURIComponent(id)}`, { method: 'POST', body });
+    } catch {
+      btn.disabled = false;
+      // Сбрасываем выбор: иначе повторный выбор того же файла не даст change.
+      file.value = '';
+      return say(L.offline, 'err');
+    }
+
+    file.value = '';
+    if (res.ok) {
+      say(`${L.upDone} · ${esc(chosen.name)}`, 'ok');
+      btn.textContent = L.upAnother;
+      btn.disabled = false;
+      return;
+    }
+    say(failures[res.status] ?? L.upFailed, 'err');
+    // Лимит и истёкшая ссылка не лечатся повтором — кнопку не возвращаем.
+    btn.disabled = res.status === 429 || res.status === 410 || res.status === 404;
+  });
 })();
 </script>
 </body>
