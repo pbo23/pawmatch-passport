@@ -3,22 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PawMatch — Политика конфиденциальности PawMatch</title>
+<title>PaWow — Политика конфиденциальности PaWow</title>
 <style>
-  body{{font-family:-apple-system,system-ui,sans-serif;margin:0;background:#faf7f8;color:#1c1c1e;line-height:1.6}}
-  .wrap{{max-width:720px;margin:0 auto;padding:32px 20px 60px}}
-  h1{{font-size:26px;margin:0 0 4px}}
-  h2{{font-size:16px;margin:28px 0 6px}}
-  p{{margin:0 0 10px;font-size:15px}}
-  .upd{{color:#8e8e93;font-size:13px;margin-bottom:24px}}
-  .lang{{display:flex;gap:8px;margin-bottom:24px}}
-  .lang a{{font-size:13px;text-decoration:none;color:#e84b7a;border:1px solid #e84b7a;
-          border-radius:99px;padding:4px 14px}}
-  .lang a.on{{background:#e84b7a;color:#fff}}
-  footer{{margin-top:40px;color:#8e8e93;font-size:13px}}
-  @media (prefers-color-scheme: dark){{
-    body{{background:#000;color:#f2f2f7}} .upd,footer{{color:#8e8e93}}
-  }}
+  body{font-family:-apple-system,system-ui,sans-serif;margin:0;background:#faf7f8;color:#1c1c1e;line-height:1.6}
+  .wrap{max-width:720px;margin:0 auto;padding:32px 20px 60px}
+  h1{font-size:26px;margin:0 0 4px}
+  h2{font-size:16px;margin:28px 0 6px}
+  p{margin:0 0 10px;font-size:15px}
+  .upd{color:#8e8e93;font-size:13px;margin-bottom:24px}
+  .lang{display:flex;gap:8px;margin-bottom:24px}
+  .lang a{font-size:13px;text-decoration:none;color:#e84b7a;border:1px solid #e84b7a;border-radius:99px;padding:4px 14px}
+  .lang a.on{background:#e84b7a;color:#fff}
+  footer{margin-top:40px;color:#8e8e93;font-size:13px}
+  @media (prefers-color-scheme: dark){
+    body{background:#000;color:#f2f2f7}
+  }
 </style>
 </head>
 <body><div class="wrap">
@@ -27,44 +26,48 @@
   <a href="?lang=en" id="l-en">English</a>
 </div>
 <div id="ru">
-<h1>Политика конфиденциальности PawMatch</h1>
-<p class="upd">Обновлено: июль 2026</p>
+<h1>Политика конфиденциальности PaWow</h1>
+<p class="upd">Обновлено: сентябрь 2026</p>
 <h2>1. Какие данные мы собираем</h2>
 <p>— Учётные данные: email, имя, город, телефон (по желанию), фото профиля.</p>
-<p>— Данные питомцев: кличка, вид, порода, дата рождения, пол, фото, геопозиция (для поиска пар рядом).</p>
+<p>— Данные питомцев: кличка, вид, порода, дата рождения, пол, фото, геопозиция.</p>
+<p>— Геопозиция используется двояко. Для поиска магазинов и клиник рядом она передаётся в Apple Maps (MKLocalSearch) — иначе список ближайших мест не построить; у нас она при этом не сохраняется. Для подбора пар координаты питомца хранятся у нас, но другим владельцам показываются только округлёнными — точные видите лишь вы. Если вы сами включаете прогулку («Я гуляю здесь»), место прогулки, округлённое примерно до квартала, вместе с кличкой, породой и фото питомца видно всем пользователям PaWow в течение часа; прогулку можно завершить в любой момент, и запись пропадает.</p>
 <p>— Медицинские записи питомцев: прививки, визиты к ветеринару, назначения, страховые полисы.</p>
 <p>— Переписка: сообщения, фото и файлы, которыми вы обмениваетесь с другими владельцами.</p>
+<p>— Сообщение о проблеме: к нему прикладываются версия и сборка приложения, версия iOS, модель устройства и экран, с которого вы его отправили.</p>
 <h2>2. Как мы используем данные</h2>
 <p>Данные используются только для работы сервиса: подбор пар, чат между владельцами, напоминания о здоровье. Мы не продаём данные третьим лицам и не используем их для рекламы.</p>
 <h2>3. Где хранятся данные</h2>
-<p>Данные хранятся в защищённой базе Supabase (дата-центры в ЕС). Доступ ограничен политиками Row Level Security: ваши записи видите только вы, а профиль питомца — участники взаимного матча.</p>
+<p>Данные хранятся в защищённой базе Supabase (дата-центры в ЕС). Доступ ограничен политиками Row Level Security: медицинские записи, документы и переписку видите только вы и собеседник. Анкета питомца показывается другим владельцам в подборе пар; кличка, порода и фото видны и в ленте, и на карте прогулок. Когда матч становится взаимным, второй владелец видит ваши email и телефон (если вы его указали), чтобы вы могли договориться о встрече; после разматча или блокировки доступ к ним закрывается. Если вы создаёте QR-ветпаспорт, по ссылке из него в течение 7 дней видна карта питомца — прививки, назначения, визиты с заметками, номер чипа и паспорта, номер полиса, — и по ней же клиника может прислать вам счёт; ссылку можно отозвать в любой момент.</p>
 <h2>4. Ваши права</h2>
 <p>Вы можете изменить или удалить свои данные в любой момент. Удаление аккаунта (Профиль → Удалить аккаунт) безвозвратно стирает все данные, включая питомцев, переписку и медицинские записи.</p>
 <h2>5. Уведомления</h2>
-<p>Напоминания о прививках, визитах и препаратах — локальные, создаются на вашем устройстве и никуда не отправляются.</p>
+<p>Напоминания о прививках, визитах и препаратах — локальные, создаются на вашем устройстве и никуда не отправляются. Для push-уведомлений о новых сообщениях мы храним токен устройства, выданный Apple, привязанный к вашему аккаунту; при выходе из аккаунта он удаляется.</p>
 <h2>6. Контакты</h2>
 <p>Вопросы о данных: support@pawmatch.app</p>
 </div>
 <div id="en" hidden>
-<h1>PawMatch Privacy Policy</h1>
-<p class="upd">Updated: July 2026</p>
+<h1>PaWow Privacy Policy</h1>
+<p class="upd">Updated: September 2026</p>
 <h2>1. What data we collect</h2>
 <p>— Account data: email, name, city, phone (optional), profile photo.</p>
-<p>— Pet data: name, species, breed, birth date, sex, photos, location (to find matches nearby).</p>
+<p>— Pet data: name, species, breed, birth date, sex, photos, location.</p>
+<p>— Location is used in two ways. To find stores and clinics nearby it is sent to Apple Maps (MKLocalSearch) — there is no other way to build a list of nearby places; we do not store it ourselves. For matching, your pet&#x27;s coordinates are stored on our side but shown to other owners only rounded — the exact ones are visible to you alone. If you start a walk yourself (&quot;I&#x27;m walking here&quot;), the walk&#x27;s location — rounded to roughly a city block — is visible to every PaWow user for one hour, together with your pet&#x27;s name, breed and photo; ending the walk removes it immediately.</p>
 <p>— Pet medical records: vaccinations, vet visits, prescriptions, insurance policies.</p>
 <p>— Messaging: messages, photos and files you exchange with other owners.</p>
+<p>— Bug reports: a report carries the app version and build, your iOS version, device model and the screen you sent it from.</p>
 <h2>2. How we use it</h2>
 <p>Only to run the service: matching, owner-to-owner chat, health reminders. We never sell your data or use it for advertising.</p>
 <h2>3. Where it is stored</h2>
-<p>Data lives in a secured Supabase database (EU data centers). Access is restricted by Row Level Security: only you see your records, and a pet profile is visible to mutual-match participants only.</p>
+<p>Data lives in a secured Supabase database (EU data centers). Access is restricted by Row Level Security: medical records, documents and chats are visible only to you and the person you are talking to. A pet profile is shown to other owners in matching; its name, breed and photo are also visible in the feed and on the walks map. Once a match is mutual, the other owner can see your email and phone number (if you added one) so you can arrange a meeting; unmatching or blocking removes that access. If you create a QR vet passport, anyone with its link can see your pet&#x27;s record for 7 days — vaccinations, prescriptions, visits with notes, microchip and passport numbers, policy number — and a clinic can send you an invoice through it; you can revoke the link at any time.</p>
 <h2>4. Your rights</h2>
 <p>You can edit or delete your data at any time. Deleting your account (Profile → Delete account) permanently erases everything, including pets, chats and medical records.</p>
 <h2>5. Notifications</h2>
-<p>Vaccination, visit and medication reminders are local: they are created on your device and never leave it.</p>
+<p>Vaccination, visit and medication reminders are local: they are created on your device and never leave it. For push notifications about new messages we store the device token issued by Apple, linked to your account; it is deleted when you sign out.</p>
 <h2>6. Contact</h2>
 <p>Data questions: support@pawmatch.app</p>
 </div>
-<footer>PawMatch · support@pawmatch.app</footer>
+<footer>PaWow</footer>
 </div>
 <script>
   var lang = new URLSearchParams(location.search).get('lang') === 'en' ? 'en' : 'ru';
