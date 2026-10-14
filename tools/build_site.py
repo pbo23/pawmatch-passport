@@ -237,6 +237,7 @@ T = {
         "legal_lang": "nl",
         "foot_tag": "Alles voor je huisdier, in één app.",
         "foot_cookies": "Deze website plaatst geen cookies en gebruikt geen trackers.",
+        "shots": {"home": "Homescherm van PaWow met Houston, een Jack Russell", "match": "Matchen in PaWow: het profiel van Bonnie, een Jack Russell in de buurt", "health": "Gezondheid in PaWow: vaccinaties, verzekering en het QR-dierenpaspoort"},
         "m": {
             "pet": "Max", "chips": ["🐾 Jack Russell", "Dichtbij · 5 km"], "dist": "740 m",
             "name": "Luna", "age": "2 jaar", "meta": "Border Collie · Teef", "bio": "Rent het liefst achter een bal aan 🎾",
@@ -380,6 +381,7 @@ T = {
         "legal_lang": "en",
         "foot_tag": "Everything for your pet, in one app.",
         "foot_cookies": "This website sets no cookies and uses no trackers.",
+        "shots": {"home": "PaWow home screen with Houston, a Jack Russell", "match": "Matching in PaWow: the profile of Bonnie, a Jack Russell nearby", "health": "Health in PaWow: vaccinations, insurance and the QR vet passport"},
         "m": {
             "pet": "Max", "chips": ["🐾 Jack Russell", "Nearby · 5 km"], "dist": "740 m",
             "name": "Luna", "age": "2 years", "meta": "Border Collie · Female", "bio": "Would chase a ball all day 🎾",
@@ -524,6 +526,7 @@ T = {
         "legal_lang": "ru",
         "foot_tag": "Всё для питомца в одном приложении.",
         "foot_cookies": "Этот сайт не ставит cookies и не использует трекеры.",
+        "shots": {"home": "Главный экран PaWow с Хьюстоном, джек-расселом", "match": "Матч в PaWow: анкета Бонни, джек-рассела по соседству", "health": "Здоровье в PaWow: прививки, страховка и QR-ветпаспорт"},
         "m": {
             "pet": "Макс", "chips": ["🐾 Джек-рассел", "Рядом · 5 км"], "dist": "740 м",
             "name": "Луна", "age": "2 года", "meta": "Бордер-колли · девочка", "bio": "Готова гонять мяч весь день 🎾",
@@ -561,40 +564,13 @@ def tabbar(m, active):
     return f'<div class="tabbar">{items}</div>'
 
 
-def phone_match(m):
-    chips = "".join(f'<span{on(i == 0)}>{esc(c)}</span>' for i, c in enumerate(m["chips"]))
-    nx_name, nx_age, nx_meta, nx_bio, nx_dist = m["next"]
-    return f"""<div class="phone" aria-hidden="true"><div class="screen">{status_bar()}
-<div class="scr"><div class="m-top"><span class="m-petchip"><span class="m-av">🐶</span>{esc(m["pet"])}{SVG_CHEVRON}</span></div>
-<div class="m-chips">{chips}</div>
-<div class="m-deck">
-<div class="m-card c2"><span class="m-dist">➤ {esc(nx_dist)}</span><div class="m-photo">🐩</div>
-<div class="m-info"><b>{esc(nx_name)}</b><span>{esc(nx_age)}</span><div>{esc(nx_meta)}</div><p>{esc(nx_bio)}</p></div></div>
-<div class="m-card c1"><span class="m-dist">➤ {esc(m["dist"])}</span><div class="m-photo">🐕</div>
-<div class="m-info"><b>{esc(m["name"])}</b><span>{esc(m["age"])}</span><div>{esc(m["meta"])}</div><p>{esc(m["bio"])}</p></div>
-<span class="m-stamp">{SVG_HEART}</span></div>
-</div>
-<div class="m-actions"><span class="a-x">{SVG_X}</span><span class="a-i">{SVG_I}</span><span class="a-h">{SVG_HEART}</span></div></div>
-{tabbar(m, 1)}</div></div>"""
-
-
-def phone_health(m):
-    pets = "".join(f'<span{on(i == 0)}><b>{e}</b><i>{esc(n)}</i></span>'
-                   for i, (e, n) in enumerate(zip(("🐶", "🐱"), m["pets"])))
-    vaccs = "".join(
-        f'<div class="h-row"><span class="ic">💉</span><div><b>{esc(name)}</b><span>{esc(date)}</span></div>'
-        f'<span class="pill {kind}">{esc(pill)}</span></div>'
-        for name, date, pill, kind in m["vaccs"]
-    )
-    title, sub, date = m["visit"]
-    return f"""<div class="phone" aria-hidden="true"><div class="screen">{status_bar()}
-<div class="scr"><div class="h-title">{esc(m["health"])}</div>
-<div class="h-pets">{pets}</div>
-<div class="h-qr"><div><b>{esc(m["qr_t"])}</b><span>{esc(m["qr_s"])}</span><em>{esc(m["qr_v"])}</em></div><span class="qrbox">{fake_qr()}<i class="scan"></i></span></div>
-<div class="h-sec">{esc(m["vacc"])}</div><div class="h-list">{vaccs}</div>
-<div class="h-sec">{esc(m["visits"])}</div>
-<div class="h-list"><div class="h-row"><span class="ic v">🩺</span><div><b>{esc(title)}</b><span>{esc(sub)}</span></div><span class="date">{esc(date)}</span></div></div></div>
-{tabbar(m, 4)}</div></div>"""
+def phone_shot(root, lang, screen, alt, eager=False):
+    """Реальный скриншот приложения в рамке телефона. Остров рисуется поверх:
+    simctl снимает экран без выреза."""
+    loading = 'fetchpriority="high"' if eager else 'loading="lazy"'
+    return (f'<div class="phone"><div class="screen shot"><div class="island"></div>'
+            f'<img src="{root}assets/shots/{lang}-{screen}.webp" alt="{esc(alt)}" width="600" height="1304" '
+            f'{loading} decoding="async"></div></div>')
 
 
 def phone_catalog(m, lang):
@@ -795,7 +771,10 @@ def landing(lang):
 <a class="btn btn-ghost" href="{guides_href}">{esc(t["cta_guide"])}</a></div>
 <p class="soon"><span class="dot" aria-hidden="true"></span><span>{t["soon"]}</span></p>
 </div>
-<div class="hero-phone">{phone_match(m)}</div>
+<div class="hero-phones">
+<div class="hero-back">{phone_shot(root, lang, "home", t["shots"]["home"])}</div>
+<div class="hero-phone">{phone_shot(root, lang, "match", t["shots"]["match"], eager=True)}</div>
+</div>
 </div></section>
 
 <section id="features"><div class="wrap">
@@ -805,7 +784,7 @@ def landing(lang):
 </div></section>
 
 <section><div class="wrap spot">
-<div class="spot-media reveal">{phone_health(m)}</div>
+<div class="spot-media reveal">{phone_shot(root, lang, "health", t["shots"]["health"])}</div>
 <div class="reveal" style="--i:1"><span class="kicker">{esc(t["health_kicker"])}</span><h2>{esc(t["health_h2"])}</h2>
 <p>{esc(t["health_text"])}</p><ul class="checks">{health_points}</ul></div>
 </div></section>

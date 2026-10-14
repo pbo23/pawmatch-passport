@@ -147,83 +147,13 @@ section { padding: 56px 0 }
 .tabbar svg { width: 18px; height: 18px }
 .tabbar .on { color: var(--brand) }
 
-/* Матч */
-.m-top { display: flex; justify-content: center; padding: 4px 0 8px; flex: none }
-.m-petchip { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; font-size: 14px; color: var(--brand) }
-.m-av { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: #fde8ef; font-size: 15px }
-.m-petchip svg { width: 11px; height: 11px }
-.m-chips { display: flex; gap: 6px; padding: 0 12px 10px; flex: none }
-.m-chips span { padding: 5px 10px; border-radius: 99px; background: #fff; font-weight: 600; font-size: 11px; white-space: nowrap }
-.m-chips .on { background: var(--brand); color: #fff }
-.m-card {
-  position: relative; flex: 1; margin: 0 12px; border-radius: 24px; overflow: hidden; min-height: 0;
-  background: linear-gradient(165deg, #ffd9e6 0%, #eadcff 100%);
-  display: grid; place-items: center;
-}
-.m-deck { position: relative; flex: 1; margin: 0 12px; min-height: 0 }
-.m-deck .m-card { position: absolute; inset: 0; margin: 0 }
-.m-card.c2 { background: linear-gradient(165deg, #d8ecff 0%, #e8dcff 100%) }
-.m-stamp {
-  position: absolute; top: 16px; right: 16px; width: 54px; height: 54px; border-radius: 50%;
-  display: grid; place-items: center; background: var(--brand); color: #fff; opacity: 0;
-  box-shadow: 0 6px 18px rgba(232, 75, 122, .45); transform: scale(.4) rotate(-12deg);
-}
-.m-stamp svg { width: 26px; height: 26px }
-.m-photo { font-size: 104px; line-height: 1; transform: translateY(-26px) }
-.m-dist { position: absolute; top: 12px; left: 12px; background: rgba(255, 255, 255, .75); border-radius: 99px; padding: 4px 9px; font-weight: 700; font-size: 11px }
-.m-info { position: absolute; inset: auto 0 0; padding: 40px 16px 14px; color: #fff; background: linear-gradient(transparent, rgba(40, 12, 40, .72)) }
-.m-info b { font-size: 22px; letter-spacing: -.02em }
-.m-info span { font-size: 15px; margin-left: 6px }
-.m-info div { font-size: 12.5px; margin-top: 2px }
-.m-info p { margin: 4px 0 0; font-size: 12px; opacity: .92 }
-.m-actions { display: flex; justify-content: center; align-items: center; gap: 18px; padding: 12px 0 2px; flex: none }
-.m-actions span { display: grid; place-items: center; border-radius: 50%; background: #fff; box-shadow: 0 4px 12px rgba(0, 0, 0, .08) }
-.m-actions svg { width: 45%; height: 45% }
-.a-x { width: 50px; height: 50px; color: var(--orange) }
-.a-i { width: 38px; height: 38px; color: var(--blue) }
-.a-h { width: 56px; height: 56px; background: var(--brand) !important; color: #fff }
-
-/* Здоровье */
-.h-title { font-size: 26px; font-weight: 800; letter-spacing: -.03em; padding: 6px 16px 8px; flex: none }
-.h-pets { display: flex; gap: 12px; padding: 0 16px 10px; flex: none }
-.h-pets span { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 10.5px; font-weight: 600; color: #6b6b73 }
-.h-pets i { font-style: normal }
-.h-pets b { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; font-size: 22px; background: #fff }
-.h-pets .on { color: var(--brand) }
-.h-pets .on b { box-shadow: 0 0 0 2px var(--brand) }
-.h-qr {
-  margin: 0 12px; padding: 12px 12px 12px 14px; border-radius: 18px; color: #fff; flex: none;
-  background: linear-gradient(135deg, #ff4f8b, #a855f7); display: flex; align-items: center; gap: 10px;
-}
-.h-qr div { flex: 1; display: flex; flex-direction: column; gap: 2px }
-.h-qr b { font-size: 14px }
-.h-qr span { font-size: 11px; opacity: .9 }
-.h-qr em { font-style: normal; font-size: 10px; font-weight: 700; background: rgba(255, 255, 255, .22); border-radius: 6px; padding: 2px 6px; align-self: flex-start; margin-top: 4px }
-.qrbox { position: relative; flex: none; border-radius: 8px; overflow: hidden }
-.qrbox svg { display: block; width: 64px; height: 64px; background: #fff; padding: 5px; color: #1c1c1e }
-.scan { position: absolute; left: 4px; right: 4px; top: 6px; height: 2px; border-radius: 2px; background: #ff4f8b;
-        box-shadow: 0 0 8px 2px rgba(255, 79, 139, .55) }
-.h-sec { font-size: 10.5px; font-weight: 600; color: #8e8e93; letter-spacing: .03em; padding: 14px 18px 6px; flex: none }
-.h-list { margin: 0 12px; background: #fff; border-radius: 16px; flex: none }
-.h-row { display: flex; align-items: center; gap: 10px; padding: 9px 12px }
-.h-row + .h-row { border-top: 1px solid #f0f0f2 }
-.h-row .ic { width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center; font-size: 14px; flex: none; background: #e3f5ee }
-.h-row .ic.v { background: #efe8ff }
-.h-row div { flex: 1; display: flex; flex-direction: column; min-width: 0 }
-.h-row b { font-size: 12px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
-.h-row div span { font-size: 10.5px; color: #8e8e93 }
-.pill { font-size: 9.5px; font-weight: 700; padding: 3px 7px; border-radius: 6px; white-space: nowrap }
-.pill.ok { background: #e3f5ee; color: #17805f }
-.pill.warn { background: #fdeee2; color: #b5561b }
-.h-row .date { font-size: 11px; color: #8e8e93; font-weight: 600 }
-
 /* Каталог */
 .c-title { font-size: 26px; font-weight: 800; letter-spacing: -.03em; padding: 6px 16px 8px; flex: none }
 .seg { display: flex; margin: 0 12px 10px; background: #e4e4ea; border-radius: 9px; padding: 2px; flex: none }
 .seg span { flex: 1; text-align: center; font-size: 11px; font-weight: 600; padding: 5px 0; border-radius: 7px }
 .seg .on { background: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, .1) }
-.c-cats { display: flex; gap: 6px; padding: 0 12px 8px; flex: none }
-.c-cats span { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 6px 0; border-radius: 10px; background: #fff; font-size: 9.5px; font-weight: 600; color: #6b6b73; min-width: 0 }
+.c-cats { display: flex; gap: 6px; padding: 0 12px 8px; flex: none; overflow: hidden }
+.c-cats span { flex: none; padding-left: 9px !important; padding-right: 9px !important; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 6px 0; border-radius: 10px; background: #fff; font-size: 9.5px; font-weight: 600; color: #6b6b73; min-width: 0 }
 .c-cats i { font-style: normal; font-size: 16px }
 .c-cats .on { background: #fde8ef; color: var(--brand); box-shadow: inset 0 0 0 1px var(--brand) }
 .c-sp { display: flex; gap: 6px; padding: 0 12px 10px; flex: none }
@@ -417,30 +347,9 @@ section { padding: 56px 0 }
 @keyframes shimmer { from { background-position: 0% 50% } to { background-position: 100% 50% } }
 @keyframes ping { from { box-shadow: 0 0 0 0 rgba(232, 75, 122, .55) } to { box-shadow: 0 0 0 9px rgba(232, 75, 122, 0) } }
 @keyframes ping-green { from { box-shadow: 0 0 0 0 rgba(29, 158, 117, .5) } to { box-shadow: 0 0 0 9px rgba(29, 158, 117, 0) } }
-@keyframes scan { from { transform: translateY(0) } to { transform: translateY(52px) } }
-@keyframes nudge { 0%, 70%, 100% { transform: none } 78% { transform: scale(1.1) } 86% { transform: scale(.97) } }
 @keyframes badge { 0%, 80%, 100% { transform: none } 86% { transform: scale(1.18) rotate(-6deg) } 92% { transform: scale(.96) } }
 @keyframes wiggle { 0%, 100% { transform: none } 30% { transform: rotate(-10deg) scale(1.08) } 60% { transform: rotate(8deg) scale(1.08) } }
 @keyframes pop { 0% { transform: scale(.4) } 70% { transform: scale(1.12) } 100% { transform: none } }
-
-/* Колода «Матча», цикл 9 секунд: лайк, карточка уходит вправо, под ней следующая. */
-@keyframes deck-top {
-  0%, 30% { transform: none; opacity: 1 }
-  37% { transform: translateX(5%) rotate(3deg); opacity: 1 }
-  50% { transform: translateX(135%) rotate(20deg); opacity: 0 }
-  86% { transform: scale(.95); opacity: 0 }
-  95%, 100% { transform: none; opacity: 1 }
-}
-@keyframes deck-next {
-  0%, 37% { transform: translateY(10px) scale(.95); opacity: .75 }
-  52%, 100% { transform: none; opacity: 1 }
-}
-@keyframes stamp {
-  0%, 27% { opacity: 0; transform: scale(.4) rotate(-12deg) }
-  32%, 44% { opacity: 1; transform: scale(1) rotate(-12deg) }
-  52%, 100% { opacity: 0; transform: scale(1.1) rotate(-12deg) }
-}
-@keyframes press { 0%, 25%, 40%, 100% { transform: none } 30% { transform: scale(.86) } 35% { transform: scale(1.1) } }
 
 @media (prefers-reduced-motion: no-preference) {
   .hero::before { animation: drift 18s ease-in-out infinite alternate }
@@ -457,13 +366,7 @@ section { padding: 56px 0 }
   .hero-phone { animation: phone-in .9s .2s cubic-bezier(.2, .7, .2, 1) backwards }
   .hero-phone .phone { animation: float 7s 1.2s ease-in-out infinite }
 
-  .m-card.c1 { animation: deck-top 9s ease-in-out infinite }
-  .m-card.c2 { animation: deck-next 9s ease-in-out infinite }
-  .m-stamp { animation: stamp 9s ease-in-out infinite }
-  .a-h { animation: press 9s ease-in-out infinite }
 
-  .scan { animation: scan 2.6s ease-in-out infinite alternate }
-  .pill.warn { animation: nudge 4s ease-in-out infinite }
   .pc-img em { animation: badge 5s ease-in-out infinite }
   .pc:nth-child(4) .pc-img em { animation-delay: 1.4s }
 
@@ -478,3 +381,20 @@ section { padding: 56px 0 }
   .guide:hover .thumb span, .card:hover .ico { animation: wiggle .6s ease-in-out }
   .thumb span { display: inline-block }
 }
+
+/* ── Реальные скриншоты ────────────────────────────────── */
+.screen.shot { background: #f2f2f7 }
+.screen.shot img { width: 100%; height: 100%; object-fit: cover; object-position: top }
+.hero-phones { position: relative; display: flex; justify-content: center }
+.hero-back { display: none }
+@media (min-width: 900px) {
+  .hero-phones { min-height: 620px; align-items: center }
+  .hero-back { display: block; position: absolute; left: -14%; top: 40px; transform: rotate(-8deg) scale(.86);
+               opacity: .9; filter: saturate(.95) }
+  .hero-phone { position: relative; z-index: 1; left: 12% }
+}
+@media (prefers-reduced-motion: no-preference) and (min-width: 900px) {
+  .hero-back { animation: back-in 1s .35s cubic-bezier(.2, .7, .2, 1) backwards }
+  .hero-back .phone { animation: float 8s 1.6s ease-in-out infinite reverse }
+}
+@keyframes back-in { from { opacity: 0; transform: rotate(-2deg) scale(.8) translateX(60px) } }
