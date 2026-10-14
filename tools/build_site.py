@@ -204,7 +204,7 @@ T = {
             "We verkopen je gegevens niet en gebruiken ze niet voor advertenties.",
             "Account verwijderen? Dan wissen we alles, ook je dieren en berichten.",
         ],
-        "privacy_link": "Lees het volledige privacybeleid (Engels)",
+        "privacy_link": "Lees het volledige privacybeleid",
         "faq_kicker": "Vragen",
         "faq_h2": "Veelgestelde vragen",
         "faq": [
@@ -212,7 +212,7 @@ T = {
              "We testen de app nu via TestFlight met een kleine groep baasjes. Zodra PaWow in de App Store staat, vind "
              "je de link op deze pagina."),
             ("Is er een Android-versie?", "Nog niet: PaWow is er voorlopig alleen voor iPhone."),
-            ("In welke talen is de app beschikbaar?", "In het Engels en het Russisch."),
+            ("In welke talen is de app beschikbaar?", "In het Nederlands, Engels en Russisch."),
             ("Voor welke dieren is PaWow?",
              "Voor honden, katten, vogels, konijnen en andere huisdieren. Samen wandelen is er alleen voor honden."),
             ("Wie kan de gegevens van mijn huisdier zien?",
@@ -232,9 +232,9 @@ T = {
         "contact_h3": "Contact",
         "contact_text": "Vragen, ideeën of samenwerken? We horen graag van je.",
         "contact_btn": "Mail ons",
-        "legal_privacy": "Privacybeleid (Engels)",
-        "legal_terms": "Gebruiksvoorwaarden (Engels)",
-        "legal_lang": "en",
+        "legal_privacy": "Privacybeleid",
+        "legal_terms": "Gebruiksvoorwaarden",
+        "legal_lang": "nl",
         "foot_tag": "Alles voor je huisdier, in één app.",
         "foot_cookies": "Deze website plaatst geen cookies en gebruikt geen trackers.",
         "m": {
@@ -354,7 +354,7 @@ T = {
              "We are testing the app on TestFlight with a small group of owners. As soon as PaWow is in the App Store, "
              "you'll find the link on this page."),
             ("Is there an Android version?", "Not yet: for now PaWow is iPhone-only."),
-            ("Which languages is the app available in?", "English and Russian."),
+            ("Which languages is the app available in?", "Dutch, English and Russian."),
             ("Which animals is PaWow for?",
              "Dogs, cats, birds, rabbits and other pets. Walking together is for dogs only."),
             ("Who can see my pet's data?",
@@ -498,7 +498,7 @@ T = {
              "Сейчас мы тестируем приложение в TestFlight с небольшой группой владельцев. Как только PaWow выйдет в App "
              "Store, ссылка появится на этой странице."),
             ("Есть ли версия для Android?", "Пока нет: PaWow сейчас только для iPhone."),
-            ("На каких языках приложение?", "На английском и русском."),
+            ("На каких языках приложение?", "На нидерландском, английском и русском."),
             ("Для каких животных PaWow?",
              "Для собак, кошек, птиц, кроликов и других питомцев. Совместные прогулки есть только для собак."),
             ("Кто видит данные моего питомца?",

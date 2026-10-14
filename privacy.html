@@ -24,8 +24,9 @@
 </head>
 <body><div class="wrap">
 <div class="lang">
-  <a href="?lang=ru" id="l-ru">Русский</a>
+  <a href="?lang=nl" id="l-nl">Nederlands</a>
   <a href="?lang=en" id="l-en">English</a>
+  <a href="?lang=ru" id="l-ru">Русский</a>
 </div>
 <div id="ru">
 <h1>Политика конфиденциальности PaWow</h1>
@@ -75,15 +76,40 @@
 <h2>6. Contact</h2>
 <p>Data questions: support@pawmatch.app</p>
 </div>
+<div id="nl" hidden>
+<h1>Privacybeleid van PaWow</h1>
+<p class="upd">Bijgewerkt: oktober 2026</p>
+<h2>1. Welke gegevens we verzamelen</h2>
+<ul>
+<li>Accountgegevens: e-mailadres, naam, woonplaats, telefoonnummer (optioneel), profielfoto.</li>
+<li>Gegevens van huisdieren: naam, soort, ras, geboortedatum, geslacht, foto's, locatie.</li>
+<li>Locatie gebruiken we op twee manieren. Om winkels en klinieken in de buurt te vinden, sturen we die naar Apple Kaarten (MKLocalSearch); zonder dat is er geen lijst met plekken in de buurt te maken, en zelf bewaren we de locatie dan niet. Voor het matchen bewaren we de coördinaten van je huisdier bij ons, maar andere eigenaren zien ze alleen afgerond; de precieze ziet alleen jij. Als je zelf een wandeling start (‘Ik wandel hier’), is de plek van de wandeling, afgerond tot ongeveer een huizenblok, samen met de naam, het ras en de foto van je huisdier een uur lang zichtbaar voor alle PaWow-gebruikers; je kunt de wandeling op elk moment beëindigen, en dan verdwijnt hij meteen.</li>
+<li>Medische gegevens van huisdieren: vaccinaties, dierenartsbezoeken, voorschriften, verzekeringspolissen.</li>
+<li>Berichten: berichten, foto's en bestanden die je met andere eigenaren uitwisselt.</li>
+<li>Probleemmeldingen: bij een melding sturen we de versie en build van de app, je iOS-versie, het model van je apparaat en het scherm waarvandaan je de melding stuurde mee.</li>
+<li>Productcatalogus: als je op ‘Kopen’ tikt, slaan we op welk product je hebt geopend, zodat we weten wat nuttig is in de catalogus. De aankoop zelf gebeurt op de site van de winkel (bol.com, zooplus); wat je daar koopt en welke gegevens je invult, valt onder het beleid van de winkel en wordt niet met ons gedeeld.</li>
+</ul>
+<h2>2. Hoe we ze gebruiken</h2>
+<p>Alleen om de dienst te laten werken: matchen, chatten tussen eigenaren, herinneringen voor de gezondheid. We verkopen je gegevens nooit en gebruiken ze niet voor advertenties. Productlinks in de catalogus zijn partnerlinks: als je iets koopt, betaalt de winkel PaWow een commissie; je persoonsgegevens worden daarbij niet aan de winkel doorgegeven.</p>
+<h2>3. Waar ze worden bewaard</h2>
+<p>De gegevens staan in een beveiligde Supabase-database (datacenters in de EU). De toegang is beperkt met Row Level Security: medische gegevens, documenten en chats zie alleen jij en degene met wie je praat. Het profiel van je huisdier wordt bij het matchen aan andere eigenaren getoond; de naam, het ras en de foto zijn ook zichtbaar in de feed en op de wandelkaart. Zodra een match wederzijds is, ziet de andere eigenaar je e-mailadres en telefoonnummer (als je dat hebt ingevuld), zodat jullie een afspraak kunnen maken; na het verbreken van de match of een blokkade vervalt die toegang. Als je een QR-dierenpaspoort maakt, kan iedereen met de link 7 dagen lang het dossier van je huisdier zien (vaccinaties, voorschriften, bezoeken met notities, chip- en paspoortnummer, polisnummer), en een kliniek kan je via die link een factuur sturen; je kunt de link op elk moment intrekken.</p>
+<h2>4. Je rechten</h2>
+<p>Je kunt je gegevens op elk moment wijzigen of verwijderen. Als je je account verwijdert (Profiel → Account verwijderen), wissen we alles definitief, ook je huisdieren, chats en medische gegevens.</p>
+<h2>5. Meldingen</h2>
+<p>Herinneringen voor vaccinaties, bezoeken en medicijnen zijn lokaal: ze worden op je apparaat aangemaakt en verlaten het nooit. Voor pushmeldingen over nieuwe berichten bewaren we het apparaattoken dat Apple uitgeeft, gekoppeld aan je account; bij het uitloggen wordt het verwijderd.</p>
+<h2>6. Contact</h2>
+<p>Vragen over je gegevens: support@pawmatch.app</p>
+</div>
 <footer><a href="./" id="home">PaWow</a></footer>
 </div>
 <script>
-  var lang = new URLSearchParams(location.search).get('lang') === 'en' ? 'en' : 'ru';
+  var asked = new URLSearchParams(location.search).get('lang');
+  var lang = ['ru', 'en', 'nl'].indexOf(asked) >= 0 ? asked : 'ru';
   document.documentElement.lang = lang;
   document.title = document.querySelector('#' + lang + ' h1').textContent;
-  document.getElementById('ru').hidden = lang !== 'ru';
-  document.getElementById('en').hidden = lang !== 'en';
+  ['ru', 'en', 'nl'].forEach(function (code) { document.getElementById(code).hidden = code !== lang; });
   document.getElementById('l-' + lang).className = 'on';
-  document.getElementById('home').href = lang + '/';
+  // Лендинг: нидерландский в корне сайта, остальные в своих папках.
+  document.getElementById('home').href = lang === 'nl' ? './' : lang + '/';
 </script>
 </body></html>

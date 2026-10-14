@@ -24,8 +24,9 @@
 </head>
 <body><div class="wrap">
 <div class="lang">
-  <a href="?lang=ru" id="l-ru">Русский</a>
+  <a href="?lang=nl" id="l-nl">Nederlands</a>
   <a href="?lang=en" id="l-en">English</a>
+  <a href="?lang=ru" id="l-ru">Русский</a>
 </div>
 <div id="ru">
 <h1>Условия использования PaWow</h1>
@@ -71,15 +72,38 @@
 <h2>8. Contact</h2>
 <p>support@pawmatch.app</p>
 </div>
+<div id="nl" hidden>
+<h1>Gebruiksvoorwaarden van PaWow</h1>
+<p class="upd">Bijgewerkt: oktober 2026</p>
+<h2>1. Over de dienst</h2>
+<p>PaWow is een app voor huisdiereigenaren: een partner zoeken voor je huisdier, chatten met andere eigenaren, medische gegevens bijhouden en een verzekering kiezen.</p>
+<h2>2. Account</h2>
+<p>Je bent verantwoordelijk voor de juistheid van je eigen gegevens en die van je huisdieren. Eén account per persoon. Minimumleeftijd: 16 jaar.</p>
+<h2>3. Gedragsregels</h2>
+<p>Verboden: beledigingen en pesten, spam en ongevraagde reclame, fraude, het publiceren van persoonsgegevens van anderen, 18+-content en elke vorm van dierenmishandeling.</p>
+<h2>4. Content</h2>
+<p>Foto's en teksten die je plaatst, blijven van jou. Door ze te plaatsen geef je ons toestemming om die content binnen de dienst aan andere gebruikers te tonen (profielen, matches, chat).</p>
+<h2>5. Moderatie</h2>
+<p>Overtreding van de regels leidt tot verwijdering van content en blokkering van het account. Je kunt een gebruiker melden of blokkeren overal waar hun content te zien is: in de stapel in Match, op het profiel van een huisdier, in de chat, in de feed en op de wandelkaart (via het menu ⋯), en bij reacties door over de regel te swipen. We behandelen meldingen binnen 24 uur; content die de regels overtreedt, verwijderen we en de auteur wordt geblokkeerd.</p>
+<h2>6. Gezondheid van huisdieren</h2>
+<p>Herinneringen en gegevens in Gezondheid zijn informatief en vervangen geen advies van een dierenarts.</p>
+<h2>6a. Productcatalogus</h2>
+<p>Producten in de catalogus van Diensten worden verkocht door partnerwinkels (bol.com, zooplus), niet door PaWow. ‘Kopen’ opent de site van de winkel: de koopovereenkomst, betaling, bezorging en retour regel je rechtstreeks met de winkel. Prijzen worden dagelijks bijgewerkt en kunnen op de site van de winkel afwijken. De links zijn partnerlinks: PaWow ontvangt een commissie op aankopen, zonder extra kosten voor jou.</p>
+<h2>7. Aansprakelijkheid</h2>
+<p>De dienst wordt geleverd ‘zoals hij is’. We zijn geen partij bij afspraken tussen eigenaren (dekking, verkoop, adoptie) en zijn niet verantwoordelijk voor de uitkomst daarvan.</p>
+<h2>8. Contact</h2>
+<p>support@pawmatch.app</p>
+</div>
 <footer><a href="./" id="home">PaWow</a></footer>
 </div>
 <script>
-  var lang = new URLSearchParams(location.search).get('lang') === 'en' ? 'en' : 'ru';
+  var asked = new URLSearchParams(location.search).get('lang');
+  var lang = ['ru', 'en', 'nl'].indexOf(asked) >= 0 ? asked : 'ru';
   document.documentElement.lang = lang;
   document.title = document.querySelector('#' + lang + ' h1').textContent;
-  document.getElementById('ru').hidden = lang !== 'ru';
-  document.getElementById('en').hidden = lang !== 'en';
+  ['ru', 'en', 'nl'].forEach(function (code) { document.getElementById(code).hidden = code !== lang; });
   document.getElementById('l-' + lang).className = 'on';
-  document.getElementById('home').href = lang + '/';
+  // Лендинг: нидерландский в корне сайта, остальные в своих папках.
+  document.getElementById('home').href = lang === 'nl' ? './' : lang + '/';
 </script>
 </body></html>

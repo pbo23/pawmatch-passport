@@ -40,7 +40,7 @@ const API = 'https://ltvgxpdcxejxhzemlamj.supabase.co/functions/v1/vet-passport'
 const UPLOAD_API = 'https://ltvgxpdcxejxhzemlamj.supabase.co/functions/v1/vet-upload';
 const app = document.getElementById('app');
 const params = new URLSearchParams(location.search);
-const lang = params.get('lang') === 'en' ? 'en' : 'ru';
+const lang = ['en', 'nl'].includes(params.get('lang')) ? params.get('lang') : 'ru';
 document.documentElement.lang = lang;
 
 // Локализация страницы — язык зашит в QR-ссылку параметром lang.
@@ -99,6 +99,33 @@ const L = {
     sexMap: { male: 'male', female: 'female' },
     locale: 'en-GB',
   },
+  nl: {
+    loading: 'Dierenpaspoort laden…', badLink: 'Ongeldige link.',
+    offline: 'Geen verbinding. Probeer het opnieuw.',
+    expired: 'Deze link is verlopen. Vraag de eigenaar om een nieuwe.',
+    notFound: 'Link niet gevonden of ingetrokken.',
+    info: 'Algemene gegevens', vaccinations: 'Vaccinaties', prescriptions: 'Voorschriften',
+    visits: 'Eerdere bezoeken', insurance: 'Verzekering', none: 'Geen gegevens',
+    species: 'Soort', breed: 'Ras', sex: 'Geslacht', birth: 'Geboortedatum',
+    coat: 'Vachtkleur', chip: 'Chipnr.', chipDate: 'Datum van chippen',
+    passport: 'Paspoortnr.', sterilized: 'Gesteriliseerd', marks: 'Bijzondere kenmerken',
+    provider: 'Verzekeraar', tier: 'Pakket', policy: 'Polisnr.', since: 'Actief sinds',
+    validUntil: 'geldig tot', expiredSince: 'verlopen sinds', batch: 'batch',
+    active: 'actief', yes: 'ja', no: 'nee',
+    foot: 'Gemaakt met PaWow · link geldig tot',
+    upTitle: 'Factuur voor dit bezoek',
+    upHint: 'Voeg de factuur toe: die komt bij de eigenaar in de app, die hem kan doorsturen '
+          + 'naar de verzekeraar. Je hoeft niets in te vullen.',
+    upPick: 'Kies een bestand', upAnother: 'Nog een toevoegen',
+    upSending: 'Versturen…', upDone: 'Factuur verstuurd naar de eigenaar',
+    upTooLarge: 'Het bestand is groter dan 25 MB.', upBadType: 'Een pdf of foto van de factuur is nodig.',
+    upTooMany: 'Via deze link zijn al vijf bestanden verstuurd.',
+    upExpired: 'Deze link is verlopen. Vraag de eigenaar om een nieuwe te openen.',
+    upFailed: 'Versturen is mislukt. Probeer het opnieuw.',
+    speciesMap: { dog: 'Hond', cat: 'Kat', bird: 'Vogel', rabbit: 'Konijn', other: 'Overig' },
+    sexMap: { male: 'mannetje', female: 'vrouwtje' },
+    locale: 'nl-NL',
+  },
 }[lang];
 
 app.innerHTML = `<p class="center">${L.loading}</p>`;
@@ -115,10 +142,14 @@ const fail = msg => { app.innerHTML = `<div class="card center">${msg}</div>`; }
 
 const BREEDS = {"Лабрадор": "Labrador", "Золотистый ретривер": "Golden Retriever", "Немецкая овчарка": "German Shepherd", "Хаски": "Husky", "Маламут": "Malamute", "Французский бульдог": "French Bulldog", "Английский бульдог": "English Bulldog", "Мопс": "Pug", "Бигль": "Beagle", "Боксёр": "Boxer", "Йоркширский терьер": "Yorkshire Terrier", "Чихуахуа": "Chihuahua", "Шпиц": "Spitz", "Померанский шпиц": "Pomeranian", "Самоед": "Samoyed", "Бордер-колли": "Border Collie", "Корги": "Corgi", "Далматин": "Dalmatian", "Доберман": "Doberman", "Ротвейлер": "Rottweiler", "Джек-рассел терьер": "Jack Russell Terrier", "Такса": "Dachshund", "Мальтезе": "Maltese", "Бишон фризе": "Bichon Frise", "Акита": "Akita", "Шиба-ину": "Shiba Inu", "Кавказская овчарка": "Caucasian Shepherd", "Метис": "Mixed breed", "Британская короткошёрстная": "British Shorthair", "Шотландская вислоухая": "Scottish Fold", "Мейн-кун": "Maine Coon", "Сибирская": "Siberian", "Бенгальская": "Bengal", "Персидская": "Persian", "Сфинкс": "Sphynx", "Русская голубая": "Russian Blue", "Абиссинская": "Abyssinian", "Бирманская": "Burmese", "Норвежская лесная": "Norwegian Forest", "Рагдолл": "Ragdoll", "Ориентальная": "Oriental", "Турецкая ангора": "Turkish Angora", "Невская маскарадная": "Neva Masquerade", "Волнистый попугай": "Budgerigar", "Корелла": "Cockatiel", "Ара": "Macaw", "Какаду": "Cockatoo", "Амазон": "Amazon Parrot", "Канарейка": "Canary", "Зяблик": "Finch", "Неразлучник": "Lovebird", "Розелла": "Rosella", "Африканский серый": "African Grey", "Вислоухий декоративный": "Holland Lop", "Ангорский": "Angora", "Рекс": "Rex", "Шиншилла": "Chinchilla", "Калифорнийский": "Californian", "Нидерландский карлик": "Netherland Dwarf", "Черепаха": "Turtle", "Хомяк": "Hamster", "Морская свинка": "Guinea Pig", "Крыса декоративная": "Pet Rat", "Мышь декоративная": "Pet Mouse", "Игуана": "Iguana", "Хорёк": "Ferret", "Дегу": "Degu", "Лабрадор ретривер": "Labrador Retriever"};
 const COATS = {"белый": "white", "чёрный": "black", "черный": "black", "рыжий": "red", "серый": "grey", "коричневый": "brown", "бело-коричневый": "white and brown", "бело-чёрный": "white and black", "бело-черный": "white and black", "чёрно-белый": "black and white", "черно-белый": "black and white", "трёхцветный": "tricolor", "трехцветный": "tricolor", "полосатый": "tabby", "тигровый": "brindle", "кремовый": "cream", "палевый": "fawn", "голубой": "blue", "шоколадный": "chocolate", "мраморный": "marble", "черепаховый": "tortoiseshell", "золотистый": "golden", "пятнистый": "spotted", "дымчатый": "smoke", "соболиный": "sable", "абрикосовый": "apricot", "чёрно-подпалый": "black and tan", "черно-подпалый": "black and tan"};
-// Порода/окрас хранятся по-русски; на en-странице переводим по словарям,
+// Порода/окрас хранятся по-русски; на en/nl-странице переводим по словарям,
 // незнакомые значения показываем как есть.
-const trBreed = s => lang === 'en' && s ? (BREEDS[s.trim()] ?? s) : s;
-const trCoat  = s => lang === 'en' && s ? (COATS[s.trim().toLowerCase()] ?? s) : s;
+const BREEDS_NL = {"Лабрадор": "Labrador", "Золотистый ретривер": "Golden retriever", "Немецкая овчарка": "Duitse herder", "Хаски": "Husky", "Маламут": "Malamute", "Французский бульдог": "Franse bulldog", "Английский бульдог": "Engelse bulldog", "Мопс": "Mopshond", "Бигль": "Beagle", "Боксёр": "Boxer", "Йоркширский терьер": "Yorkshire terriër", "Чихуахуа": "Chihuahua", "Шпиц": "Keeshond", "Померанский шпиц": "Pomeranian", "Самоед": "Samojeed", "Бордер-колли": "Border collie", "Корги": "Corgi", "Далматин": "Dalmatiër", "Доберман": "Dobermann", "Ротвейлер": "Rottweiler", "Джек-рассел терьер": "Jack Russell-terriër", "Такса": "Teckel", "Мальтезе": "Maltezer", "Бишон фризе": "Bichon frisé", "Акита": "Akita", "Шиба-ину": "Shiba inu", "Кавказская овчарка": "Kaukasische herder", "Метис": "Kruising", "Британская короткошёрстная": "Brits korthaar", "Шотландская вислоухая": "Scottish fold", "Мейн-кун": "Maine coon", "Сибирская": "Siberische kat", "Бенгальская": "Bengaal", "Персидская": "Pers", "Сфинкс": "Sphynx", "Русская голубая": "Russisch blauw", "Абиссинская": "Abessijn", "Бирманская": "Birmaan", "Норвежская лесная": "Noorse boskat", "Рагдолл": "Ragdoll", "Ориентальная": "Oriëntaal", "Турецкая ангора": "Turkse angora", "Невская маскарадная": "Neva masquerade", "Волнистый попугай": "Grasparkiet", "Корелла": "Valkparkiet", "Ара": "Ara", "Какаду": "Kaketoe", "Амазон": "Amazonepapegaai", "Канарейка": "Kanarie", "Зяблик": "Vink", "Неразлучник": "Agapornis", "Розелла": "Rosella", "Африканский серый": "Grijze roodstaart", "Вислоухий декоративный": "Hollandse hangoor", "Ангорский": "Angora", "Рекс": "Rex", "Шиншилла": "Chinchilla", "Калифорнийский": "Californian", "Нидерландский карлик": "Kleurdwerg", "Черепаха": "Schildpad", "Хомяк": "Hamster", "Морская свинка": "Cavia", "Крыса декоративная": "Tamme rat", "Мышь декоративная": "Tamme muis", "Игуана": "Leguaan", "Хорёк": "Fret", "Дегу": "Degoe", "Лабрадор ретривер": "Labrador retriever"};
+const COATS_NL = {"белый": "wit", "чёрный": "zwart", "черный": "zwart", "рыжий": "rood", "серый": "grijs", "коричневый": "bruin", "бело-коричневый": "wit met bruin", "бело-чёрный": "wit met zwart", "бело-черный": "wit met zwart", "чёрно-белый": "zwart met wit", "черно-белый": "zwart met wit", "трёхцветный": "driekleur", "трехцветный": "driekleur", "полосатый": "cypers", "тигровый": "gestroomd", "кремовый": "crème", "палевый": "reekleurig", "голубой": "blauw", "шоколадный": "chocolade", "мраморный": "gemarmerd", "черепаховый": "schildpad", "золотистый": "goud", "пятнистый": "gevlekt", "дымчатый": "smoke", "соболиный": "sabel", "абрикосовый": "abrikoos", "чёрно-подпалый": "zwart met tan", "черно-подпалый": "zwart met tan"};
+const breedMap = { en: BREEDS, nl: BREEDS_NL }[lang];
+const coatMap = { en: COATS, nl: COATS_NL }[lang];
+const trBreed = s => breedMap && s ? (breedMap[s.trim()] ?? s) : s;
+const trCoat  = s => coatMap && s ? (coatMap[s.trim().toLowerCase()] ?? s) : s;
 const PROVIDERS = { ohra: 'OHRA', petplan: 'Petplan', inshared: 'InShared',
                     reaal: 'Reaal', proteq: 'Proteq', hollandse: 'Hollandse Pet' };
 const TIERS = { brons: 'Brons', zilver: 'Zilver', goud: 'Goud', platina: 'Platina' };
