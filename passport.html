@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>PaWow — ветпаспорт</title>
+<style>
+  body{font-family:-apple-system,system-ui,sans-serif;margin:0;background:#faf7f8;color:#1c1c1e}
+  .wrap{max-width:640px;margin:0 auto;padding:24px 16px}
+  .card{background:#fff;border-radius:16px;padding:16px 18px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+  .head{display:flex;align-items:center;gap:14px}
+  .avatar{width:72px;height:72px;border-radius:50%;object-fit:cover;background:#f0e6ea;flex:none}
+  h1{font-size:22px;margin:0 0 2px}
+  h2{font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:#8e8e93;margin:22px 0 8px}
+  .sub{color:#8e8e93;font-size:14px;margin:0}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  td{padding:7px 0;border-bottom:1px solid #f0f0f2;vertical-align:top}
+  td:last-child{text-align:right;color:#8e8e93}
+  tr:last-child td{border-bottom:none}
+  .pill{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:6px}
+  .ok{background:#e6f6ec;color:#1f8a4c}.warn{background:#fdeeea;color:#c4441c}
+  .foot{color:#c7c7cc;font-size:12px;text-align:center;margin-top:24px}
+  .center{padding:60px 0;text-align:center;color:#8e8e93}
+  .lang{display:flex;gap:8px;justify-content:center;margin-top:18px}
+  .lang a{font-size:13px;text-decoration:none;color:#e84b7a;border:1px solid #e84b7a;
+          border-radius:99px;padding:4px 14px}
+  .lang a.on{background:#e84b7a;color:#fff}
+  .btn{display:inline-block;background:#e84b7a;color:#fff;font-size:15px;font-weight:600;
+       border:none;border-radius:12px;padding:12px 18px;cursor:pointer;-webkit-appearance:none}
+  .btn:disabled{background:#e0dfe2;color:#8e8e93;cursor:default}
+  .upmsg{font-size:13px;margin:12px 0 0}
+  .upmsg.ok{color:#1f8a4c}.upmsg.err{color:#c4441c}.upmsg.wait{color:#8e8e93}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"><p class="center">…</p></div>
+<script>
+const API = 'https://ltvgxpdcxejxhzemlamj.supabase.co/functions/v1/vet-passport';
+const UPLOAD_API = 'https://ltvgxpdcxejxhzemlamj.supabase.co/functions/v1/vet-upload';
+const app = document.getElementById('app');
+const params = new URLSearchParams(location.search);
+const lang = params.get('lang') === 'en' ? 'en' : 'ru';
+document.documentElement.lang = lang;
+
+// Локализация страницы — язык зашит в QR-ссылку параметром lang.
+const L = {
+  ru: {
+    loading: 'Загружаем ветпаспорт…', badLink: 'Ссылка некорректна.',
+    offline: 'Нет соединения. Попробуйте ещё раз.',
+    expired: 'Срок действия ссылки истёк. Попросите владельца создать новую.',
+    notFound: 'Ссылка не найдена или отозвана.',
+    info: 'Общая информация', vaccinations: 'Прививки', prescriptions: 'Назначения',
+    visits: 'Прошлые визиты', insurance: 'Страховка', none: 'Нет записей',
+    species: 'Вид', breed: 'Порода', sex: 'Пол', birth: 'Дата рождения',
+    coat: 'Окрас', chip: '№ микрочипа', chipDate: 'Дата чипирования',
+    passport: '№ ветпаспорта', sterilized: 'Стерилизация', marks: 'Особые приметы',
+    provider: 'Страховщик', tier: 'Тариф', policy: '№ полиса', since: 'Действует с',
+    validUntil: 'действует до', expiredSince: 'просрочена с', batch: 'серия',
+    active: 'активно', yes: 'да', no: 'нет',
+    foot: 'Сформировано в PaWow · ссылка действительна до',
+    upTitle: 'Счёт за приём',
+    upHint: 'Прикрепите счёт — он придёт владельцу в приложение, и оттуда его можно '
+          + 'отправить в страховую. Ничего заполнять не нужно.',
+    upPick: 'Выбрать файл', upAnother: 'Приложить ещё один',
+    upSending: 'Отправляем…', upDone: 'Счёт отправлен владельцу',
+    upTooLarge: 'Файл больше 25 МБ.', upBadType: 'Нужен PDF или фотография счёта.',
+    upTooMany: 'По этой ссылке уже отправлено 5 файлов.',
+    upExpired: 'Срок действия ссылки истёк. Попросите владельца открыть новую.',
+    upFailed: 'Не удалось отправить. Попробуйте ещё раз.',
+    speciesMap: { dog: 'Собака', cat: 'Кошка', bird: 'Птица', rabbit: 'Кролик', other: 'Другое' },
+    sexMap: { male: 'самец', female: 'самка' },
+    locale: 'ru-RU',
+  },
+  en: {
+    loading: 'Loading vet passport…', badLink: 'Invalid link.',
+    offline: 'No connection. Please try again.',
+    expired: 'This link has expired. Ask the owner to create a new one.',
+    notFound: 'Link not found or revoked.',
+    info: 'General information', vaccinations: 'Vaccinations', prescriptions: 'Prescriptions',
+    visits: 'Past visits', insurance: 'Insurance', none: 'No records',
+    species: 'Species', breed: 'Breed', sex: 'Sex', birth: 'Date of birth',
+    coat: 'Coat', chip: 'Microchip no.', chipDate: 'Microchipping date',
+    passport: 'Passport no.', sterilized: 'Sterilization', marks: 'Special marks',
+    provider: 'Provider', tier: 'Plan', policy: 'Policy no.', since: 'Active since',
+    validUntil: 'valid until', expiredSince: 'expired since', batch: 'batch',
+    active: 'active', yes: 'yes', no: 'no',
+    foot: 'Generated by PaWow · link valid until',
+    upTitle: 'Invoice for this visit',
+    upHint: 'Attach the invoice — it reaches the owner in the app, where it can be '
+          + 'sent on to the insurer. Nothing to fill in.',
+    upPick: 'Choose a file', upAnother: 'Attach another one',
+    upSending: 'Sending…', upDone: 'Invoice sent to the owner',
+    upTooLarge: 'The file is larger than 25 MB.', upBadType: 'A PDF or a photo of the invoice is required.',
+    upTooMany: 'Five files have already been sent through this link.',
+    upExpired: 'This link has expired. Ask the owner to open a new one.',
+    upFailed: 'Could not send it. Please try again.',
+    speciesMap: { dog: 'Dog', cat: 'Cat', bird: 'Bird', rabbit: 'Rabbit', other: 'Other' },
+    sexMap: { male: 'male', female: 'female' },
+    locale: 'en-GB',
+  },
+}[lang];
+
+app.innerHTML = `<p class="center">${L.loading}</p>`;
+
+const esc = s => String(s ?? '').replace(/[&<>"']/g,
+  c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmtDate = iso => {
+  if (!iso) return '—';
+  const d = new Date(iso);
+  return isNaN(+d) ? esc(iso)
+    : d.toLocaleDateString(L.locale, { day: 'numeric', month: 'long', year: 'numeric' });
+};
+const fail = msg => { app.innerHTML = `<div class="card center">${msg}</div>`; };
+
+const BREEDS = {"Лабрадор": "Labrador", "Золотистый ретривер": "Golden Retriever", "Немецкая овчарка": "German Shepherd", "Хаски": "Husky", "Маламут": "Malamute", "Французский бульдог": "French Bulldog", "Английский бульдог": "English Bulldog", "Мопс": "Pug", "Бигль": "Beagle", "Боксёр": "Boxer", "Йоркширский терьер": "Yorkshire Terrier", "Чихуахуа": "Chihuahua", "Шпиц": "Spitz", "Померанский шпиц": "Pomeranian", "Самоед": "Samoyed", "Бордер-колли": "Border Collie", "Корги": "Corgi", "Далматин": "Dalmatian", "Доберман": "Doberman", "Ротвейлер": "Rottweiler", "Джек-рассел терьер": "Jack Russell Terrier", "Такса": "Dachshund", "Мальтезе": "Maltese", "Бишон фризе": "Bichon Frise", "Акита": "Akita", "Шиба-ину": "Shiba Inu", "Кавказская овчарка": "Caucasian Shepherd", "Метис": "Mixed breed", "Британская короткошёрстная": "British Shorthair", "Шотландская вислоухая": "Scottish Fold", "Мейн-кун": "Maine Coon", "Сибирская": "Siberian", "Бенгальская": "Bengal", "Персидская": "Persian", "Сфинкс": "Sphynx", "Русская голубая": "Russian Blue", "Абиссинская": "Abyssinian", "Бирманская": "Burmese", "Норвежская лесная": "Norwegian Forest", "Рагдолл": "Ragdoll", "Ориентальная": "Oriental", "Турецкая ангора": "Turkish Angora", "Невская маскарадная": "Neva Masquerade", "Волнистый попугай": "Budgerigar", "Корелла": "Cockatiel", "Ара": "Macaw", "Какаду": "Cockatoo", "Амазон": "Amazon Parrot", "Канарейка": "Canary", "Зяблик": "Finch", "Неразлучник": "Lovebird", "Розелла": "Rosella", "Африканский серый": "African Grey", "Вислоухий декоративный": "Holland Lop", "Ангорский": "Angora", "Рекс": "Rex", "Шиншилла": "Chinchilla", "Калифорнийский": "Californian", "Нидерландский карлик": "Netherland Dwarf", "Черепаха": "Turtle", "Хомяк": "Hamster", "Морская свинка": "Guinea Pig", "Крыса декоративная": "Pet Rat", "Мышь декоративная": "Pet Mouse", "Игуана": "Iguana", "Хорёк": "Ferret", "Дегу": "Degu", "Лабрадор ретривер": "Labrador Retriever"};
+const COATS = {"белый": "white", "чёрный": "black", "черный": "black", "рыжий": "red", "серый": "grey", "коричневый": "brown", "бело-коричневый": "white and brown", "бело-чёрный": "white and black", "бело-черный": "white and black", "чёрно-белый": "black and white", "черно-белый": "black and white", "трёхцветный": "tricolor", "трехцветный": "tricolor", "полосатый": "tabby", "тигровый": "brindle", "кремовый": "cream", "палевый": "fawn", "голубой": "blue", "шоколадный": "chocolate", "мраморный": "marble", "черепаховый": "tortoiseshell", "золотистый": "golden", "пятнистый": "spotted", "дымчатый": "smoke", "соболиный": "sable", "абрикосовый": "apricot", "чёрно-подпалый": "black and tan", "черно-подпалый": "black and tan"};
+// Порода/окрас хранятся по-русски; на en-странице переводим по словарям,
+// незнакомые значения показываем как есть.
+const trBreed = s => lang === 'en' && s ? (BREEDS[s.trim()] ?? s) : s;
+const trCoat  = s => lang === 'en' && s ? (COATS[s.trim().toLowerCase()] ?? s) : s;
+const PROVIDERS = { ohra: 'OHRA', petplan: 'Petplan', inshared: 'InShared',
+                    reaal: 'Reaal', proteq: 'Proteq', hollandse: 'Hollandse Pet' };
+const TIERS = { brons: 'Brons', zilver: 'Zilver', goud: 'Goud', platina: 'Platina' };
+
+(async () => {
+  const id = params.get('id');
+  // Без id показывать нечего: лендинг приложения теперь живёт в корне сайта
+  // (index.html), туда и отправляем. Битую ссылку с id по-прежнему ловим ниже.
+  if (!id) return location.replace({ en: 'en/', ru: 'ru/' }[params.get('lang')] ?? './');
+
+  let res;
+  try { res = await fetch(`${API}?id=${encodeURIComponent(id)}`); }
+  catch { return fail(L.offline); }
+
+  if (res.status === 410) return fail(L.expired);
+  if (!res.ok) return fail(L.notFound);
+
+  const d = await res.json();
+  const pet = d.pet;
+
+  const row = (k, v) => `<tr><td>${k}</td><td>${v}</td></tr>`;
+  const info = [
+    row(L.species, esc(L.speciesMap[pet.species] ?? pet.species)),
+    row(L.breed, esc(trBreed(pet.breed))),
+    row(L.sex, pet.sex ? (L.sexMap[pet.sex] ?? esc(pet.sex)) : '—'),
+    row(L.birth, fmtDate(pet.birth_date)),
+    row(L.coat, esc(trCoat(pet.coat_color)) || '—'),
+    row(L.chip, esc(pet.microchip_number) || '—'),
+    pet.microchip_date ? row(L.chipDate, fmtDate(pet.microchip_date)) : '',
+    row(L.passport, esc(pet.passport_number) || '—'),
+    row(L.sterilized, pet.is_sterilized == null ? '—' : (pet.is_sterilized ? L.yes : L.no)),
+    pet.special_marks ? row(L.marks, esc(pet.special_marks)) : '',
+  ].join('');
+
+  const vacs = d.vaccinations.map(v => {
+    const due = v.next_due_date ? new Date(v.next_due_date) : null;
+    const badge = due ? (due >= new Date()
+      ? `<span class="pill ok">${L.validUntil} ${fmtDate(v.next_due_date)}</span>`
+      : `<span class="pill warn">${L.expiredSince} ${fmtDate(v.next_due_date)}</span>`) : '';
+    return `<tr><td><b>${esc(v.vaccine_name)}</b>${v.batch_number ? `<br><small>${L.batch} ${esc(v.batch_number)}</small>` : ''}<br>${badge}</td><td>${fmtDate(v.date_given)}</td></tr>`;
+  }).join('') || `<tr><td>${L.none}</td></tr>`;
+
+  const rxs = d.prescriptions.map(r =>
+    `<tr><td><b>${esc(r.drug_name)}</b>${r.dosage ? `<br><small>${esc(r.dosage)}</small>` : ''}${r.is_active ? `<br><span class="pill ok">${L.active}</span>` : ''}</td><td>${fmtDate(r.prescribed_at)}</td></tr>`
+  ).join('') || `<tr><td>${L.none}</td></tr>`;
+
+  const visits = d.visits.map(a =>
+    `<tr><td><b>${esc(a.vet_name)}</b>${a.clinic_name ? ` · ${esc(a.clinic_name)}` : ''}${a.notes ? `<br><small>${esc(a.notes)}</small>` : ''}</td><td>${fmtDate(a.date)}</td></tr>`
+  ).join('') || `<tr><td>${L.none}</td></tr>`;
+
+  const ins = d.insurance ? `
+    <h2>${L.insurance}</h2><div class="card"><table>
+      ${row(L.provider, esc(PROVIDERS[d.insurance.provider_id] ?? d.insurance.provider_id))}
+      ${row(L.tier, esc(TIERS[d.insurance.plan_tier] ?? d.insurance.plan_tier))}
+      ${d.insurance.policy_number ? row(L.policy, esc(d.insurance.policy_number)) : ''}
+      ${row(L.since, fmtDate(d.insurance.started_at))}
+    </table></div>` : '';
+
+  const avatar = pet.photo_url
+    ? `<img class="avatar" src="${esc(pet.photo_url)}" alt="">`
+    : `<div class="avatar" style="display:flex;align-items:center;justify-content:center;font-size:34px">🐾</div>`;
+
+  app.innerHTML = `
+    <div class="card"><div class="head">
+      ${avatar}
+      <div>
+        <h1>${esc(pet.name)}</h1>
+        <p class="sub">${esc(L.speciesMap[pet.species] ?? pet.species)} · ${esc(trBreed(pet.breed))}</p>
+      </div>
+    </div></div>
+    <h2>${L.info}</h2><div class="card"><table>${info}</table></div>
+    <h2>${L.vaccinations}</h2><div class="card"><table>${vacs}</table></div>
+    <h2>${L.prescriptions}</h2><div class="card"><table>${rxs}</table></div>
+    <h2>${L.visits}</h2><div class="card"><table>${visits}</table></div>
+    ${ins}
+    <h2>${L.upTitle}</h2>
+    <div class="card">
+      <p class="sub" style="margin:0 0 14px">${L.upHint}</p>
+      <button class="btn" id="upBtn" type="button">${L.upPick}</button>
+      <input type="file" id="upFile" hidden
+             accept="application/pdf,image/jpeg,image/png,image/heic">
+      <p class="upmsg" id="upMsg"></p>
+    </div>
+    <p class="foot">${L.foot} ${fmtDate(d.expires_at)}</p>`;
+
+  // Отправка счёта. Врач на приёме торопится, поэтому файл уходит сразу после
+  // выбора — без второго подтверждающего экрана.
+  const btn = document.getElementById('upBtn');
+  const file = document.getElementById('upFile');
+  const msg = document.getElementById('upMsg');
+  const say = (text, kind) => { msg.textContent = text; msg.className = 'upmsg ' + kind; };
+
+  // Ответы функции приёма: у каждого отказа своя причина, и врачу важно
+  // понимать, переснимать ли файл или звать владельца за новой ссылкой.
+  const failures = {
+    413: L.upTooLarge, 415: L.upBadType, 429: L.upTooMany,
+    410: L.upExpired, 404: L.upExpired,
+  };
+
+  btn.addEventListener('click', () => file.click());
+  file.addEventListener('change', async () => {
+    const chosen = file.files && file.files[0];
+    if (!chosen) return;
+    btn.disabled = true;
+    say(L.upSending, 'wait');
+
+    const body = new FormData();
+    body.append('file', chosen);
+    let res;
+    try {
+      res = await fetch(`${UPLOAD_API}?id=${encodeURIComponent(id)}`, { method: 'POST', body });
+    } catch {
+      btn.disabled = false;
+      // Сбрасываем выбор: иначе повторный выбор того же файла не даст change.
+      file.value = '';
+      return say(L.offline, 'err');
+    }
+
+    file.value = '';
+    if (res.ok) {
+      say(`${L.upDone} · ${esc(chosen.name)}`, 'ok');
+      btn.textContent = L.upAnother;
+      btn.disabled = false;
+      return;
+    }
+    say(failures[res.status] ?? L.upFailed, 'err');
+    // Лимит и истёкшая ссылка не лечатся повтором — кнопку не возвращаем.
+    btn.disabled = res.status === 429 || res.status === 410 || res.status === 404;
+  });
+})();
+</script>
+</body>
+</html>

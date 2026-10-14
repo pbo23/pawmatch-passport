@@ -1,291 +1,146 @@
 <!doctype html>
-<html lang="ru">
+<html lang="nl">
 <head>
 <meta charset="utf-8">
+<script>if(new URLSearchParams(location.search).has('id'))location.replace('passport.html'+location.search);</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex">
-<title>PawMatch — ветпаспорт</title>
-<style>
-  body{font-family:-apple-system,system-ui,sans-serif;margin:0;background:#faf7f8;color:#1c1c1e}
-  .wrap{max-width:640px;margin:0 auto;padding:24px 16px}
-  .card{background:#fff;border-radius:16px;padding:16px 18px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-  .head{display:flex;align-items:center;gap:14px}
-  .avatar{width:72px;height:72px;border-radius:50%;object-fit:cover;background:#f0e6ea;flex:none}
-  h1{font-size:22px;margin:0 0 2px}
-  h2{font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:#8e8e93;margin:22px 0 8px}
-  .sub{color:#8e8e93;font-size:14px;margin:0}
-  table{width:100%;border-collapse:collapse;font-size:14px}
-  td{padding:7px 0;border-bottom:1px solid #f0f0f2;vertical-align:top}
-  td:last-child{text-align:right;color:#8e8e93}
-  tr:last-child td{border-bottom:none}
-  .pill{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:6px}
-  .ok{background:#e6f6ec;color:#1f8a4c}.warn{background:#fdeeea;color:#c4441c}
-  .foot{color:#c7c7cc;font-size:12px;text-align:center;margin-top:24px}
-  .center{padding:60px 0;text-align:center;color:#8e8e93}
-  .lang{display:flex;gap:8px;justify-content:center;margin-top:18px}
-  .lang a{font-size:13px;text-decoration:none;color:#e84b7a;border:1px solid #e84b7a;
-          border-radius:99px;padding:4px 14px}
-  .lang a.on{background:#e84b7a;color:#fff}
-  .btn{display:inline-block;background:#e84b7a;color:#fff;font-size:15px;font-weight:600;
-       border:none;border-radius:12px;padding:12px 18px;cursor:pointer;-webkit-appearance:none}
-  .btn:disabled{background:#e0dfe2;color:#8e8e93;cursor:default}
-  .upmsg{font-size:13px;margin:12px 0 0}
-  .upmsg.ok{color:#1f8a4c}.upmsg.err{color:#c4441c}.upmsg.wait{color:#8e8e93}
-</style>
+<title>PaWow – alles voor je huisdier, in één app</title>
+<meta name="description" content="PaWow is een iPhone-app voor huisdiereigenaren in Nederland: vind speelmaatjes in de buurt, houd vaccinaties en dierenartsbezoeken bij, deel een QR-dierenpaspoort met je dierenarts en vind dierenartsen en trimsalons om de hoek.">
+<link rel="canonical" href="https://pbo23.github.io/pawmatch-passport/">
+<link rel="alternate" hreflang="nl" href="https://pbo23.github.io/pawmatch-passport/">
+<link rel="alternate" hreflang="en" href="https://pbo23.github.io/pawmatch-passport/en/">
+<link rel="alternate" hreflang="ru" href="https://pbo23.github.io/pawmatch-passport/ru/">
+<link rel="alternate" hreflang="x-default" href="https://pbo23.github.io/pawmatch-passport/">
+<meta name="theme-color" content="#e84b7a">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PaWow">
+<meta property="og:title" content="PaWow – alles voor je huisdier, in één app">
+<meta property="og:description" content="PaWow is een iPhone-app voor huisdiereigenaren in Nederland: vind speelmaatjes in de buurt, houd vaccinaties en dierenartsbezoeken bij, deel een QR-dierenpaspoort met je dierenarts en vind dierenartsen en trimsalons om de hoek.">
+<meta property="og:url" content="https://pbo23.github.io/pawmatch-passport/">
+<meta property="og:image" content="https://pbo23.github.io/pawmatch-passport/assets/og.png">
+<meta property="og:locale" content="nl_NL">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon-64.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "MobileApplication", "name": "PaWow", "operatingSystem": "iOS", "applicationCategory": "LifestyleApplication", "description": "PaWow is een iPhone-app voor huisdiereigenaren in Nederland: vind speelmaatjes in de buurt, houd vaccinaties en dierenartsbezoeken bij, deel een QR-dierenpaspoort met je dierenarts en vind dierenartsen en trimsalons om de hoek.", "url": "https://pbo23.github.io/pawmatch-passport/", "inLanguage": "nl", "image": "https://pbo23.github.io/pawmatch-passport/assets/logo-512.png", "publisher": {"@type": "Organization", "name": "PaWow", "email": "support@pawmatch.app", "url": "https://pbo23.github.io/pawmatch-passport/"}}</script>
 </head>
 <body>
-<div class="wrap" id="app"><p class="center">…</p></div>
-<script>
-const API = 'https://ltvgxpdcxejxhzemlamj.supabase.co/functions/v1/vet-passport';
-const UPLOAD_API = 'https://ltvgxpdcxejxhzemlamj.supabase.co/functions/v1/vet-upload';
-const app = document.getElementById('app');
-const params = new URLSearchParams(location.search);
-const lang = params.get('lang') === 'en' ? 'en' : 'ru';
-document.documentElement.lang = lang;
+<a class="skip" href="#main">Naar de inhoud</a>
+<header class="top"><div class="wrap">
+<a class="brand" href="./"><img src="assets/logo-128.png" alt="" width="34" height="34">PaWow</a>
+<nav class="nav" aria-label="Menu"><a href="#features">Functies</a><a href="#how">Hoe het werkt</a><a class="keep" href="gids/">Gids</a><a href="#partners">Partnerlinks</a><a href="#contact">Contact</a></nav>
+<div class="langs" aria-label="Language"><a href="./" hreflang="nl" lang="nl" aria-current="true">NL</a><a href="en/" hreflang="en" lang="en">EN</a><a href="ru/" hreflang="ru" lang="ru">RU</a></div>
+</div></header>
+<main id="main">
 
-// Локализация страницы — язык зашит в QR-ссылку параметром lang.
-const L = {
-  ru: {
-    loading: 'Загружаем ветпаспорт…', badLink: 'Ссылка некорректна.',
-    offline: 'Нет соединения. Попробуйте ещё раз.',
-    expired: 'Срок действия ссылки истёк. Попросите владельца создать новую.',
-    notFound: 'Ссылка не найдена или отозвана.',
-    info: 'Общая информация', vaccinations: 'Прививки', prescriptions: 'Назначения',
-    visits: 'Прошлые визиты', insurance: 'Страховка', none: 'Нет записей',
-    species: 'Вид', breed: 'Порода', sex: 'Пол', birth: 'Дата рождения',
-    coat: 'Окрас', chip: '№ микрочипа', chipDate: 'Дата чипирования',
-    passport: '№ ветпаспорта', sterilized: 'Стерилизация', marks: 'Особые приметы',
-    provider: 'Страховщик', tier: 'Тариф', policy: '№ полиса', since: 'Действует с',
-    validUntil: 'действует до', expiredSince: 'просрочена с', batch: 'серия',
-    active: 'активно', yes: 'да', no: 'нет',
-    foot: 'Сформировано в PawMatch · ссылка действительна до',
-    homeTitle: 'PawMatch', homeTagline: 'Приложение для владельцев питомцев',
-    homeText: 'Знакомства для питомцев, чат с владельцами, медкарта с прививками '
-            + 'и визитами к ветеринару, QR-ветпаспорт для клиники, лента и прогулки рядом.',
-    homeHint: 'Эта страница также показывает ветпаспорт питомца по ссылке из приложения.',
-    privacy: 'Политика конфиденциальности', terms: 'Условия использования',
-    support: 'Поддержка',
-    upTitle: 'Счёт за приём',
-    upHint: 'Прикрепите счёт — он придёт владельцу в приложение, и оттуда его можно '
-          + 'отправить в страховую. Ничего заполнять не нужно.',
-    upPick: 'Выбрать файл', upAnother: 'Приложить ещё один',
-    upSending: 'Отправляем…', upDone: 'Счёт отправлен владельцу',
-    upTooLarge: 'Файл больше 25 МБ.', upBadType: 'Нужен PDF или фотография счёта.',
-    upTooMany: 'По этой ссылке уже отправлено 5 файлов.',
-    upExpired: 'Срок действия ссылки истёк. Попросите владельца открыть новую.',
-    upFailed: 'Не удалось отправить. Попробуйте ещё раз.',
-    speciesMap: { dog: 'Собака', cat: 'Кошка', bird: 'Птица', rabbit: 'Кролик', other: 'Другое' },
-    sexMap: { male: 'самец', female: 'самка' },
-    locale: 'ru-RU',
-  },
-  en: {
-    loading: 'Loading vet passport…', badLink: 'Invalid link.',
-    offline: 'No connection. Please try again.',
-    expired: 'This link has expired. Ask the owner to create a new one.',
-    notFound: 'Link not found or revoked.',
-    info: 'General information', vaccinations: 'Vaccinations', prescriptions: 'Prescriptions',
-    visits: 'Past visits', insurance: 'Insurance', none: 'No records',
-    species: 'Species', breed: 'Breed', sex: 'Sex', birth: 'Date of birth',
-    coat: 'Coat', chip: 'Microchip no.', chipDate: 'Microchipping date',
-    passport: 'Passport no.', sterilized: 'Sterilization', marks: 'Special marks',
-    provider: 'Provider', tier: 'Plan', policy: 'Policy no.', since: 'Active since',
-    validUntil: 'valid until', expiredSince: 'expired since', batch: 'batch',
-    active: 'active', yes: 'yes', no: 'no',
-    foot: 'Generated by PawMatch · link valid until',
-    homeTitle: 'PawMatch', homeTagline: 'An app for pet owners',
-    homeText: 'Matchmaking for pets, chat with their owners, a health record with '
-            + 'vaccinations and vet visits, a QR vet passport for the clinic, a photo feed and walks nearby.',
-    homeHint: 'This page also renders a pet\u2019s vet passport opened from the app.',
-    privacy: 'Privacy Policy', terms: 'Terms of Service',
-    support: 'Support',
-    upTitle: 'Invoice for this visit',
-    upHint: 'Attach the invoice — it reaches the owner in the app, where it can be '
-          + 'sent on to the insurer. Nothing to fill in.',
-    upPick: 'Choose a file', upAnother: 'Attach another one',
-    upSending: 'Sending…', upDone: 'Invoice sent to the owner',
-    upTooLarge: 'The file is larger than 25 MB.', upBadType: 'A PDF or a photo of the invoice is required.',
-    upTooMany: 'Five files have already been sent through this link.',
-    upExpired: 'This link has expired. Ask the owner to open a new one.',
-    upFailed: 'Could not send it. Please try again.',
-    speciesMap: { dog: 'Dog', cat: 'Cat', bird: 'Bird', rabbit: 'Rabbit', other: 'Other' },
-    sexMap: { male: 'male', female: 'female' },
-    locale: 'en-GB',
-  },
-}[lang];
+<section class="hero"><div class="wrap">
+<div>
+<span class="eyebrow">Nu in bèta voor iPhone</span>
+<h1>Alles voor je huisdier, <span class="g">in één app</span></h1>
+<p class="lead">Vind speelmaatjes in de buurt, houd vaccinaties en dierenartsbezoeken bij en deel het dierenpaspoort met één QR-code. PaWow is gemaakt voor honden- en kattenbaasjes in Nederland.</p>
+<div class="ctas"><a class="btn btn-primary" href="#features">Bekijk wat PaWow kan</a>
+<a class="btn btn-ghost" href="gids/">Lees de gids</a></div>
+<p class="soon"><span class="dot" aria-hidden="true"></span><span><b>Binnenkort in de App Store</b> · nu in bèta via TestFlight</span></p>
+</div>
+<div class="phone" aria-hidden="true"><div class="screen"><div class="island"></div><div class="sb"><span>9:41</span><span><svg viewBox="0 0 18 12" fill="currentColor"><rect y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 16 12" fill="currentColor"><path d="M8 2.2c2.4 0 4.6.9 6.3 2.5l1.2-1.3A10.6 10.6 0 0 0 8 .4C5.2.4 2.5 1.4.5 3.4l1.2 1.3A8.8 8.8 0 0 1 8 2.2zm0 3.6c1.4 0 2.7.5 3.7 1.4l1.2-1.3A7.4 7.4 0 0 0 8 4c-1.9 0-3.6.7-4.9 1.9l1.2 1.3c1-.9 2.3-1.4 3.7-1.4zm0 3.5c-.6 0-1.2.2-1.6.6L8 11.6l1.6-1.7c-.4-.4-1-.6-1.6-.6z"/></svg><svg viewBox="0 0 27 12" fill="none"><rect x=".5" y=".5" width="23" height="11" rx="3.5" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="20" height="8" rx="2" fill="currentColor"/><path d="M25 4v4c.8-.3 1.4-1.1 1.4-2S25.8 4.3 25 4z" fill="currentColor" opacity=".45"/></svg></span></div>
+<div class="scr"><div class="m-top"><span class="m-petchip"><span class="m-av">🐶</span>Max<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 4.5L6 8l3.5-3.5"/></svg></span></div>
+<div class="m-chips"><span class="on">🐾 Jack Russell</span><span>Dichtbij · 5 km</span></div>
+<div class="m-card"><span class="m-dist">➤ 740 m</span><div class="m-photo">🐕</div>
+<div class="m-info"><b>Luna</b><span>2 jaar</span><div>Border Collie · Teef</div><p>Rent het liefst achter een bal aan 🎾</p></div></div>
+<div class="m-actions"><span class="a-x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span><span class="a-i"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2.4"/><rect x="9.8" y="9" width="4.4" height="12" rx="2.2"/></svg></span><span class="a-h"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.3l-1.5-1.3C5.4 15.4 2 12.3 2 8.5 2 5.4 4.4 3 7.5 3c1.7 0 3.4.8 4.5 2.1C13.1 3.8 14.8 3 16.5 3 19.6 3 22 5.4 22 8.5c0 3.8-3.4 6.9-8.5 11.5z"/></svg></span></div></div>
+<div class="tabbar"><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.3 2.6a1 1 0 0 1 1.4 0l8.6 7.9a1 1 0 0 1-.7 1.7H19v8a1.8 1.8 0 0 1-1.8 1.8h-2.7v-6h-5v6H6.8A1.8 1.8 0 0 1 5 20.2v-8H3.4a1 1 0 0 1-.7-1.7z"/></svg>Home</span><span class="on"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.3l-1.5-1.3C5.4 15.4 2 12.3 2 8.5 2 5.4 4.4 3 7.5 3c1.7 0 3.4.8 4.5 2.1C13.1 3.8 14.8 3 16.5 3 19.6 3 22 5.4 22 8.5c0 3.8-3.4 6.9-8.5 11.5z"/></svg>Match</span><span><svg viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd"><path d="M5 4h14a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3zm3.5 3.5a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM4 17.5V18h16v-2.6l-4.6-4.6-5.4 5.4-2.3-2.3z"/></svg>Feed</span><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.2 3h15.6l1.9 5.4A3 3 0 0 1 19 12.2V20a1 1 0 0 1-1 1h-4v-5h-4v5H6a1 1 0 0 1-1-1v-7.8A3 3 0 0 1 2.3 8.4z"/></svg>Diensten</span><span><svg viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd"><path d="M6 2h12a3 3 0 0 1 3 3v14a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3zm6 13.6l.6-.5c2.2-2 3.6-3.2 3.6-4.8A2.1 2.1 0 0 0 14 8.2c-.8 0-1.5.4-2 1-.5-.6-1.2-1-2-1a2.1 2.1 0 0 0-2.2 2.1c0 1.6 1.4 2.8 3.6 4.8z"/></svg>Gezondheid</span></div></div></div>
+</div></section>
 
-app.innerHTML = `<p class="center">${L.loading}</p>`;
+<section id="features"><div class="wrap">
+<div class="sec-head"><span class="kicker">Functies</span><h2>Wat je met PaWow kunt</h2>
+<p>Van de eerste ontmoeting in het park tot de jaarlijkse controle: alles rond je huisdier op één plek.</p></div>
+<div class="features"><article class="card"><div class="ico" aria-hidden="true">💞</div><h3>Matchen</h3><p>Vind speelmaatjes – of een partner – voor je hond of kat bij jou in de buurt. Filter op ras en afstand, en chat met de eigenaar zodra het klikt.</p></article><article class="card"><div class="ico" aria-hidden="true">🩺</div><h3>Gezondheidsdossier</h3><p>Vaccinaties, medicijnen en bezoeken aan de dierenarts op één plek, met herinneringen op je telefoon.</p></article><article class="card"><div class="ico" aria-hidden="true">🔳</div><h3>QR-dierenpaspoort</h3><p>De dierenarts scant een QR-code en ziet meteen vaccinaties, chipnummer en eerdere bezoeken. De kliniek kan via dezelfde link de factuur terugsturen.</p></article><article class="card"><div class="ico" aria-hidden="true">🐕</div><h3>Samen wandelen</h3><p>Zie welke honden er nu bij jou in de buurt lopen en ga samen een rondje. Je plek deel je alleen als je zelf een wandeling start.</p></article><article class="card"><div class="ico" aria-hidden="true">📸</div><h3>Feed</h3><p>Deel foto&#x27;s van je huisdier en zie wat andere baasjes delen. Leuk profiel gezien? Geef direct een like.</p></article><article class="card"><div class="ico" aria-hidden="true">📍</div><h3>Diensten in de buurt</h3><p>Dierenartsen, trimsalons en dierenwinkels bij jou in de buurt, op de kaart.</p></article><article class="card"><div class="ico" aria-hidden="true">🛍️</div><h3>Productcatalogus</h3><p>Voer, speelgoed en verzorging van webwinkels als bol en Zooplus, afgestemd op jouw dier. Je bestelt gewoon bij de winkel.</p></article><article class="card"><div class="ico" aria-hidden="true">🏠</div><h3>Adopteren</h3><p>Dieren uit asielen in de buurt die een nieuw thuis zoeken.</p></article></div>
+</div></section>
 
-const esc = s => String(s ?? '').replace(/[&<>"']/g,
-  c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const fmtDate = iso => {
-  if (!iso) return '—';
-  const d = new Date(iso);
-  return isNaN(+d) ? esc(iso)
-    : d.toLocaleDateString(L.locale, { day: 'numeric', month: 'long', year: 'numeric' });
-};
-const fail = msg => { app.innerHTML = `<div class="card center">${msg}</div>`; };
+<section><div class="wrap spot">
+<div class="spot-media"><div class="phone" aria-hidden="true"><div class="screen"><div class="island"></div><div class="sb"><span>9:41</span><span><svg viewBox="0 0 18 12" fill="currentColor"><rect y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 16 12" fill="currentColor"><path d="M8 2.2c2.4 0 4.6.9 6.3 2.5l1.2-1.3A10.6 10.6 0 0 0 8 .4C5.2.4 2.5 1.4.5 3.4l1.2 1.3A8.8 8.8 0 0 1 8 2.2zm0 3.6c1.4 0 2.7.5 3.7 1.4l1.2-1.3A7.4 7.4 0 0 0 8 4c-1.9 0-3.6.7-4.9 1.9l1.2 1.3c1-.9 2.3-1.4 3.7-1.4zm0 3.5c-.6 0-1.2.2-1.6.6L8 11.6l1.6-1.7c-.4-.4-1-.6-1.6-.6z"/></svg><svg viewBox="0 0 27 12" fill="none"><rect x=".5" y=".5" width="23" height="11" rx="3.5" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="20" height="8" rx="2" fill="currentColor"/><path d="M25 4v4c.8-.3 1.4-1.1 1.4-2S25.8 4.3 25 4z" fill="currentColor" opacity=".45"/></svg></span></div>
+<div class="scr"><div class="h-title">Gezondheid</div>
+<div class="h-pets"><span class="on"><b>🐶</b><i>Max</i></span><span><b>🐱</b><i>Pip</i></span></div>
+<div class="h-qr"><div><b>QR-dierenpaspoort</b><span>Laat de dierenarts scannen</span><em>7 dagen geldig</em></div><svg viewBox="0 0 25 25" shape-rendering="crispEdges"><path fill="currentColor" d="M0 0h7v1h-7zM10 0h3v1h-3zM15 0h1v1h-1zM18 0h7v1h-7zM0 1h1v1h-1zM6 1h1v1h-1zM9 1h2v1h-2zM15 1h2v1h-2zM18 1h1v1h-1zM24 1h1v1h-1zM0 2h1v1h-1zM2 2h3v1h-3zM6 2h1v1h-1zM9 2h3v1h-3zM14 2h3v1h-3zM18 2h1v1h-1zM20 2h3v1h-3zM24 2h1v1h-1zM0 3h1v1h-1zM2 3h3v1h-3zM6 3h1v1h-1zM9 3h2v1h-2zM13 3h1v1h-1zM15 3h2v1h-2zM18 3h1v1h-1zM20 3h3v1h-3zM24 3h1v1h-1zM0 4h1v1h-1zM2 4h3v1h-3zM6 4h1v1h-1zM10 4h2v1h-2zM14 4h1v1h-1zM18 4h1v1h-1zM20 4h3v1h-3zM24 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM10 5h1v1h-1zM12 5h5v1h-5zM18 5h1v1h-1zM24 5h1v1h-1zM0 6h7v1h-7zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM18 6h7v1h-7zM9 7h1v1h-1zM14 7h1v1h-1zM1 8h1v1h-1zM4 8h3v1h-3zM8 8h2v1h-2zM12 8h1v1h-1zM14 8h1v1h-1zM16 8h2v1h-2zM21 8h1v1h-1zM23 8h2v1h-2zM0 9h1v1h-1zM5 9h6v1h-6zM12 9h2v1h-2zM16 9h3v1h-3zM20 9h1v1h-1zM23 9h1v1h-1zM0 10h4v1h-4zM5 10h3v1h-3zM9 10h1v1h-1zM15 10h5v1h-5zM21 10h3v1h-3zM3 11h1v1h-1zM6 11h1v1h-1zM9 11h2v1h-2zM13 11h1v1h-1zM18 11h1v1h-1zM20 11h1v1h-1zM0 12h1v1h-1zM6 12h1v1h-1zM9 12h3v1h-3zM14 12h2v1h-2zM17 12h1v1h-1zM19 12h2v1h-2zM22 12h2v1h-2zM4 13h1v1h-1zM6 13h2v1h-2zM9 13h1v1h-1zM15 13h2v1h-2zM19 13h1v1h-1zM24 13h1v1h-1zM3 14h1v1h-1zM6 14h1v1h-1zM9 14h1v1h-1zM11 14h1v1h-1zM13 14h1v1h-1zM16 14h4v1h-4zM22 14h3v1h-3zM2 15h1v1h-1zM4 15h3v1h-3zM8 15h2v1h-2zM11 15h1v1h-1zM13 15h1v1h-1zM15 15h2v1h-2zM18 15h3v1h-3zM22 15h2v1h-2zM5 16h1v1h-1zM9 16h2v1h-2zM12 16h1v1h-1zM15 16h2v1h-2zM18 16h2v1h-2zM21 16h1v1h-1zM23 16h2v1h-2zM11 17h4v1h-4zM18 17h3v1h-3zM24 17h1v1h-1zM0 18h7v1h-7zM9 18h1v1h-1zM12 18h2v1h-2zM15 18h3v1h-3zM19 18h1v1h-1zM0 19h1v1h-1zM6 19h1v1h-1zM10 19h1v1h-1zM16 19h1v1h-1zM18 19h5v1h-5zM0 20h1v1h-1zM2 20h3v1h-3zM6 20h1v1h-1zM13 20h1v1h-1zM16 20h7v1h-7zM0 21h1v1h-1zM2 21h3v1h-3zM6 21h1v1h-1zM9 21h1v1h-1zM11 21h4v1h-4zM16 21h1v1h-1zM18 21h1v1h-1zM21 21h2v1h-2zM0 22h1v1h-1zM2 22h3v1h-3zM6 22h1v1h-1zM8 22h1v1h-1zM11 22h1v1h-1zM14 22h1v1h-1zM16 22h2v1h-2zM19 22h1v1h-1zM23 22h1v1h-1zM0 23h1v1h-1zM6 23h1v1h-1zM8 23h2v1h-2zM11 23h2v1h-2zM14 23h1v1h-1zM20 23h2v1h-2zM0 24h7v1h-7zM8 24h1v1h-1zM12 24h4v1h-4zM17 24h1v1h-1zM19 24h2v1h-2zM24 24h1v1h-1z"/></svg></div>
+<div class="h-sec">VACCINATIES</div><div class="h-list"><div class="h-row"><span class="ic">💉</span><div><b>Cocktailenting</b><span>12 mrt 2026</span></div><span class="pill ok">tot mrt 2027</span></div><div class="h-row"><span class="ic">💉</span><div><b>Leptospirose</b><span>12 mrt 2026</span></div><span class="pill ok">tot mrt 2027</span></div><div class="h-row"><span class="ic">💉</span><div><b>Rabiës</b><span>4 nov 2025</span></div><span class="pill warn">over 3 weken</span></div></div>
+<div class="h-sec">AFSPRAKEN</div>
+<div class="h-list"><div class="h-row"><span class="ic v">🩺</span><div><b>Jaarlijkse controle</b><span>Dierenkliniek · 10:30</span></div><span class="date">28 okt</span></div></div></div>
+<div class="tabbar"><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.3 2.6a1 1 0 0 1 1.4 0l8.6 7.9a1 1 0 0 1-.7 1.7H19v8a1.8 1.8 0 0 1-1.8 1.8h-2.7v-6h-5v6H6.8A1.8 1.8 0 0 1 5 20.2v-8H3.4a1 1 0 0 1-.7-1.7z"/></svg>Home</span><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.3l-1.5-1.3C5.4 15.4 2 12.3 2 8.5 2 5.4 4.4 3 7.5 3c1.7 0 3.4.8 4.5 2.1C13.1 3.8 14.8 3 16.5 3 19.6 3 22 5.4 22 8.5c0 3.8-3.4 6.9-8.5 11.5z"/></svg>Match</span><span><svg viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd"><path d="M5 4h14a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3zm3.5 3.5a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM4 17.5V18h16v-2.6l-4.6-4.6-5.4 5.4-2.3-2.3z"/></svg>Feed</span><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.2 3h15.6l1.9 5.4A3 3 0 0 1 19 12.2V20a1 1 0 0 1-1 1h-4v-5h-4v5H6a1 1 0 0 1-1-1v-7.8A3 3 0 0 1 2.3 8.4z"/></svg>Diensten</span><span class="on"><svg viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd"><path d="M6 2h12a3 3 0 0 1 3 3v14a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3zm6 13.6l.6-.5c2.2-2 3.6-3.2 3.6-4.8A2.1 2.1 0 0 0 14 8.2c-.8 0-1.5.4-2 1-.5-.6-1.2-1-2-1a2.1 2.1 0 0 0-2.2 2.1c0 1.6 1.4 2.8 3.6 4.8z"/></svg>Gezondheid</span></div></div></div></div>
+<div><span class="kicker">Gezondheid</span><h2>Het dierenpaspoort, altijd bij de hand</h2>
+<p>Vaccinaties, medicijnen, chipnummer en bezoeken aan de dierenarts: in PaWow staat alles op één plek, ook als het papieren paspoort thuis in een la ligt.</p><ul class="checks"><li>Herinneringen voor de volgende vaccinatie, controle of medicijnen – gewoon op je telefoon.</li><li>Een QR-link voor de dierenarts: 7 dagen geldig en op elk moment in te trekken.</li><li>De kliniek stuurt de factuur via dezelfde link terug, zodat jij hem kunt doorsturen naar je verzekeraar.</li></ul></div>
+</div></section>
 
-const home = () => {
-  document.title = 'PawMatch';
-  app.innerHTML = `
-    <div class="card" style="text-align:center;padding:28px 20px">
-      <img src="pawmatch-logo-120.png" alt="PawMatch" width="88" height="88"
-           style="border-radius:20px;margin-bottom:12px">
-      <h1 style="font-size:26px">${L.homeTitle}</h1>
-      <p class="sub">${L.homeTagline}</p>
-      <p style="font-size:15px;line-height:1.5;margin:16px 0 0">${L.homeText}</p>
-      <div class="lang">
-        <a href="?lang=ru"${lang === 'ru' ? ' class="on"' : ''}>Русский</a>
-        <a href="?lang=en"${lang === 'en' ? ' class="on"' : ''}>English</a>
-      </div>
-    </div>
-    <div class="card">
-      <table>
-        <tr><td><a href="privacy.html?lang=${lang}">${L.privacy}</a></td><td></td></tr>
-        <tr><td><a href="terms.html?lang=${lang}">${L.terms}</a></td><td></td></tr>
-        <tr><td>${L.support}</td><td><a href="mailto:support@pawmatch.app">support@pawmatch.app</a></td></tr>
-      </table>
-    </div>
-    <p class="foot">${L.homeHint}</p>`;
-};
+<section><div class="wrap spot rev">
+<div class="spot-media"><div class="phone" aria-hidden="true"><div class="screen"><div class="island"></div><div class="sb"><span>9:41</span><span><svg viewBox="0 0 18 12" fill="currentColor"><rect y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 16 12" fill="currentColor"><path d="M8 2.2c2.4 0 4.6.9 6.3 2.5l1.2-1.3A10.6 10.6 0 0 0 8 .4C5.2.4 2.5 1.4.5 3.4l1.2 1.3A8.8 8.8 0 0 1 8 2.2zm0 3.6c1.4 0 2.7.5 3.7 1.4l1.2-1.3A7.4 7.4 0 0 0 8 4c-1.9 0-3.6.7-4.9 1.9l1.2 1.3c1-.9 2.3-1.4 3.7-1.4zm0 3.5c-.6 0-1.2.2-1.6.6L8 11.6l1.6-1.7c-.4-.4-1-.6-1.6-.6z"/></svg><svg viewBox="0 0 27 12" fill="none"><rect x=".5" y=".5" width="23" height="11" rx="3.5" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="20" height="8" rx="2" fill="currentColor"/><path d="M25 4v4c.8-.3 1.4-1.1 1.4-2S25.8 4.3 25 4z" fill="currentColor" opacity=".45"/></svg></span></div>
+<div class="scr"><div class="c-title">Diensten</div>
+<div class="seg"><span>Kaart</span><span class="on">Catalogus</span><span>Afspraken</span></div>
+<div class="c-cats"><span class="on"><i>🥩</i>Voer</span><span><i>🎾</i>Speelgoed</span><span><i>🦮</i>Accessoires</span><span><i>✂️</i>Verzorging</span></div>
+<div class="c-sp"><span class="on">Voor honden</span><span>Voor katten</span><span>Alle</span></div>
+<div class="c-grid"><div class="pc"><div class="pc-img">🍖<em>-17%</em></div><b>Hondenbrokken lam &amp; rijst, 12 kg</b><span>bol.com</span><strong>€ 39,99<s>€ 47,99</s></strong></div><div class="pc"><div class="pc-img">🥫</div><b>Natvoer kip, 12 × 400 g</b><span>zooplus</span><strong>€ 18,49</strong></div><div class="pc"><div class="pc-img">🦴</div><b>Kauwbotten rund, 3 stuks</b><span>bol.com</span><strong>€ 7,99</strong></div><div class="pc"><div class="pc-img">🐟<em>-15%</em></div><b>Puppybrokken zalm, 3 kg</b><span>zooplus</span><strong>€ 16,99<s>€ 19,99</s></strong></div></div></div>
+<div class="tabbar"><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.3 2.6a1 1 0 0 1 1.4 0l8.6 7.9a1 1 0 0 1-.7 1.7H19v8a1.8 1.8 0 0 1-1.8 1.8h-2.7v-6h-5v6H6.8A1.8 1.8 0 0 1 5 20.2v-8H3.4a1 1 0 0 1-.7-1.7z"/></svg>Home</span><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.3l-1.5-1.3C5.4 15.4 2 12.3 2 8.5 2 5.4 4.4 3 7.5 3c1.7 0 3.4.8 4.5 2.1C13.1 3.8 14.8 3 16.5 3 19.6 3 22 5.4 22 8.5c0 3.8-3.4 6.9-8.5 11.5z"/></svg>Match</span><span><svg viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd"><path d="M5 4h14a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3zm3.5 3.5a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM4 17.5V18h16v-2.6l-4.6-4.6-5.4 5.4-2.3-2.3z"/></svg>Feed</span><span class="on"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.2 3h15.6l1.9 5.4A3 3 0 0 1 19 12.2V20a1 1 0 0 1-1 1h-4v-5h-4v5H6a1 1 0 0 1-1-1v-7.8A3 3 0 0 1 2.3 8.4z"/></svg>Diensten</span><span><svg viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd"><path d="M6 2h12a3 3 0 0 1 3 3v14a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3zm6 13.6l.6-.5c2.2-2 3.6-3.2 3.6-4.8A2.1 2.1 0 0 0 14 8.2c-.8 0-1.5.4-2 1-.5-.6-1.2-1-2-1a2.1 2.1 0 0 0-2.2 2.1c0 1.6 1.4 2.8 3.6 4.8z"/></svg>Gezondheid</span></div></div></div></div>
+<div><span class="kicker">Catalogus</span><h2>Spullen voor je dier, zonder eindeloos zoeken</h2>
+<p>In de catalogus vind je voer, speelgoed, accessoires en verzorgingsproducten van webwinkels als bol en Zooplus, afgestemd op het soort dier dat je hebt.</p><ul class="checks"><li>Gefilterd op soort: voor honden, voor katten of alles.</li><li>Prijs, korting en levertijd in één oogopslag. Prijzen werken we dagelijks bij.</li><li>Je bestelt en betaalt bij de winkel zelf, met hun service en retourbeleid.</li></ul>
+<a class="more-link" href="#partners">Zo werken onze partnerlinks →</a></div>
+</div></section>
 
-const BREEDS = {"Лабрадор": "Labrador", "Золотистый ретривер": "Golden Retriever", "Немецкая овчарка": "German Shepherd", "Хаски": "Husky", "Маламут": "Malamute", "Французский бульдог": "French Bulldog", "Английский бульдог": "English Bulldog", "Мопс": "Pug", "Бигль": "Beagle", "Боксёр": "Boxer", "Йоркширский терьер": "Yorkshire Terrier", "Чихуахуа": "Chihuahua", "Шпиц": "Spitz", "Померанский шпиц": "Pomeranian", "Самоед": "Samoyed", "Бордер-колли": "Border Collie", "Корги": "Corgi", "Далматин": "Dalmatian", "Доберман": "Doberman", "Ротвейлер": "Rottweiler", "Джек-рассел терьер": "Jack Russell Terrier", "Такса": "Dachshund", "Мальтезе": "Maltese", "Бишон фризе": "Bichon Frise", "Акита": "Akita", "Шиба-ину": "Shiba Inu", "Кавказская овчарка": "Caucasian Shepherd", "Метис": "Mixed breed", "Британская короткошёрстная": "British Shorthair", "Шотландская вислоухая": "Scottish Fold", "Мейн-кун": "Maine Coon", "Сибирская": "Siberian", "Бенгальская": "Bengal", "Персидская": "Persian", "Сфинкс": "Sphynx", "Русская голубая": "Russian Blue", "Абиссинская": "Abyssinian", "Бирманская": "Burmese", "Норвежская лесная": "Norwegian Forest", "Рагдолл": "Ragdoll", "Ориентальная": "Oriental", "Турецкая ангора": "Turkish Angora", "Невская маскарадная": "Neva Masquerade", "Волнистый попугай": "Budgerigar", "Корелла": "Cockatiel", "Ара": "Macaw", "Какаду": "Cockatoo", "Амазон": "Amazon Parrot", "Канарейка": "Canary", "Зяблик": "Finch", "Неразлучник": "Lovebird", "Розелла": "Rosella", "Африканский серый": "African Grey", "Вислоухий декоративный": "Holland Lop", "Ангорский": "Angora", "Рекс": "Rex", "Шиншилла": "Chinchilla", "Калифорнийский": "Californian", "Нидерландский карлик": "Netherland Dwarf", "Черепаха": "Turtle", "Хомяк": "Hamster", "Морская свинка": "Guinea Pig", "Крыса декоративная": "Pet Rat", "Мышь декоративная": "Pet Mouse", "Игуана": "Iguana", "Хорёк": "Ferret", "Дегу": "Degu", "Лабрадор ретривер": "Labrador Retriever"};
-const COATS = {"белый": "white", "чёрный": "black", "черный": "black", "рыжий": "red", "серый": "grey", "коричневый": "brown", "бело-коричневый": "white and brown", "бело-чёрный": "white and black", "бело-черный": "white and black", "чёрно-белый": "black and white", "черно-белый": "black and white", "трёхцветный": "tricolor", "трехцветный": "tricolor", "полосатый": "tabby", "тигровый": "brindle", "кремовый": "cream", "палевый": "fawn", "голубой": "blue", "шоколадный": "chocolate", "мраморный": "marble", "черепаховый": "tortoiseshell", "золотистый": "golden", "пятнистый": "spotted", "дымчатый": "smoke", "соболиный": "sable", "абрикосовый": "apricot", "чёрно-подпалый": "black and tan", "черно-подпалый": "black and tan"};
-// Порода/окрас хранятся по-русски; на en-странице переводим по словарям,
-// незнакомые значения показываем как есть.
-const trBreed = s => lang === 'en' && s ? (BREEDS[s.trim()] ?? s) : s;
-const trCoat  = s => lang === 'en' && s ? (COATS[s.trim().toLowerCase()] ?? s) : s;
-const PROVIDERS = { ohra: 'OHRA', petplan: 'Petplan', inshared: 'InShared',
-                    reaal: 'Reaal', proteq: 'Proteq', hollandse: 'Hollandse Pet' };
-const TIERS = { brons: 'Brons', zilver: 'Zilver', goud: 'Goud', platina: 'Platina' };
+<section id="how"><div class="wrap">
+<div class="sec-head"><span class="kicker">Hoe het werkt</span><h2>In drie stappen op weg</h2></div>
+<ol class="steps"><li class="card"><h3>Maak een profiel</h3><p>Naam, soort, ras, geboortedatum en een foto. Meer dieren? Je wisselt met één tik.</p></li><li class="card"><h3>Zet de gezondheid op een rij</h3><p>Voeg vaccinaties en bezoeken toe, en PaWow herinnert je eraan als er iets aankomt.</p></li><li class="card"><h3>Ontdek de buurt</h3><p>Matches, wandelmaatjes, dierenartsen en trimsalons om de hoek.</p></li></ol>
+</div></section>
 
-(async () => {
-  const id = params.get('id');
-  // Без параметра id это просто корень сайта — показываем домашнюю страницу
-  // приложения (её адрес указан в Google OAuth и в App Store Connect),
-  // а не тупиковую ошибку. Битую ссылку с id по-прежнему ловим ниже.
-  if (!id) return home();
+<section id="guides"><div class="wrap">
+<div class="sec-head"><span class="kicker">Gids</span><h2>Gids voor baasjes</h2>
+<p>Praktische artikelen die we zelf schrijven: over de eerste weken met een pup, op reis met je huisdier en de regels voor het uitlaten.</p></div>
+<div class="guides"><a class="guide" href="gids/puppy-in-huis.html"><div class="thumb" aria-hidden="true">🐶</div><div class="body"><div class="meta"><span>6 min lezen</span></div><h3>Een pup in huis: de checklist voor de eerste weken</h3><p>Welke spullen heb je nodig voordat je pup komt, en wat regel je in de eerste weken? Van bench tot chipregistratie.</p><span class="go">Lees verder →</span></div></a><a class="guide" href="gids/op-reis-met-huisdier.html"><div class="thumb" aria-hidden="true">🧳</div><div class="body"><div class="meta"><span>5 min lezen</span></div><h3>Op reis met je hond of kat binnen de EU</h3><p>Chip, rabiësvaccinatie en dierenpaspoort: wat je nodig hebt, hoe lang van tevoren je begint en welke landen extra eisen stellen.</p><span class="go">Lees verder →</span></div></a><a class="guide" href="gids/uitlaten-regels.html"><div class="thumb" aria-hidden="true">🦮</div><div class="body"><div class="meta"><span>4 min lezen</span></div><h3>Uitlaten in Nederland: aanlijnen, opruimen en losloopgebieden</h3><p>Waar mag je hond los en waar niet? Dat verschilt per gemeente. De belangrijkste regels, plus tips voor warme dagen en donkere avonden.</p><span class="go">Lees verder →</span></div></a></div>
+<p class="after"><a class="more-link" href="gids/">Alle artikelen in de gids →</a></p>
+</div></section>
 
-  let res;
-  try { res = await fetch(`${API}?id=${encodeURIComponent(id)}`); }
-  catch { return fail(L.offline); }
+<section id="partners"><div class="wrap"><div class="panel">
+<div class="sec-head"><span class="kicker">Partnerlinks</span><h2>Transparant over partnerlinks</h2>
+<p>PaWow verdient aan partnerlinks, niet aan jouw gegevens. Zo werkt het:</p></div>
+<ul class="points"><li><b>Commissie, geen meerprijs</b>Koop je iets via een link in onze catalogus, dan krijgt PaWow een kleine commissie van de winkel. Jij betaalt niets extra.</li><li><b>Je koopt bij de winkel</b>We verkopen zelf niets. Bestellen, betalen, bezorgen en retourneren regel je met de winkel, onder hun voorwaarden.</li><li><b>De winkel is leidend</b>Prijzen werken we dagelijks bij, maar de prijs op de site van de winkel is altijd leidend.</li><li><b>Duidelijk gemarkeerd</b>Partnerlinks zijn in de app als zodanig gemarkeerd, en we geven geen persoonsgegevens door aan de winkel.</li><li><b>Eerlijk advies</b>Onze artikelen schrijven we zelf. Een commissie verandert niets aan wat we aanraden.</li></ul>
+</div></div></section>
 
-  if (res.status === 410) return fail(L.expired);
-  if (!res.ok) return fail(L.notFound);
+<section id="privacy"><div class="wrap split">
+<div><span class="kicker">Privacy</span><h2>Je gegevens blijven van jou</h2>
+<p class="lead" style="font-size:17px">We bewaren alleen wat nodig is om de app te laten werken, en jij houdt de regie.</p>
+<a class="more-link" href="privacy.html?lang=en">Lees het volledige privacybeleid (Engels) →</a></div>
+<ul class="checks"><li>Opgeslagen in datacenters in de EU.</li><li>Medische gegevens zie alleen jij – en de dierenarts, als jij een QR-link deelt.</li><li>Anderen zien de locatie van je huisdier alleen afgerond.</li><li>We verkopen je gegevens niet en gebruiken ze niet voor advertenties.</li><li>Account verwijderen? Dan wissen we alles, ook je dieren en berichten.</li></ul>
+</div></section>
 
-  const d = await res.json();
-  const pet = d.pet;
+<section id="faq"><div class="wrap">
+<div class="sec-head"><span class="kicker">Vragen</span><h2>Veelgestelde vragen</h2></div>
+<div class="faq"><details><summary>Wanneer staat PaWow in de App Store?</summary><p>We testen de app nu via TestFlight met een kleine groep baasjes. Zodra PaWow in de App Store staat, vind je de link op deze pagina.</p></details><details><summary>Is er een Android-versie?</summary><p>Nog niet: PaWow is er voorlopig alleen voor iPhone.</p></details><details><summary>In welke talen is de app beschikbaar?</summary><p>In het Engels en het Russisch.</p></details><details><summary>Voor welke dieren is PaWow?</summary><p>Voor honden, katten, vogels, konijnen en andere huisdieren. Samen wandelen is er alleen voor honden.</p></details><details><summary>Wie kan de gegevens van mijn huisdier zien?</summary><p>Naam, ras en foto van je huisdier zien andere gebruikers bij het matchen, in de feed en op de wandelkaart. Medische gegevens, documenten en berichten zie alleen jij – en degene met wie je chat of een QR-link deelt.</p></details><details><summary>Verkoopt PaWow zelf producten?</summary><p>Nee. De catalogus verwijst naar webwinkels; daar bestel en betaal je. Lees <a href="#partners">hoe partnerlinks werken</a>.</p></details></div>
+</div></section>
 
-  const row = (k, v) => `<tr><td>${k}</td><td>${v}</td></tr>`;
-  const info = [
-    row(L.species, esc(L.speciesMap[pet.species] ?? pet.species)),
-    row(L.breed, esc(trBreed(pet.breed))),
-    row(L.sex, pet.sex ? (L.sexMap[pet.sex] ?? esc(pet.sex)) : '—'),
-    row(L.birth, fmtDate(pet.birth_date)),
-    row(L.coat, esc(trCoat(pet.coat_color)) || '—'),
-    row(L.chip, esc(pet.microchip_number) || '—'),
-    pet.microchip_date ? row(L.chipDate, fmtDate(pet.microchip_date)) : '',
-    row(L.passport, esc(pet.passport_number) || '—'),
-    row(L.sterilized, pet.is_sterilized == null ? '—' : (pet.is_sterilized ? L.yes : L.no)),
-    pet.special_marks ? row(L.marks, esc(pet.special_marks)) : '',
-  ].join('');
+<section id="contact"><div class="wrap">
+<div class="sec-head"><span class="kicker">Over ons</span><h2>Over PaWow</h2></div>
+<div class="about">
+<div class="card"><p>PaWow is een onafhankelijke app voor huisdiereigenaren in Nederland. We bouwen hem stap voor stap, samen met de eerste gebruikers – elke reactie helpt.</p><p>Ben je dierenarts, trimsalon of asiel en wil je in PaWow zichtbaar zijn? Laat het ons weten.</p></div>
+<div class="card contact"><h3>Contact</h3><p>Vragen, ideeën of samenwerken? We horen graag van je.</p>
+<a class="btn" href="mailto:support@pawmatch.app">Mail ons · support@pawmatch.app</a></div>
+</div>
+</div></section>
 
-  const vacs = d.vaccinations.map(v => {
-    const due = v.next_due_date ? new Date(v.next_due_date) : null;
-    const badge = due ? (due >= new Date()
-      ? `<span class="pill ok">${L.validUntil} ${fmtDate(v.next_due_date)}</span>`
-      : `<span class="pill warn">${L.expiredSince} ${fmtDate(v.next_due_date)}</span>`) : '';
-    return `<tr><td><b>${esc(v.vaccine_name)}</b>${v.batch_number ? `<br><small>${L.batch} ${esc(v.batch_number)}</small>` : ''}<br>${badge}</td><td>${fmtDate(v.date_given)}</td></tr>`;
-  }).join('') || `<tr><td>${L.none}</td></tr>`;
-
-  const rxs = d.prescriptions.map(r =>
-    `<tr><td><b>${esc(r.drug_name)}</b>${r.dosage ? `<br><small>${esc(r.dosage)}</small>` : ''}${r.is_active ? `<br><span class="pill ok">${L.active}</span>` : ''}</td><td>${fmtDate(r.prescribed_at)}</td></tr>`
-  ).join('') || `<tr><td>${L.none}</td></tr>`;
-
-  const visits = d.visits.map(a =>
-    `<tr><td><b>${esc(a.vet_name)}</b>${a.clinic_name ? ` · ${esc(a.clinic_name)}` : ''}${a.notes ? `<br><small>${esc(a.notes)}</small>` : ''}</td><td>${fmtDate(a.date)}</td></tr>`
-  ).join('') || `<tr><td>${L.none}</td></tr>`;
-
-  const ins = d.insurance ? `
-    <h2>${L.insurance}</h2><div class="card"><table>
-      ${row(L.provider, esc(PROVIDERS[d.insurance.provider_id] ?? d.insurance.provider_id))}
-      ${row(L.tier, esc(TIERS[d.insurance.plan_tier] ?? d.insurance.plan_tier))}
-      ${d.insurance.policy_number ? row(L.policy, esc(d.insurance.policy_number)) : ''}
-      ${row(L.since, fmtDate(d.insurance.started_at))}
-    </table></div>` : '';
-
-  const avatar = pet.photo_url
-    ? `<img class="avatar" src="${esc(pet.photo_url)}" alt="">`
-    : `<div class="avatar" style="display:flex;align-items:center;justify-content:center;font-size:34px">🐾</div>`;
-
-  app.innerHTML = `
-    <div class="card"><div class="head">
-      ${avatar}
-      <div>
-        <h1>${esc(pet.name)}</h1>
-        <p class="sub">${esc(L.speciesMap[pet.species] ?? pet.species)} · ${esc(trBreed(pet.breed))}</p>
-      </div>
-    </div></div>
-    <h2>${L.info}</h2><div class="card"><table>${info}</table></div>
-    <h2>${L.vaccinations}</h2><div class="card"><table>${vacs}</table></div>
-    <h2>${L.prescriptions}</h2><div class="card"><table>${rxs}</table></div>
-    <h2>${L.visits}</h2><div class="card"><table>${visits}</table></div>
-    ${ins}
-    <h2>${L.upTitle}</h2>
-    <div class="card">
-      <p class="sub" style="margin:0 0 14px">${L.upHint}</p>
-      <button class="btn" id="upBtn" type="button">${L.upPick}</button>
-      <input type="file" id="upFile" hidden
-             accept="application/pdf,image/jpeg,image/png,image/heic">
-      <p class="upmsg" id="upMsg"></p>
-    </div>
-    <p class="foot">${L.foot} ${fmtDate(d.expires_at)}</p>`;
-
-  // Отправка счёта. Врач на приёме торопится, поэтому файл уходит сразу после
-  // выбора — без второго подтверждающего экрана.
-  const btn = document.getElementById('upBtn');
-  const file = document.getElementById('upFile');
-  const msg = document.getElementById('upMsg');
-  const say = (text, kind) => { msg.textContent = text; msg.className = 'upmsg ' + kind; };
-
-  // Ответы функции приёма: у каждого отказа своя причина, и врачу важно
-  // понимать, переснимать ли файл или звать владельца за новой ссылкой.
-  const failures = {
-    413: L.upTooLarge, 415: L.upBadType, 429: L.upTooMany,
-    410: L.upExpired, 404: L.upExpired,
-  };
-
-  btn.addEventListener('click', () => file.click());
-  file.addEventListener('change', async () => {
-    const chosen = file.files && file.files[0];
-    if (!chosen) return;
-    btn.disabled = true;
-    say(L.upSending, 'wait');
-
-    const body = new FormData();
-    body.append('file', chosen);
-    let res;
-    try {
-      res = await fetch(`${UPLOAD_API}?id=${encodeURIComponent(id)}`, { method: 'POST', body });
-    } catch {
-      btn.disabled = false;
-      // Сбрасываем выбор: иначе повторный выбор того же файла не даст change.
-      file.value = '';
-      return say(L.offline, 'err');
-    }
-
-    file.value = '';
-    if (res.ok) {
-      say(`${L.upDone} · ${esc(chosen.name)}`, 'ok');
-      btn.textContent = L.upAnother;
-      btn.disabled = false;
-      return;
-    }
-    say(failures[res.status] ?? L.upFailed, 'err');
-    // Лимит и истёкшая ссылка не лечатся повтором — кнопку не возвращаем.
-    btn.disabled = res.status === 429 || res.status === 410 || res.status === 404;
-  });
-})();
-</script>
+</main>
+<footer class="foot"><div class="wrap">
+<div>
+<a class="brand" href="./"><img src="assets/logo-128.png" alt="" width="28" height="28">PaWow</a>
+<p>Alles voor je huisdier, in één app.</p>
+<p>Deze website plaatst geen cookies en gebruikt geen trackers.</p>
+<p>© 2026 PaWow · <a href="mailto:support@pawmatch.app">support@pawmatch.app</a></p>
+</div>
+<div>
+<nav aria-label="Footer">
+<a href="#features">Functies</a>
+<a href="gids/">Gids</a>
+<a href="#partners">Partnerlinks</a>
+<a href="privacy.html?lang=en">Privacybeleid (Engels)</a>
+<a href="terms.html?lang=en">Gebruiksvoorwaarden (Engels)</a>
+</nav>
+<div class="langs" style="margin-top:16px;display:inline-flex"><a href="./" hreflang="nl" lang="nl" aria-current="true">NL</a><a href="en/" hreflang="en" lang="en">EN</a><a href="ru/" hreflang="ru" lang="ru">RU</a></div>
+</div>
+</div></footer>
 </body>
 </html>
