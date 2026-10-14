@@ -237,7 +237,9 @@ T = {
         "legal_lang": "nl",
         "foot_tag": "Alles voor je huisdier, in één app.",
         "foot_cookies": "Deze website plaatst geen cookies en gebruikt geen trackers.",
-        "shots": {"home": "Homescherm van PaWow met Houston, een Jack Russell", "match": "Matchen in PaWow: het profiel van Bonnie, een Jack Russell in de buurt", "health": "Gezondheid in PaWow: vaccinaties, verzekering en het QR-dierenpaspoort"},
+        "shots": {"home": "Homescherm van PaWow met Houston, een Jack Russell", "match": "Matchen in PaWow: het profiel van Bonnie, een Jack Russell in de buurt", "health": "Gezondheid in PaWow: vaccinaties, verzekering en het QR-dierenpaspoort", "feed": "De feed van PaWow met foto's van andere honden", "catalog": "De catalogus in PaWow met hondenspeelgoed van bol"},
+        "gallery_kicker": "In de app", "gallery_h2": "Zo ziet PaWow eruit", "gallery_lead": "Echte schermen uit de bèta, geen illustraties.",
+        "gallery": [("home", "Alles op één scherm"), ("match", "Speelmaatjes in de buurt"), ("feed", "Foto's van andere baasjes"), ("health", "Vaccinaties en paspoort"), ("catalog", "Producten van bol")],
         "m": {
             "pet": "Max", "chips": ["🐾 Jack Russell", "Dichtbij · 5 km"], "dist": "740 m",
             "name": "Luna", "age": "2 jaar", "meta": "Border Collie · Teef", "bio": "Rent het liefst achter een bal aan 🎾",
@@ -381,7 +383,9 @@ T = {
         "legal_lang": "en",
         "foot_tag": "Everything for your pet, in one app.",
         "foot_cookies": "This website sets no cookies and uses no trackers.",
-        "shots": {"home": "PaWow home screen with Houston, a Jack Russell", "match": "Matching in PaWow: the profile of Bonnie, a Jack Russell nearby", "health": "Health in PaWow: vaccinations, insurance and the QR vet passport"},
+        "shots": {"home": "PaWow home screen with Houston, a Jack Russell", "match": "Matching in PaWow: the profile of Bonnie, a Jack Russell nearby", "health": "Health in PaWow: vaccinations, insurance and the QR vet passport", "feed": "The PaWow feed with photos of other dogs", "catalog": "The PaWow catalog with dog toys from bol"},
+        "gallery_kicker": "In the app", "gallery_h2": "This is what PaWow looks like", "gallery_lead": "Real screens from the beta, not illustrations.",
+        "gallery": [("home", "Everything on one screen"), ("match", "Playmates nearby"), ("feed", "Photos from other owners"), ("health", "Vaccinations and passport"), ("catalog", "Products from bol")],
         "m": {
             "pet": "Max", "chips": ["🐾 Jack Russell", "Nearby · 5 km"], "dist": "740 m",
             "name": "Luna", "age": "2 years", "meta": "Border Collie · Female", "bio": "Would chase a ball all day 🎾",
@@ -526,7 +530,9 @@ T = {
         "legal_lang": "ru",
         "foot_tag": "Всё для питомца в одном приложении.",
         "foot_cookies": "Этот сайт не ставит cookies и не использует трекеры.",
-        "shots": {"home": "Главный экран PaWow с Хьюстоном, джек-расселом", "match": "Матч в PaWow: анкета Бонни, джек-рассела по соседству", "health": "Здоровье в PaWow: прививки, страховка и QR-ветпаспорт"},
+        "shots": {"home": "Главный экран PaWow с Хьюстоном, джек-расселом", "match": "Матч в PaWow: анкета Бонни, джек-рассела по соседству", "health": "Здоровье в PaWow: прививки, страховка и QR-ветпаспорт", "feed": "Лента PaWow с фотографиями других собак", "catalog": "Каталог PaWow с игрушками для собак из bol"},
+        "gallery_kicker": "В приложении", "gallery_h2": "Так выглядит PaWow", "gallery_lead": "Настоящие экраны из бета-версии, а не иллюстрации.",
+        "gallery": [("home", "Всё на одном экране"), ("match", "Друзья по соседству"), ("feed", "Фото других владельцев"), ("health", "Прививки и паспорт"), ("catalog", "Товары bol")],
         "m": {
             "pet": "Макс", "chips": ["🐾 Джек-рассел", "Рядом · 5 км"], "dist": "740 м",
             "name": "Луна", "age": "2 года", "meta": "Бордер-колли · девочка", "bio": "Готова гонять мяч весь день 🎾",
@@ -571,25 +577,6 @@ def phone_shot(root, lang, screen, alt, eager=False):
     return (f'<div class="phone"><div class="screen shot"><div class="island"></div>'
             f'<img src="{root}assets/shots/{lang}-{screen}.webp" alt="{esc(alt)}" width="600" height="1304" '
             f'{loading} decoding="async"></div></div>')
-
-
-def phone_catalog(m, lang):
-    seg = "".join(f'<span{on(i == 1)}>{esc(s)}</span>' for i, s in enumerate(m["seg"]))
-    cats = "".join(f'<span{on(i == 0)}><i>{e}</i>{esc(n)}</span>' for i, (e, n) in enumerate(m["cats"]))
-    sp = "".join(f'<span{on(i == 0)}>{esc(s)}</span>' for i, s in enumerate(m["species"]))
-    cards = []
-    for emoji, title, store, price, old in m["products"]:
-        badge = f'<em>-{round((old - price) / old * 100)}%</em>' if old else ""
-        was = f"<s>{eur(old, lang)}</s>" if old else ""
-        cards.append(f'<div class="pc"><div class="pc-img">{emoji}{badge}</div><b>{esc(title)}</b>'
-                     f'<span>{store}</span><strong>{eur(price, lang)}{was}</strong></div>')
-    return f"""<div class="phone" aria-hidden="true"><div class="screen">{status_bar()}
-<div class="scr"><div class="c-title">{esc(m["services"])}</div>
-<div class="seg">{seg}</div>
-<div class="c-cats">{cats}</div>
-<div class="c-sp">{sp}</div>
-<div class="c-grid">{"".join(cards)}</div></div>
-{tabbar(m, 3)}</div></div>"""
 
 
 # ── Каркас страницы ───────────────────────────────────────────────────────────
@@ -754,6 +741,10 @@ def landing(lang):
     faq = "".join(f'<details class="reveal" style="--i:{i}"><summary>{esc(q)}</summary><p>{a}</p></details>'
                   for i, (q, a) in enumerate(t["faq"]))
     about = "".join(f"<p>{esc(p)}</p>" for p in t["about"])
+    gallery = "".join(
+        f'<figure class="shot-item reveal" style="--i:{i}">{phone_shot(root, lang, screen, t["shots"][screen])}'
+        f'<figcaption>{esc(caption)}</figcaption></figure>'
+        for i, (screen, caption) in enumerate(t["gallery"]))
     ll = t["legal_lang"]
 
     page = head(lang=lang, title=t["title"], desc=t["desc"], path=path, root=root, alternates=LANG_PATH,
@@ -783,6 +774,12 @@ def landing(lang):
 <div class="features">{features}</div>
 </div></section>
 
+<section id="screens" class="screens">
+<div class="wrap"><div class="sec-head reveal"><span class="kicker">{esc(t["gallery_kicker"])}</span>
+<h2>{esc(t["gallery_h2"])}</h2><p>{esc(t["gallery_lead"])}</p></div></div>
+<div class="gallery" tabindex="0" aria-label="{esc(t["gallery_h2"])}">{gallery}</div>
+</section>
+
 <section><div class="wrap spot">
 <div class="spot-media reveal">{phone_shot(root, lang, "health", t["shots"]["health"])}</div>
 <div class="reveal" style="--i:1"><span class="kicker">{esc(t["health_kicker"])}</span><h2>{esc(t["health_h2"])}</h2>
@@ -790,7 +787,7 @@ def landing(lang):
 </div></section>
 
 <section><div class="wrap spot rev">
-<div class="spot-media reveal">{phone_catalog(m, lang)}</div>
+<div class="spot-media reveal">{phone_shot(root, lang, "catalog", t["shots"]["catalog"])}</div>
 <div class="reveal" style="--i:1"><span class="kicker">{esc(t["catalog_kicker"])}</span><h2>{esc(t["catalog_h2"])}</h2>
 <p>{esc(t["catalog_text"])}</p><ul class="checks">{catalog_points}</ul>
 <a class="more-link" href="#partners">{esc(t["catalog_link"])}</a></div>
