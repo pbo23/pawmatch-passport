@@ -30,7 +30,7 @@
 <header class="top"><div class="wrap">
 <a class="brand" href="../../en/"><img src="../../assets/logo-128.png" alt="" width="34" height="34">PaWow</a>
 <nav class="nav" aria-label="Menu"><a href="../../en/#features">Features</a><a href="../../en/#how">How it works</a><a class="keep" href="../../en/guides/">Guides</a><a href="../../en/#partners">Affiliate links</a><a href="../../en/#contact">Contact</a></nav>
-<div class="langs" aria-label="Language"><a href="../../gids/op-reis-met-huisdier.html" hreflang="nl" lang="nl">NL</a><a href="../../en/guides/travelling-in-the-eu.html" hreflang="en" lang="en" aria-current="true">EN</a><a href="../../ru/guides/travelling-in-the-eu.html" hreflang="ru" lang="ru">RU</a></div>
+<details class="lang-menu"><summary aria-label="Choose language: English"><span class="flag flag-gb" aria-hidden="true"></span>EN<svg class="chev" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary><ul><li><a href="../../gids/op-reis-met-huisdier.html" hreflang="nl" lang="nl"><span class="flag flag-nl" aria-hidden="true"></span>Nederlands</a></li><li><a href="../../en/guides/travelling-in-the-eu.html" hreflang="en" lang="en" aria-current="true"><span class="flag flag-gb" aria-hidden="true"></span>English</a></li><li><a href="../../ru/guides/travelling-in-the-eu.html" hreflang="ru" lang="ru"><span class="flag flag-ru" aria-hidden="true"></span>Русский</a></li></ul></details>
 </div></header>
 <main id="main">
 <article class="article">
@@ -93,6 +93,7 @@ current requirements with the <a href="https://www.nvwa.nl/onderwerpen/op-reis-m
 <div>
 <a class="brand" href="../../en/"><img src="../../assets/logo-128.png" alt="" width="28" height="28">PaWow</a>
 <p>Everything for your pet, in one app.</p>
+<p>PaWow takes part in the bol partner programme and is an independent app.</p>
 <p>This website sets no cookies and uses no trackers.</p>
 <p>© 2026 PaWow · <a href="mailto:support@pawmatch.app">support@pawmatch.app</a></p>
 </div>
@@ -104,7 +105,7 @@ current requirements with the <a href="https://www.nvwa.nl/onderwerpen/op-reis-m
 <a href="../../privacy.html?lang=en">Privacy policy</a>
 <a href="../../terms.html?lang=en">Terms of service</a>
 </nav>
-<div class="langs" style="margin-top:16px;display:inline-flex"><a href="../../gids/op-reis-met-huisdier.html" hreflang="nl" lang="nl">NL</a><a href="../../en/guides/travelling-in-the-eu.html" hreflang="en" lang="en" aria-current="true">EN</a><a href="../../ru/guides/travelling-in-the-eu.html" hreflang="ru" lang="ru">RU</a></div>
+<div class="foot-lang"><details class="lang-menu up"><summary aria-label="Choose language: English"><span class="flag flag-gb" aria-hidden="true"></span>EN<svg class="chev" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary><ul><li><a href="../../gids/op-reis-met-huisdier.html" hreflang="nl" lang="nl"><span class="flag flag-nl" aria-hidden="true"></span>Nederlands</a></li><li><a href="../../en/guides/travelling-in-the-eu.html" hreflang="en" lang="en" aria-current="true"><span class="flag flag-gb" aria-hidden="true"></span>English</a></li><li><a href="../../ru/guides/travelling-in-the-eu.html" hreflang="ru" lang="ru"><span class="flag flag-ru" aria-hidden="true"></span>Русский</a></li></ul></details></div>
 </div>
 </div></footer>
 <script>
@@ -115,6 +116,22 @@ current requirements with the <a href="https://www.nvwa.nl/onderwerpen/op-reis-m
     entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
   }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
   items.forEach(function (el) { io.observe(el); });
+})();
+(function () {
+  // Меню языка: открыто только одно, закрывается по клику мимо и по Esc.
+  var menus = Array.prototype.slice.call(document.querySelectorAll('.lang-menu'));
+  menus.forEach(function (m) {
+    m.addEventListener('toggle', function () {
+      if (m.open) menus.forEach(function (o) { if (o !== m) o.open = false; });
+    });
+  });
+  document.addEventListener('click', function (e) {
+    menus.forEach(function (m) { if (m.open && !m.contains(e.target)) m.open = false; });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    menus.forEach(function (m) { if (m.open) { m.open = false; m.querySelector('summary').focus(); } });
+  });
 })();
 </script>
 </body>

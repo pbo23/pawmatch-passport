@@ -161,7 +161,7 @@ T = {
                          "en Zooplus, afgestemd op het soort dier dat je hebt."),
         "catalog_points": [
             "Gefilterd op soort: voor honden, voor katten of alles.",
-            "Prijs, korting en levertijd in één oogopslag. Prijzen werken we dagelijks bij.",
+            "Prijs, korting en levertijd in één oogopslag. Prijzen werken we meerdere keren per dag bij.",
             "Je bestelt en betaalt bij de winkel zelf, met hun service en retourbeleid.",
         ],
         "catalog_link": "Zo werken onze partnerlinks →",
@@ -184,11 +184,14 @@ T = {
         "partners_h2": "Transparant over partnerlinks",
         "partners_lead": "PaWow verdient aan partnerlinks, niet aan jouw gegevens. Zo werkt het:",
         "partners": [
+            ("Partnerprogramma van bol", "PaWow neemt deel aan het partnerprogramma van bol. Producten en prijzen in de "
+                                         "catalogus komen van bol, en ‘Kopen’ brengt je naar bol.com. PaWow is een "
+                                         "onafhankelijke app en geen onderdeel van bol."),
             ("Commissie, geen meerprijs", "Koop je iets via een link in onze catalogus, dan krijgt PaWow een kleine "
                                           "commissie van de winkel. Jij betaalt niets extra."),
             ("Je koopt bij de winkel", "We verkopen zelf niets. Bestellen, betalen, bezorgen en retourneren regel je met "
                                        "de winkel, onder hun voorwaarden."),
-            ("De winkel is leidend", "Prijzen werken we dagelijks bij, maar de prijs op de site van de winkel is altijd "
+            ("De winkel is leidend", "Prijzen werken we meerdere keren per dag bij, maar de prijs op de site van de winkel is altijd "
                                      "leidend."),
             ("Duidelijk gemarkeerd", "Partnerlinks zijn in de app als zodanig gemarkeerd, en we geven geen "
                                      "persoonsgegevens door aan de winkel."),
@@ -236,10 +239,11 @@ T = {
         "legal_terms": "Gebruiksvoorwaarden",
         "legal_lang": "nl",
         "foot_tag": "Alles voor je huisdier, in één app.",
+        "foot_partner": "PaWow neemt deel aan het partnerprogramma van bol en is een onafhankelijke app.",
         "foot_cookies": "Deze website plaatst geen cookies en gebruikt geen trackers.",
-        "shots": {"home": "Homescherm van PaWow met Houston, een Jack Russell", "match": "Matchen in PaWow: het profiel van Bonnie, een Jack Russell in de buurt", "health": "Gezondheid in PaWow: vaccinaties, verzekering en het QR-dierenpaspoort", "feed": "De feed van PaWow met foto's van andere honden", "catalog": "De catalogus in PaWow met hondenspeelgoed van bol"},
+        "shots": {"home": "Homescherm van PaWow met Houston, een Jack Russell", "match": "Matchen in PaWow: het profiel van Bonnie, een Jack Russell in de buurt", "health": "Gezondheid in PaWow: vaccinaties, verzekering en het QR-dierenpaspoort", "feed": "De feed van PaWow met foto's van andere honden", "catalog": "De catalogus in PaWow met hondenspeelgoed van bol", "passport": "Het QR-dierenpaspoort van Houston in PaWow"},
         "gallery_kicker": "In de app", "gallery_h2": "Zo ziet PaWow eruit", "gallery_lead": "Echte schermen uit de bèta, geen illustraties.",
-        "gallery": [("home", "Alles op één scherm"), ("match", "Speelmaatjes in de buurt"), ("feed", "Foto's van andere baasjes"), ("health", "Vaccinaties en paspoort"), ("catalog", "Producten van bol")],
+        "gallery": [("home", "Alles op één scherm"), ("match", "Speelmaatjes in de buurt"), ("feed", "Foto's van andere baasjes"), ("health", "Vaccinaties en paspoort"), ("catalog", "Producten voor je huisdier")],
         "m": {
             "pet": "Max", "chips": ["🐾 Jack Russell", "Dichtbij · 5 km"], "dist": "740 m",
             "name": "Luna", "age": "2 jaar", "meta": "Border Collie · Teef", "bio": "Rent het liefst achter een bal aan 🎾",
@@ -308,7 +312,7 @@ T = {
                          "and Zooplus, matched to the kind of pet you have."),
         "catalog_points": [
             "Filtered by species: for dogs, for cats or everything.",
-            "Price, discount and delivery time at a glance. Prices are refreshed daily.",
+            "Price, discount and delivery time at a glance. Prices are refreshed several times a day.",
             "You order and pay at the shop itself, with its service and return policy.",
         ],
         "catalog_link": "How our affiliate links work →",
@@ -330,11 +334,14 @@ T = {
         "partners_h2": "Open about affiliate links",
         "partners_lead": "PaWow earns from affiliate links, not from your data. Here is how it works:",
         "partners": [
+            ("bol partner programme", "PaWow takes part in the bol partner programme. Products and prices in the catalog "
+                                      "come from bol, and ‘Buy’ takes you to bol.com. PaWow is an independent app and is "
+                                      "not part of bol."),
             ("Commission, no mark-up", "If you buy something through a link in our catalog, the shop pays PaWow a small "
                                        "commission. You pay nothing extra."),
             ("You buy from the shop", "We don't sell anything ourselves. Ordering, payment, delivery and returns are "
                                       "handled by the shop, under its terms."),
-            ("The shop's price counts", "We refresh prices daily, but the price on the shop's website always prevails."),
+            ("The shop's price counts", "We refresh prices several times a day, but the price on the shop's website always prevails."),
             ("Clearly labelled", "Affiliate links are labelled as such in the app, and we don't pass your personal data "
                                  "to the shop."),
             ("Honest advice", "We write our articles ourselves. A commission doesn't change what we recommend."),
@@ -382,10 +389,11 @@ T = {
         "legal_terms": "Terms of service",
         "legal_lang": "en",
         "foot_tag": "Everything for your pet, in one app.",
+        "foot_partner": "PaWow takes part in the bol partner programme and is an independent app.",
         "foot_cookies": "This website sets no cookies and uses no trackers.",
-        "shots": {"home": "PaWow home screen with Houston, a Jack Russell", "match": "Matching in PaWow: the profile of Bonnie, a Jack Russell nearby", "health": "Health in PaWow: vaccinations, insurance and the QR vet passport", "feed": "The PaWow feed with photos of other dogs", "catalog": "The PaWow catalog with dog toys from bol"},
+        "shots": {"home": "PaWow home screen with Houston, a Jack Russell", "match": "Matching in PaWow: the profile of Bonnie, a Jack Russell nearby", "health": "Health in PaWow: vaccinations, insurance and the QR vet passport", "feed": "The PaWow feed with photos of other dogs", "catalog": "The PaWow catalog with dog toys from bol", "passport": "Houston's QR vet passport in PaWow"},
         "gallery_kicker": "In the app", "gallery_h2": "This is what PaWow looks like", "gallery_lead": "Real screens from the beta, not illustrations.",
-        "gallery": [("home", "Everything on one screen"), ("match", "Playmates nearby"), ("feed", "Photos from other owners"), ("health", "Vaccinations and passport"), ("catalog", "Products from bol")],
+        "gallery": [("home", "Everything on one screen"), ("match", "Playmates nearby"), ("feed", "Photos from other owners"), ("health", "Vaccinations and passport"), ("catalog", "Pet supplies")],
         "m": {
             "pet": "Max", "chips": ["🐾 Jack Russell", "Nearby · 5 km"], "dist": "740 m",
             "name": "Luna", "age": "2 years", "meta": "Border Collie · Female", "bio": "Would chase a ball all day 🎾",
@@ -454,7 +462,7 @@ T = {
                          "Zooplus, с учётом того, какой у вас питомец."),
         "catalog_points": [
             "Фильтр по виду: для собак, для кошек или всё.",
-            "Цена, скидка и срок доставки сразу видны. Цены обновляются ежедневно.",
+            "Цена, скидка и срок доставки сразу видны. Цены обновляются несколько раз в сутки.",
             "Заказ и оплата на сайте магазина, с его сервисом и условиями возврата.",
         ],
         "catalog_link": "Как работают партнёрские ссылки →",
@@ -477,11 +485,13 @@ T = {
         "partners_h2": "Честно о партнёрских ссылках",
         "partners_lead": "PaWow зарабатывает на партнёрских ссылках, а не на ваших данных. Как это устроено:",
         "partners": [
+            ("Партнёрская программа bol", "PaWow участвует в партнёрской программе bol. Товары и цены в каталоге от bol, "
+                                          "а «Купить» ведёт на bol.com. PaWow независимое приложение и не входит в bol."),
             ("Комиссия без наценки", "Если вы покупаете что-то по ссылке из нашего каталога, магазин платит PaWow "
                                      "небольшую комиссию. Для вас цена не меняется."),
             ("Покупка в магазине", "Сами мы ничего не продаём. Заказ, оплата, доставка и возврат проходят через "
                                      "магазин, по его правилам."),
-            ("Главная цена у магазина", "Цены мы обновляем ежедневно, но решает цена на сайте магазина."),
+            ("Главная цена у магазина", "Цены мы обновляем несколько раз в сутки, но решает цена на сайте магазина."),
             ("Чёткая пометка", "Партнёрские ссылки в приложении помечены, а ваши личные данные магазину мы не "
                                "передаём."),
             ("Честные советы", "Статьи мы пишем сами. Комиссия не влияет на то, что мы советуем."),
@@ -529,10 +539,11 @@ T = {
         "legal_terms": "Условия использования",
         "legal_lang": "ru",
         "foot_tag": "Всё для питомца в одном приложении.",
+        "foot_partner": "PaWow участвует в партнёрской программе bol и остаётся независимым приложением.",
         "foot_cookies": "Этот сайт не ставит cookies и не использует трекеры.",
-        "shots": {"home": "Главный экран PaWow с Хьюстоном, джек-расселом", "match": "Матч в PaWow: анкета Бонни, джек-рассела по соседству", "health": "Здоровье в PaWow: прививки, страховка и QR-ветпаспорт", "feed": "Лента PaWow с фотографиями других собак", "catalog": "Каталог PaWow с игрушками для собак из bol"},
+        "shots": {"home": "Главный экран PaWow с Хьюстоном, джек-расселом", "match": "Матч в PaWow: анкета Бонни, джек-рассела по соседству", "health": "Здоровье в PaWow: прививки, страховка и QR-ветпаспорт", "feed": "Лента PaWow с фотографиями других собак", "catalog": "Каталог PaWow с игрушками для собак из bol", "passport": "QR-ветпаспорт Хьюстона в PaWow"},
         "gallery_kicker": "В приложении", "gallery_h2": "Так выглядит PaWow", "gallery_lead": "Настоящие экраны из бета-версии, а не иллюстрации.",
-        "gallery": [("home", "Всё на одном экране"), ("match", "Друзья по соседству"), ("feed", "Фото других владельцев"), ("health", "Прививки и паспорт"), ("catalog", "Товары bol")],
+        "gallery": [("home", "Всё на одном экране"), ("match", "Друзья по соседству"), ("feed", "Фото других владельцев"), ("health", "Прививки и паспорт"), ("catalog", "Товары для питомцев")],
         "m": {
             "pet": "Макс", "chips": ["🐾 Джек-рассел", "Рядом · 5 км"], "dist": "740 м",
             "name": "Луна", "age": "2 года", "meta": "Бордер-колли · девочка", "bio": "Готова гонять мяч весь день 🎾",
@@ -609,6 +620,22 @@ REVEAL_SCRIPT = """<script>
   }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
   items.forEach(function (el) { io.observe(el); });
 })();
+(function () {
+  // Меню языка: открыто только одно, закрывается по клику мимо и по Esc.
+  var menus = Array.prototype.slice.call(document.querySelectorAll('.lang-menu'));
+  menus.forEach(function (m) {
+    m.addEventListener('toggle', function () {
+      if (m.open) menus.forEach(function (o) { if (o !== m) o.open = false; });
+    });
+  });
+  document.addEventListener('click', function (e) {
+    menus.forEach(function (m) { if (m.open && !m.contains(e.target)) m.open = false; });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    menus.forEach(function (m) { if (m.open) { m.open = false; m.querySelector('summary').focus(); } });
+  });
+})();
 </script>
 """
 
@@ -643,12 +670,28 @@ def head(*, lang, title, desc, path, root, alternates=None, early="", extra=""):
 """
 
 
-def lang_switch(root, lang, paths):
-    return "".join(
-        f'<a href="{rel(root, paths[code])}" hreflang="{code}" lang="{code}"{CURRENT if code == lang else ""}>'
-        f'{code.upper()}</a>'
+LANG_NAMES = {"nl": "Nederlands", "en": "English", "ru": "Русский"}
+# Флаг страны для языка: английский под британским флагом.
+LANG_FLAGS = {"nl": "nl", "en": "gb", "ru": "ru"}
+LANG_MENU_LABEL = {"nl": "Taal kiezen", "en": "Choose language", "ru": "Выбрать язык"}
+CHEVRON = ('<svg class="chev" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5l3 3 3-3" fill="none" '
+           'stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>')
+
+
+def lang_menu(root, lang, paths, up=False):
+    """Выпадающий список языков с флагами: компактнее трёх кнопок, особенно
+    на телефоне. Без JS работает как обычный <details>; скрипт в подвале
+    только закрывает его по клику мимо и по Esc. В подвале список
+    раскрывается вверх (`up`), иначе уходил бы за край страницы."""
+    items = "".join(
+        f'<li><a href="{rel(root, paths[code])}" hreflang="{code}" lang="{code}"{CURRENT if code == lang else ""}>'
+        f'<span class="flag flag-{LANG_FLAGS[code]}" aria-hidden="true"></span>{LANG_NAMES[code]}</a></li>'
         for code in LANGS
     )
+    return (f'<details class="lang-menu{" up" if up else ""}">'
+            f'<summary aria-label="{LANG_MENU_LABEL[lang]}: {LANG_NAMES[lang]}">'
+            f'<span class="flag flag-{LANG_FLAGS[lang]}" aria-hidden="true"></span>{lang.upper()}{CHEVRON}</summary>'
+            f'<ul>{items}</ul></details>')
 
 
 def header(*, t, root, lang, on_landing, paths):
@@ -661,7 +704,7 @@ def header(*, t, root, lang, on_landing, paths):
 <header class="top"><div class="wrap">
 <a class="brand" href="{home}"><img src="{root}assets/logo-128.png" alt="" width="34" height="34">PaWow</a>
 <nav class="nav" aria-label="Menu">{"".join(links)}</nav>
-<div class="langs" aria-label="Language">{lang_switch(root, lang, paths)}</div>
+{lang_menu(root, lang, paths)}
 </div></header>
 """
 
@@ -674,6 +717,7 @@ def footer(*, t, root, lang, on_landing, paths):
 <div>
 <a class="brand" href="{home}"><img src="{root}assets/logo-128.png" alt="" width="28" height="28">PaWow</a>
 <p>{esc(t["foot_tag"])}</p>
+<p>{esc(t["foot_partner"])}</p>
 <p>{esc(t["foot_cookies"])}</p>
 <p>© 2026 PaWow · <a href="mailto:{EMAIL}">{EMAIL}</a></p>
 </div>
@@ -685,7 +729,7 @@ def footer(*, t, root, lang, on_landing, paths):
 <a href="{root}privacy.html?lang={ll}">{esc(t["legal_privacy"])}</a>
 <a href="{root}terms.html?lang={ll}">{esc(t["legal_terms"])}</a>
 </nav>
-<div class="langs" style="margin-top:16px;display:inline-flex">{lang_switch(root, lang, paths)}</div>
+<div class="foot-lang">{lang_menu(root, lang, paths, up=True)}</div>
 </div>
 </div></footer>
 {REVEAL_SCRIPT}</body>
@@ -781,7 +825,7 @@ def landing(lang):
 </section>
 
 <section><div class="wrap spot">
-<div class="spot-media reveal">{phone_shot(root, lang, "health", t["shots"]["health"])}</div>
+<div class="spot-media reveal">{phone_shot(root, lang, "passport", t["shots"]["passport"])}</div>
 <div class="reveal" style="--i:1"><span class="kicker">{esc(t["health_kicker"])}</span><h2>{esc(t["health_h2"])}</h2>
 <p>{esc(t["health_text"])}</p><ul class="checks">{health_points}</ul></div>
 </div></section>

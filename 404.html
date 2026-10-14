@@ -26,7 +26,7 @@
 <header class="top"><div class="wrap">
 <a class="brand" href="/pawmatch-passport/"><img src="/pawmatch-passport/assets/logo-128.png" alt="" width="34" height="34">PaWow</a>
 <nav class="nav" aria-label="Menu"><a href="/pawmatch-passport/#features">Functies</a><a href="/pawmatch-passport/#how">Hoe het werkt</a><a class="keep" href="/pawmatch-passport/gids/">Gids</a><a href="/pawmatch-passport/#partners">Partnerlinks</a><a href="/pawmatch-passport/#contact">Contact</a></nav>
-<div class="langs" aria-label="Language"><a href="/pawmatch-passport/" hreflang="nl" lang="nl" aria-current="true">NL</a><a href="/pawmatch-passport/en/" hreflang="en" lang="en">EN</a><a href="/pawmatch-passport/ru/" hreflang="ru" lang="ru">RU</a></div>
+<details class="lang-menu"><summary aria-label="Taal kiezen: Nederlands"><span class="flag flag-nl" aria-hidden="true"></span>NL<svg class="chev" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary><ul><li><a href="/pawmatch-passport/" hreflang="nl" lang="nl" aria-current="true"><span class="flag flag-nl" aria-hidden="true"></span>Nederlands</a></li><li><a href="/pawmatch-passport/en/" hreflang="en" lang="en"><span class="flag flag-gb" aria-hidden="true"></span>English</a></li><li><a href="/pawmatch-passport/ru/" hreflang="ru" lang="ru"><span class="flag flag-ru" aria-hidden="true"></span>Русский</a></li></ul></details>
 </div></header>
 <main id="main"><div class="center-page"><div>
 <div style="font-size:64px" aria-hidden="true">🐾</div>
@@ -38,6 +38,7 @@
 <div>
 <a class="brand" href="/pawmatch-passport/"><img src="/pawmatch-passport/assets/logo-128.png" alt="" width="28" height="28">PaWow</a>
 <p>Alles voor je huisdier, in één app.</p>
+<p>PaWow neemt deel aan het partnerprogramma van bol en is een onafhankelijke app.</p>
 <p>Deze website plaatst geen cookies en gebruikt geen trackers.</p>
 <p>© 2026 PaWow · <a href="mailto:support@pawmatch.app">support@pawmatch.app</a></p>
 </div>
@@ -49,7 +50,7 @@
 <a href="/pawmatch-passport/privacy.html?lang=nl">Privacybeleid</a>
 <a href="/pawmatch-passport/terms.html?lang=nl">Gebruiksvoorwaarden</a>
 </nav>
-<div class="langs" style="margin-top:16px;display:inline-flex"><a href="/pawmatch-passport/" hreflang="nl" lang="nl" aria-current="true">NL</a><a href="/pawmatch-passport/en/" hreflang="en" lang="en">EN</a><a href="/pawmatch-passport/ru/" hreflang="ru" lang="ru">RU</a></div>
+<div class="foot-lang"><details class="lang-menu up"><summary aria-label="Taal kiezen: Nederlands"><span class="flag flag-nl" aria-hidden="true"></span>NL<svg class="chev" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary><ul><li><a href="/pawmatch-passport/" hreflang="nl" lang="nl" aria-current="true"><span class="flag flag-nl" aria-hidden="true"></span>Nederlands</a></li><li><a href="/pawmatch-passport/en/" hreflang="en" lang="en"><span class="flag flag-gb" aria-hidden="true"></span>English</a></li><li><a href="/pawmatch-passport/ru/" hreflang="ru" lang="ru"><span class="flag flag-ru" aria-hidden="true"></span>Русский</a></li></ul></details></div>
 </div>
 </div></footer>
 <script>
@@ -60,6 +61,22 @@
     entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
   }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
   items.forEach(function (el) { io.observe(el); });
+})();
+(function () {
+  // Меню языка: открыто только одно, закрывается по клику мимо и по Esc.
+  var menus = Array.prototype.slice.call(document.querySelectorAll('.lang-menu'));
+  menus.forEach(function (m) {
+    m.addEventListener('toggle', function () {
+      if (m.open) menus.forEach(function (o) { if (o !== m) o.open = false; });
+    });
+  });
+  document.addEventListener('click', function (e) {
+    menus.forEach(function (m) { if (m.open && !m.contains(e.target)) m.open = false; });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    menus.forEach(function (m) { if (m.open) { m.open = false; m.querySelector('summary').focus(); } });
+  });
 })();
 </script>
 </body>
