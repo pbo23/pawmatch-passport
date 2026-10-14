@@ -240,6 +240,7 @@ T = {
         "m": {
             "pet": "Max", "chips": ["🐾 Jack Russell", "Dichtbij · 5 km"], "dist": "740 m",
             "name": "Luna", "age": "2 jaar", "meta": "Border Collie · Teef", "bio": "Rent het liefst achter een bal aan 🎾",
+            "next": ("Bella", "3 jaar", "Poedel · Teef", "Dol op wandelingen in het bos 🌳", "1,2 km"),
             "tabs": ["Home", "Match", "Feed", "Diensten", "Gezondheid"],
             "health": "Gezondheid", "pets": ["Max", "Pip"], "qr_t": "QR-dierenpaspoort", "qr_s": "Laat de dierenarts scannen",
             "qr_v": "7 dagen geldig", "vacc": "VACCINATIES",
@@ -382,6 +383,7 @@ T = {
         "m": {
             "pet": "Max", "chips": ["🐾 Jack Russell", "Nearby · 5 km"], "dist": "740 m",
             "name": "Luna", "age": "2 years", "meta": "Border Collie · Female", "bio": "Would chase a ball all day 🎾",
+            "next": ("Bella", "3 years", "Poodle · Female", "Loves walks in the woods 🌳", "1.2 km"),
             "tabs": ["Home", "Match", "Feed", "Services", "Health"],
             "health": "Health", "pets": ["Max", "Pip"], "qr_t": "QR vet passport", "qr_s": "Let your vet scan it",
             "qr_v": "Valid 7 days", "vacc": "VACCINATIONS",
@@ -525,6 +527,7 @@ T = {
         "m": {
             "pet": "Макс", "chips": ["🐾 Джек-рассел", "Рядом · 5 км"], "dist": "740 м",
             "name": "Луна", "age": "2 года", "meta": "Бордер-колли · девочка", "bio": "Готова гонять мяч весь день 🎾",
+            "next": ("Белла", "3 года", "Пудель · девочка", "Обожает гулять в лесу 🌳", "1,2 км"),
             "tabs": ["Главная", "Матч", "Лента", "Услуги", "Здоровье"],
             "health": "Здоровье", "pets": ["Макс", "Пип"], "qr_t": "QR-ветпаспорт", "qr_s": "Покажите ветеринару",
             "qr_v": "7 дней", "vacc": "ПРИВИВКИ",
@@ -560,11 +563,17 @@ def tabbar(m, active):
 
 def phone_match(m):
     chips = "".join(f'<span{on(i == 0)}>{esc(c)}</span>' for i, c in enumerate(m["chips"]))
+    nx_name, nx_age, nx_meta, nx_bio, nx_dist = m["next"]
     return f"""<div class="phone" aria-hidden="true"><div class="screen">{status_bar()}
 <div class="scr"><div class="m-top"><span class="m-petchip"><span class="m-av">🐶</span>{esc(m["pet"])}{SVG_CHEVRON}</span></div>
 <div class="m-chips">{chips}</div>
-<div class="m-card"><span class="m-dist">➤ {esc(m["dist"])}</span><div class="m-photo">🐕</div>
-<div class="m-info"><b>{esc(m["name"])}</b><span>{esc(m["age"])}</span><div>{esc(m["meta"])}</div><p>{esc(m["bio"])}</p></div></div>
+<div class="m-deck">
+<div class="m-card c2"><span class="m-dist">➤ {esc(nx_dist)}</span><div class="m-photo">🐩</div>
+<div class="m-info"><b>{esc(nx_name)}</b><span>{esc(nx_age)}</span><div>{esc(nx_meta)}</div><p>{esc(nx_bio)}</p></div></div>
+<div class="m-card c1"><span class="m-dist">➤ {esc(m["dist"])}</span><div class="m-photo">🐕</div>
+<div class="m-info"><b>{esc(m["name"])}</b><span>{esc(m["age"])}</span><div>{esc(m["meta"])}</div><p>{esc(m["bio"])}</p></div>
+<span class="m-stamp">{SVG_HEART}</span></div>
+</div>
 <div class="m-actions"><span class="a-x">{SVG_X}</span><span class="a-i">{SVG_I}</span><span class="a-h">{SVG_HEART}</span></div></div>
 {tabbar(m, 1)}</div></div>"""
 
@@ -581,7 +590,7 @@ def phone_health(m):
     return f"""<div class="phone" aria-hidden="true"><div class="screen">{status_bar()}
 <div class="scr"><div class="h-title">{esc(m["health"])}</div>
 <div class="h-pets">{pets}</div>
-<div class="h-qr"><div><b>{esc(m["qr_t"])}</b><span>{esc(m["qr_s"])}</span><em>{esc(m["qr_v"])}</em></div>{fake_qr()}</div>
+<div class="h-qr"><div><b>{esc(m["qr_t"])}</b><span>{esc(m["qr_s"])}</span><em>{esc(m["qr_v"])}</em></div><span class="qrbox">{fake_qr()}<i class="scan"></i></span></div>
 <div class="h-sec">{esc(m["vacc"])}</div><div class="h-list">{vaccs}</div>
 <div class="h-sec">{esc(m["visits"])}</div>
 <div class="h-list"><div class="h-row"><span class="ic v">🩺</span><div><b>{esc(title)}</b><span>{esc(sub)}</span></div><span class="date">{esc(date)}</span></div></div></div>
@@ -622,6 +631,25 @@ def rel(root, path):
     return (root + path) or "./"
 
 
+# Класс js на <html> ставится до стилей: без него (JS выключен) блоки с
+# классом reveal не прячутся и видны сразу.
+JS_FLAG = "<script>document.documentElement.classList.add('js')</script>\n"
+
+# Блоки проявляются, когда доходят до экрана. Наблюдатель отписывается от
+# показанного блока: анимация срабатывает один раз.
+REVEAL_SCRIPT = """<script>
+(function () {
+  var items = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) { items.forEach(function (el) { el.classList.add('in'); }); return; }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+  items.forEach(function (el) { io.observe(el); });
+})();
+</script>
+"""
+
+
 def head(*, lang, title, desc, path, root, alternates=None, early="", extra=""):
     canonical = BASE + path
     alt = ""
@@ -632,7 +660,7 @@ def head(*, lang, title, desc, path, root, alternates=None, early="", extra=""):
 <html lang="{lang}">
 <head>
 <meta charset="utf-8">
-{early}<meta name="viewport" content="width=device-width, initial-scale=1">
+{JS_FLAG}{early}<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
 <link rel="canonical" href="{canonical}">
@@ -697,7 +725,7 @@ def footer(*, t, root, lang, on_landing, paths):
 <div class="langs" style="margin-top:16px;display:inline-flex">{lang_switch(root, lang, paths)}</div>
 </div>
 </div></footer>
-</body>
+{REVEAL_SCRIPT}</body>
 </html>
 """
 
@@ -706,9 +734,9 @@ def guide_path(g, lang):
     return GUIDE_DIR[lang] + g["slug"][lang] + ".html"
 
 
-def guide_card(g, lang, root, t):
-    return (f'<a class="guide" href="{root}{guide_path(g, lang)}">'
-            f'<div class="thumb" aria-hidden="true">{g["emoji"]}</div>'
+def guide_card(g, lang, root, t, i=0):
+    return (f'<a class="guide reveal" style="--i:{i}" href="{root}{guide_path(g, lang)}">'
+            f'<div class="thumb" aria-hidden="true"><span>{g["emoji"]}</span></div>'
             f'<div class="body"><div class="meta"><span>{g["minutes"]} {esc(t["min"])}</span></div>'
             f'<h3>{esc(g["title"][lang])}</h3><p>{esc(g["excerpt"][lang])}</p>'
             f'<span class="go">{esc(t["read"])}</span></div></a>')
@@ -737,15 +765,18 @@ def landing(lang):
         "image": BASE + "assets/logo-512.png",
         "publisher": {"@type": "Organization", "name": "PaWow", "email": EMAIL, "url": BASE},
     }
-    features = "".join(f'<article class="card"><div class="ico" aria-hidden="true">{e}</div><h3>{esc(h)}</h3>'
-                       f'<p>{esc(p)}</p></article>' for e, h, p in t["features"])
+    features = "".join(f'<article class="card reveal" style="--i:{i % 4}"><div class="ico" aria-hidden="true">{e}</div>'
+                       f'<h3>{esc(h)}</h3><p>{esc(p)}</p></article>' for i, (e, h, p) in enumerate(t["features"]))
     health_points = "".join(f"<li>{esc(p)}</li>" for p in t["health_points"])
     catalog_points = "".join(f"<li>{esc(p)}</li>" for p in t["catalog_points"])
-    steps = "".join(f'<li class="card"><h3>{esc(h)}</h3><p>{esc(p)}</p></li>' for h, p in t["steps"])
-    guides = "".join(guide_card(g, lang, root, t) for g in GUIDES)
-    partners = "".join(f"<li><b>{esc(h)}</b>{esc(p)}</li>" for h, p in t["partners"])
+    steps = "".join(f'<li class="card reveal" style="--i:{i}"><h3>{esc(h)}</h3><p>{esc(p)}</p></li>'
+                    for i, (h, p) in enumerate(t["steps"]))
+    guides = "".join(guide_card(g, lang, root, t, i) for i, g in enumerate(GUIDES))
+    partners = "".join(f'<li class="reveal" style="--i:{i}"><b>{esc(h)}</b>{esc(p)}</li>'
+                       for i, (h, p) in enumerate(t["partners"]))
     privacy_points = "".join(f"<li>{esc(p)}</li>" for p in t["privacy_points"])
-    faq = "".join(f"<details><summary>{esc(q)}</summary><p>{a}</p></details>" for q, a in t["faq"])
+    faq = "".join(f'<details class="reveal" style="--i:{i}"><summary>{esc(q)}</summary><p>{a}</p></details>'
+                  for i, (q, a) in enumerate(t["faq"]))
     about = "".join(f"<p>{esc(p)}</p>" for p in t["about"])
     ll = t["legal_lang"]
 
@@ -764,63 +795,63 @@ def landing(lang):
 <a class="btn btn-ghost" href="{guides_href}">{esc(t["cta_guide"])}</a></div>
 <p class="soon"><span class="dot" aria-hidden="true"></span><span>{t["soon"]}</span></p>
 </div>
-{phone_match(m)}
+<div class="hero-phone">{phone_match(m)}</div>
 </div></section>
 
 <section id="features"><div class="wrap">
-<div class="sec-head"><span class="kicker">{esc(t["features_kicker"])}</span><h2>{esc(t["features_h2"])}</h2>
+<div class="sec-head reveal"><span class="kicker">{esc(t["features_kicker"])}</span><h2>{esc(t["features_h2"])}</h2>
 <p>{esc(t["features_lead"])}</p></div>
 <div class="features">{features}</div>
 </div></section>
 
 <section><div class="wrap spot">
-<div class="spot-media">{phone_health(m)}</div>
-<div><span class="kicker">{esc(t["health_kicker"])}</span><h2>{esc(t["health_h2"])}</h2>
+<div class="spot-media reveal">{phone_health(m)}</div>
+<div class="reveal" style="--i:1"><span class="kicker">{esc(t["health_kicker"])}</span><h2>{esc(t["health_h2"])}</h2>
 <p>{esc(t["health_text"])}</p><ul class="checks">{health_points}</ul></div>
 </div></section>
 
 <section><div class="wrap spot rev">
-<div class="spot-media">{phone_catalog(m, lang)}</div>
-<div><span class="kicker">{esc(t["catalog_kicker"])}</span><h2>{esc(t["catalog_h2"])}</h2>
+<div class="spot-media reveal">{phone_catalog(m, lang)}</div>
+<div class="reveal" style="--i:1"><span class="kicker">{esc(t["catalog_kicker"])}</span><h2>{esc(t["catalog_h2"])}</h2>
 <p>{esc(t["catalog_text"])}</p><ul class="checks">{catalog_points}</ul>
 <a class="more-link" href="#partners">{esc(t["catalog_link"])}</a></div>
 </div></section>
 
 <section id="how"><div class="wrap">
-<div class="sec-head"><span class="kicker">{esc(t["how_kicker"])}</span><h2>{esc(t["how_h2"])}</h2></div>
+<div class="sec-head reveal"><span class="kicker">{esc(t["how_kicker"])}</span><h2>{esc(t["how_h2"])}</h2></div>
 <ol class="steps">{steps}</ol>
 </div></section>
 
 <section id="guides"><div class="wrap">
-<div class="sec-head"><span class="kicker">{esc(t["guides_kicker"])}</span><h2>{esc(t["guides_h2"])}</h2>
+<div class="sec-head reveal"><span class="kicker">{esc(t["guides_kicker"])}</span><h2>{esc(t["guides_h2"])}</h2>
 <p>{esc(t["guides_lead"])}</p></div>
 <div class="guides">{guides}</div>
 <p class="after"><a class="more-link" href="{guides_href}">{esc(t["guides_all"])}</a></p>
 </div></section>
 
 <section id="partners"><div class="wrap"><div class="panel">
-<div class="sec-head"><span class="kicker">{esc(t["partners_kicker"])}</span><h2>{esc(t["partners_h2"])}</h2>
+<div class="sec-head reveal"><span class="kicker">{esc(t["partners_kicker"])}</span><h2>{esc(t["partners_h2"])}</h2>
 <p>{esc(t["partners_lead"])}</p></div>
 <ul class="points">{partners}</ul>
 </div></div></section>
 
 <section id="privacy"><div class="wrap split">
-<div><span class="kicker">{esc(t["privacy_kicker"])}</span><h2>{esc(t["privacy_h2"])}</h2>
+<div class="reveal"><span class="kicker">{esc(t["privacy_kicker"])}</span><h2>{esc(t["privacy_h2"])}</h2>
 <p class="lead" style="font-size:17px">{esc(t["privacy_text"])}</p>
 <a class="more-link" href="{root}privacy.html?lang={ll}">{esc(t["privacy_link"])} →</a></div>
-<ul class="checks">{privacy_points}</ul>
+<ul class="checks reveal" style="--i:1">{privacy_points}</ul>
 </div></section>
 
 <section id="faq"><div class="wrap">
-<div class="sec-head"><span class="kicker">{esc(t["faq_kicker"])}</span><h2>{esc(t["faq_h2"])}</h2></div>
+<div class="sec-head reveal"><span class="kicker">{esc(t["faq_kicker"])}</span><h2>{esc(t["faq_h2"])}</h2></div>
 <div class="faq">{faq}</div>
 </div></section>
 
 <section id="contact"><div class="wrap">
-<div class="sec-head"><span class="kicker">{esc(t["about_kicker"])}</span><h2>{esc(t["about_h2"])}</h2></div>
+<div class="sec-head reveal"><span class="kicker">{esc(t["about_kicker"])}</span><h2>{esc(t["about_h2"])}</h2></div>
 <div class="about">
-<div class="card">{about}</div>
-<div class="card contact"><h3>{esc(t["contact_h3"])}</h3><p>{esc(t["contact_text"])}</p>
+<div class="card reveal">{about}</div>
+<div class="card contact reveal" style="--i:1"><h3>{esc(t["contact_h3"])}</h3><p>{esc(t["contact_text"])}</p>
 <a class="btn" href="mailto:{EMAIL}" aria-label="{esc(t["contact_btn"])}: {EMAIL}">{SVG_MAIL}<span>{EMAIL}</span></a></div>
 </div>
 </div></section>
@@ -839,7 +870,7 @@ def gids_index(lang):
     root = root_of(path)
     page = head(lang=lang, title=gt["title"], desc=gt["desc"], path=path, root=root, alternates=GUIDE_DIR)
     page += "<body>\n" + header(t=t, root=root, lang=lang, on_landing=False, paths=GUIDE_DIR)
-    cards = "".join(guide_card(g, lang, root, t) for g in GUIDES)
+    cards = "".join(guide_card(g, lang, root, t, i) for i, g in enumerate(GUIDES))
     page += f"""<main id="main">
 <div class="wrap page-head">
 <nav class="crumbs" aria-label="{esc(gt["crumbs"])}"><a href="{rel(root, LANG_PATH[lang])}">{esc(gt["home"])}</a> / {esc(gt["kicker"])}</nav>
@@ -871,7 +902,7 @@ def article(g, lang):
     page = head(lang=lang, title=f"{title} | PaWow", desc=g["excerpt"][lang], path=path, root=root, alternates=paths,
                 extra=f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>\n')
     page += "<body>\n" + header(t=t, root=root, lang=lang, on_landing=False, paths=paths)
-    related = "".join(guide_card(o, lang, root, t) for o in GUIDES if o is not g)
+    related = "".join(guide_card(o, lang, root, t, i) for i, o in enumerate(o for o in GUIDES if o is not g))
     page += f"""<main id="main">
 <article class="article">
 <nav class="crumbs" aria-label="{esc(gt["crumbs"])}"><a href="{rel(root, LANG_PATH[lang])}">{esc(gt["home"])}</a> / <a href="./">{esc(gt["kicker"])}</a></nav>

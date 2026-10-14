@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
+<script>document.documentElement.classList.add('js')</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Щенок дома: чек-лист на первые недели | PaWow</title>
 <meta name="description" content="Что купить до приезда щенка и что оформить в первые недели: от клетки-домика до регистрации чипа.">
@@ -106,7 +107,7 @@
 <a href="https://www.rijksoverheid.nl/onderwerpen/dierenwelzijn/vraag-en-antwoord/moet-ik-mijn-hond-laten-chippen-en-registreren" hreflang="nl">Rijksoverheid</a> (на нидерландском).</p>
 
 </article>
-<aside class="related"><h2>Ещё гайды</h2><div class="guides"><a class="guide" href="../../ru/guides/travelling-in-the-eu.html"><div class="thumb" aria-hidden="true">🧳</div><div class="body"><div class="meta"><span>5 мин чтения</span></div><h3>Поездка с собакой или кошкой по ЕС</h3><p>Чип, прививка от бешенства и ветпаспорт: что нужно, за сколько начинать и какие страны требуют больше.</p><span class="go">Читать →</span></div></a><a class="guide" href="../../ru/guides/dog-walking-rules.html"><div class="thumb" aria-hidden="true">🦮</div><div class="body"><div class="meta"><span>4 мин чтения</span></div><h3>Прогулки с собакой в Нидерландах: поводок, уборка и зоны без поводка</h3><p>Где собаке можно без поводка? Правила зависят от муниципалитета. Главное из них и советы для жары и тёмных вечеров.</p><span class="go">Читать →</span></div></a></div></aside>
+<aside class="related"><h2>Ещё гайды</h2><div class="guides"><a class="guide reveal" style="--i:0" href="../../ru/guides/travelling-in-the-eu.html"><div class="thumb" aria-hidden="true"><span>🧳</span></div><div class="body"><div class="meta"><span>5 мин чтения</span></div><h3>Поездка с собакой или кошкой по ЕС</h3><p>Чип, прививка от бешенства и ветпаспорт: что нужно, за сколько начинать и какие страны требуют больше.</p><span class="go">Читать →</span></div></a><a class="guide reveal" style="--i:1" href="../../ru/guides/dog-walking-rules.html"><div class="thumb" aria-hidden="true"><span>🦮</span></div><div class="body"><div class="meta"><span>4 мин чтения</span></div><h3>Прогулки с собакой в Нидерландах: поводок, уборка и зоны без поводка</h3><p>Где собаке можно без поводка? Правила зависят от муниципалитета. Главное из них и советы для жары и тёмных вечеров.</p><span class="go">Читать →</span></div></a></div></aside>
 </main>
 <footer class="foot"><div class="wrap">
 <div>
@@ -126,5 +127,15 @@
 <div class="langs" style="margin-top:16px;display:inline-flex"><a href="../../gids/puppy-in-huis.html" hreflang="nl" lang="nl">NL</a><a href="../../en/guides/puppy-at-home.html" hreflang="en" lang="en">EN</a><a href="../../ru/guides/puppy-at-home.html" hreflang="ru" lang="ru" aria-current="true">RU</a></div>
 </div>
 </div></footer>
+<script>
+(function () {
+  var items = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) { items.forEach(function (el) { el.classList.add('in'); }); return; }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+  items.forEach(function (el) { io.observe(el); });
+})();
+</script>
 </body>
 </html>

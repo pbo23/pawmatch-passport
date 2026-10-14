@@ -2,6 +2,7 @@
 <html lang="nl">
 <head>
 <meta charset="utf-8">
+<script>document.documentElement.classList.add('js')</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Een pup in huis: de checklist voor de eerste weken | PaWow</title>
 <meta name="description" content="Welke spullen heb je nodig voordat je pup komt, en wat regel je in de eerste weken? Van bench tot chipregistratie.">
@@ -107,7 +108,7 @@ komt.</p></div>
 en registreren: <a href="https://www.rijksoverheid.nl/onderwerpen/dierenwelzijn/vraag-en-antwoord/moet-ik-mijn-hond-laten-chippen-en-registreren">Rijksoverheid</a>.</p>
 
 </article>
-<aside class="related"><h2>Meer uit de gids</h2><div class="guides"><a class="guide" href="../gids/op-reis-met-huisdier.html"><div class="thumb" aria-hidden="true">🧳</div><div class="body"><div class="meta"><span>5 min lezen</span></div><h3>Op reis met je hond of kat binnen de EU</h3><p>Chip, rabiësvaccinatie en dierenpaspoort: wat je nodig hebt, hoe lang van tevoren je begint en welke landen extra eisen stellen.</p><span class="go">Lees verder →</span></div></a><a class="guide" href="../gids/uitlaten-regels.html"><div class="thumb" aria-hidden="true">🦮</div><div class="body"><div class="meta"><span>4 min lezen</span></div><h3>Uitlaten in Nederland: aanlijnen, opruimen en losloopgebieden</h3><p>Waar mag je hond los en waar niet? Dat verschilt per gemeente. De belangrijkste regels, plus tips voor warme dagen en donkere avonden.</p><span class="go">Lees verder →</span></div></a></div></aside>
+<aside class="related"><h2>Meer uit de gids</h2><div class="guides"><a class="guide reveal" style="--i:0" href="../gids/op-reis-met-huisdier.html"><div class="thumb" aria-hidden="true"><span>🧳</span></div><div class="body"><div class="meta"><span>5 min lezen</span></div><h3>Op reis met je hond of kat binnen de EU</h3><p>Chip, rabiësvaccinatie en dierenpaspoort: wat je nodig hebt, hoe lang van tevoren je begint en welke landen extra eisen stellen.</p><span class="go">Lees verder →</span></div></a><a class="guide reveal" style="--i:1" href="../gids/uitlaten-regels.html"><div class="thumb" aria-hidden="true"><span>🦮</span></div><div class="body"><div class="meta"><span>4 min lezen</span></div><h3>Uitlaten in Nederland: aanlijnen, opruimen en losloopgebieden</h3><p>Waar mag je hond los en waar niet? Dat verschilt per gemeente. De belangrijkste regels, plus tips voor warme dagen en donkere avonden.</p><span class="go">Lees verder →</span></div></a></div></aside>
 </main>
 <footer class="foot"><div class="wrap">
 <div>
@@ -127,5 +128,15 @@ en registreren: <a href="https://www.rijksoverheid.nl/onderwerpen/dierenwelzijn/
 <div class="langs" style="margin-top:16px;display:inline-flex"><a href="../gids/puppy-in-huis.html" hreflang="nl" lang="nl" aria-current="true">NL</a><a href="../en/guides/puppy-at-home.html" hreflang="en" lang="en">EN</a><a href="../ru/guides/puppy-at-home.html" hreflang="ru" lang="ru">RU</a></div>
 </div>
 </div></footer>
+<script>
+(function () {
+  var items = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) { items.forEach(function (el) { el.classList.add('in'); }); return; }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+  items.forEach(function (el) { io.observe(el); });
+})();
+</script>
 </body>
 </html>

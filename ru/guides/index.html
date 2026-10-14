@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
+<script>document.documentElement.classList.add('js')</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Гайды для владельцев | PaWow</title>
 <meta name="description" content="Практичные статьи для владельцев собак и кошек в Нидерландах: щенок дома, поездки по ЕС и правила выгула.">
@@ -37,7 +38,7 @@
 <h1>Гайды для владельцев</h1>
 <p>Практичные статьи о жизни с собакой или кошкой в Нидерландах. Мы пишем их сами и следим, чтобы они оставались актуальными.</p>
 </div>
-<section style="padding-top:32px"><div class="wrap"><div class="guides"><a class="guide" href="../../ru/guides/puppy-at-home.html"><div class="thumb" aria-hidden="true">🐶</div><div class="body"><div class="meta"><span>6 мин чтения</span></div><h3>Щенок дома: чек-лист на первые недели</h3><p>Что купить до приезда щенка и что оформить в первые недели: от клетки-домика до регистрации чипа.</p><span class="go">Читать →</span></div></a><a class="guide" href="../../ru/guides/travelling-in-the-eu.html"><div class="thumb" aria-hidden="true">🧳</div><div class="body"><div class="meta"><span>5 мин чтения</span></div><h3>Поездка с собакой или кошкой по ЕС</h3><p>Чип, прививка от бешенства и ветпаспорт: что нужно, за сколько начинать и какие страны требуют больше.</p><span class="go">Читать →</span></div></a><a class="guide" href="../../ru/guides/dog-walking-rules.html"><div class="thumb" aria-hidden="true">🦮</div><div class="body"><div class="meta"><span>4 мин чтения</span></div><h3>Прогулки с собакой в Нидерландах: поводок, уборка и зоны без поводка</h3><p>Где собаке можно без поводка? Правила зависят от муниципалитета. Главное из них и советы для жары и тёмных вечеров.</p><span class="go">Читать →</span></div></a></div></div></section>
+<section style="padding-top:32px"><div class="wrap"><div class="guides"><a class="guide reveal" style="--i:0" href="../../ru/guides/puppy-at-home.html"><div class="thumb" aria-hidden="true"><span>🐶</span></div><div class="body"><div class="meta"><span>6 мин чтения</span></div><h3>Щенок дома: чек-лист на первые недели</h3><p>Что купить до приезда щенка и что оформить в первые недели: от клетки-домика до регистрации чипа.</p><span class="go">Читать →</span></div></a><a class="guide reveal" style="--i:1" href="../../ru/guides/travelling-in-the-eu.html"><div class="thumb" aria-hidden="true"><span>🧳</span></div><div class="body"><div class="meta"><span>5 мин чтения</span></div><h3>Поездка с собакой или кошкой по ЕС</h3><p>Чип, прививка от бешенства и ветпаспорт: что нужно, за сколько начинать и какие страны требуют больше.</p><span class="go">Читать →</span></div></a><a class="guide reveal" style="--i:2" href="../../ru/guides/dog-walking-rules.html"><div class="thumb" aria-hidden="true"><span>🦮</span></div><div class="body"><div class="meta"><span>4 мин чтения</span></div><h3>Прогулки с собакой в Нидерландах: поводок, уборка и зоны без поводка</h3><p>Где собаке можно без поводка? Правила зависят от муниципалитета. Главное из них и советы для жары и тёмных вечеров.</p><span class="go">Читать →</span></div></a></div></div></section>
 </main>
 <footer class="foot"><div class="wrap">
 <div>
@@ -57,5 +58,15 @@
 <div class="langs" style="margin-top:16px;display:inline-flex"><a href="../../gids/" hreflang="nl" lang="nl">NL</a><a href="../../en/guides/" hreflang="en" lang="en">EN</a><a href="../../ru/guides/" hreflang="ru" lang="ru" aria-current="true">RU</a></div>
 </div>
 </div></footer>
+<script>
+(function () {
+  var items = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) { items.forEach(function (el) { el.classList.add('in'); }); return; }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+  items.forEach(function (el) { io.observe(el); });
+})();
+</script>
 </body>
 </html>

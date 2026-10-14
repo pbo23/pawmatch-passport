@@ -160,6 +160,15 @@ section { padding: 56px 0 }
   background: linear-gradient(165deg, #ffd9e6 0%, #eadcff 100%);
   display: grid; place-items: center;
 }
+.m-deck { position: relative; flex: 1; margin: 0 12px; min-height: 0 }
+.m-deck .m-card { position: absolute; inset: 0; margin: 0 }
+.m-card.c2 { background: linear-gradient(165deg, #d8ecff 0%, #e8dcff 100%) }
+.m-stamp {
+  position: absolute; top: 16px; right: 16px; width: 54px; height: 54px; border-radius: 50%;
+  display: grid; place-items: center; background: var(--brand); color: #fff; opacity: 0;
+  box-shadow: 0 6px 18px rgba(232, 75, 122, .45); transform: scale(.4) rotate(-12deg);
+}
+.m-stamp svg { width: 26px; height: 26px }
 .m-photo { font-size: 104px; line-height: 1; transform: translateY(-26px) }
 .m-dist { position: absolute; top: 12px; left: 12px; background: rgba(255, 255, 255, .75); border-radius: 99px; padding: 4px 9px; font-weight: 700; font-size: 11px }
 .m-info { position: absolute; inset: auto 0 0; padding: 40px 16px 14px; color: #fff; background: linear-gradient(transparent, rgba(40, 12, 40, .72)) }
@@ -190,7 +199,10 @@ section { padding: 56px 0 }
 .h-qr b { font-size: 14px }
 .h-qr span { font-size: 11px; opacity: .9 }
 .h-qr em { font-style: normal; font-size: 10px; font-weight: 700; background: rgba(255, 255, 255, .22); border-radius: 6px; padding: 2px 6px; align-self: flex-start; margin-top: 4px }
-.h-qr svg { width: 64px; height: 64px; background: #fff; border-radius: 8px; padding: 5px; flex: none; color: #1c1c1e }
+.qrbox { position: relative; flex: none; border-radius: 8px; overflow: hidden }
+.qrbox svg { display: block; width: 64px; height: 64px; background: #fff; padding: 5px; color: #1c1c1e }
+.scan { position: absolute; left: 4px; right: 4px; top: 6px; height: 2px; border-radius: 2px; background: #ff4f8b;
+        box-shadow: 0 0 8px 2px rgba(255, 79, 139, .55) }
 .h-sec { font-size: 10.5px; font-weight: 600; color: #8e8e93; letter-spacing: .03em; padding: 14px 18px 6px; flex: none }
 .h-list { margin: 0 12px; background: #fff; border-radius: 16px; flex: none }
 .h-row { display: flex; align-items: center; gap: 10px; padding: 9px 12px }
@@ -393,4 +405,76 @@ section { padding: 56px 0 }
   .spot-media { padding: 28px 0 }
 
   .contact .btn { align-self: stretch; padding: 0 14px }
+}
+
+/* ── Движение ──────────────────────────────────────────────
+   Только transform и opacity (кроме мелочей вроде пульса точки), чтобы не
+   грузить телефон. При «Уменьшить движение» в системе всё выключается. */
+@keyframes rise { from { opacity: 0; transform: translateY(18px) } to { opacity: 1; transform: none } }
+@keyframes phone-in { from { opacity: 0; transform: translateY(40px) scale(.96) } to { opacity: 1; transform: none } }
+@keyframes float { 0%, 100% { transform: translateY(0) rotate(0) } 50% { transform: translateY(-10px) rotate(.6deg) } }
+@keyframes drift { from { transform: translate3d(-3%, 0, 0) scale(1) } to { transform: translate3d(3%, 3%, 0) scale(1.08) } }
+@keyframes shimmer { from { background-position: 0% 50% } to { background-position: 100% 50% } }
+@keyframes ping { from { box-shadow: 0 0 0 0 rgba(232, 75, 122, .55) } to { box-shadow: 0 0 0 9px rgba(232, 75, 122, 0) } }
+@keyframes ping-green { from { box-shadow: 0 0 0 0 rgba(29, 158, 117, .5) } to { box-shadow: 0 0 0 9px rgba(29, 158, 117, 0) } }
+@keyframes scan { from { transform: translateY(0) } to { transform: translateY(52px) } }
+@keyframes nudge { 0%, 70%, 100% { transform: none } 78% { transform: scale(1.1) } 86% { transform: scale(.97) } }
+@keyframes badge { 0%, 80%, 100% { transform: none } 86% { transform: scale(1.18) rotate(-6deg) } 92% { transform: scale(.96) } }
+@keyframes wiggle { 0%, 100% { transform: none } 30% { transform: rotate(-10deg) scale(1.08) } 60% { transform: rotate(8deg) scale(1.08) } }
+@keyframes pop { 0% { transform: scale(.4) } 70% { transform: scale(1.12) } 100% { transform: none } }
+
+/* Колода «Матча», цикл 9 секунд: лайк, карточка уходит вправо, под ней следующая. */
+@keyframes deck-top {
+  0%, 30% { transform: none; opacity: 1 }
+  37% { transform: translateX(5%) rotate(3deg); opacity: 1 }
+  50% { transform: translateX(135%) rotate(20deg); opacity: 0 }
+  86% { transform: scale(.95); opacity: 0 }
+  95%, 100% { transform: none; opacity: 1 }
+}
+@keyframes deck-next {
+  0%, 37% { transform: translateY(10px) scale(.95); opacity: .75 }
+  52%, 100% { transform: none; opacity: 1 }
+}
+@keyframes stamp {
+  0%, 27% { opacity: 0; transform: scale(.4) rotate(-12deg) }
+  32%, 44% { opacity: 1; transform: scale(1) rotate(-12deg) }
+  52%, 100% { opacity: 0; transform: scale(1.1) rotate(-12deg) }
+}
+@keyframes press { 0%, 25%, 40%, 100% { transform: none } 30% { transform: scale(.86) } 35% { transform: scale(1.1) } }
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero::before { animation: drift 18s ease-in-out infinite alternate }
+  h1 .g { background: linear-gradient(90deg, #ff4f8b, #a855f7, #ff4f8b); background-size: 200% 100%;
+          -webkit-background-clip: text; background-clip: text; animation: shimmer 7s ease-in-out infinite alternate }
+  .eyebrow::before { animation: ping 2.2s ease-out infinite }
+  .soon .dot { animation: ping-green 2.4s ease-out infinite }
+
+  .hero .wrap > div:first-child > * { animation: rise .7s cubic-bezier(.2, .7, .2, 1) backwards }
+  .hero .wrap > div:first-child > :nth-child(2) { animation-delay: .08s }
+  .hero .wrap > div:first-child > :nth-child(3) { animation-delay: .16s }
+  .hero .wrap > div:first-child > :nth-child(4) { animation-delay: .24s }
+  .hero .wrap > div:first-child > :nth-child(5) { animation-delay: .32s }
+  .hero-phone { animation: phone-in .9s .2s cubic-bezier(.2, .7, .2, 1) backwards }
+  .hero-phone .phone { animation: float 7s 1.2s ease-in-out infinite }
+
+  .m-card.c1 { animation: deck-top 9s ease-in-out infinite }
+  .m-card.c2 { animation: deck-next 9s ease-in-out infinite }
+  .m-stamp { animation: stamp 9s ease-in-out infinite }
+  .a-h { animation: press 9s ease-in-out infinite }
+
+  .scan { animation: scan 2.6s ease-in-out infinite alternate }
+  .pill.warn { animation: nudge 4s ease-in-out infinite }
+  .pc-img em { animation: badge 5s ease-in-out infinite }
+  .pc:nth-child(4) .pc-img em { animation-delay: 1.4s }
+
+  /* Появление при прокрутке. Анимация с fill backwards: после неё стили
+     возвращаются к обычным, и hover-эффекты карточек работают как раньше. */
+  .js .reveal { opacity: 0 }
+  .js .reveal.in { opacity: 1; animation: rise .65s cubic-bezier(.2, .7, .2, 1) backwards;
+                   animation-delay: calc(var(--i, 0) * 80ms) }
+  .js .steps li.in::before { animation: pop .5s cubic-bezier(.2, .7, .2, 1) backwards;
+                             animation-delay: calc(var(--i, 0) * 80ms + .2s) }
+
+  .guide:hover .thumb span, .card:hover .ico { animation: wiggle .6s ease-in-out }
+  .thumb span { display: inline-block }
 }

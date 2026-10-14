@@ -2,6 +2,7 @@
 <html lang="nl">
 <head>
 <meta charset="utf-8">
+<script>document.documentElement.classList.add('js')</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Uitlaten in Nederland: aanlijnen, opruimen en losloopgebieden | PaWow</title>
 <meta name="description" content="Waar mag je hond los en waar niet? Dat verschilt per gemeente. De belangrijkste regels, plus tips voor warme dagen en donkere avonden.">
@@ -89,7 +90,7 @@ en verdwijnt na een uur vanzelf.</p></div>
 voor wat bij jou geldt op de site van je gemeente of van de terreinbeheerder.</p>
 
 </article>
-<aside class="related"><h2>Meer uit de gids</h2><div class="guides"><a class="guide" href="../gids/puppy-in-huis.html"><div class="thumb" aria-hidden="true">🐶</div><div class="body"><div class="meta"><span>6 min lezen</span></div><h3>Een pup in huis: de checklist voor de eerste weken</h3><p>Welke spullen heb je nodig voordat je pup komt, en wat regel je in de eerste weken? Van bench tot chipregistratie.</p><span class="go">Lees verder →</span></div></a><a class="guide" href="../gids/op-reis-met-huisdier.html"><div class="thumb" aria-hidden="true">🧳</div><div class="body"><div class="meta"><span>5 min lezen</span></div><h3>Op reis met je hond of kat binnen de EU</h3><p>Chip, rabiësvaccinatie en dierenpaspoort: wat je nodig hebt, hoe lang van tevoren je begint en welke landen extra eisen stellen.</p><span class="go">Lees verder →</span></div></a></div></aside>
+<aside class="related"><h2>Meer uit de gids</h2><div class="guides"><a class="guide reveal" style="--i:0" href="../gids/puppy-in-huis.html"><div class="thumb" aria-hidden="true"><span>🐶</span></div><div class="body"><div class="meta"><span>6 min lezen</span></div><h3>Een pup in huis: de checklist voor de eerste weken</h3><p>Welke spullen heb je nodig voordat je pup komt, en wat regel je in de eerste weken? Van bench tot chipregistratie.</p><span class="go">Lees verder →</span></div></a><a class="guide reveal" style="--i:1" href="../gids/op-reis-met-huisdier.html"><div class="thumb" aria-hidden="true"><span>🧳</span></div><div class="body"><div class="meta"><span>5 min lezen</span></div><h3>Op reis met je hond of kat binnen de EU</h3><p>Chip, rabiësvaccinatie en dierenpaspoort: wat je nodig hebt, hoe lang van tevoren je begint en welke landen extra eisen stellen.</p><span class="go">Lees verder →</span></div></a></div></aside>
 </main>
 <footer class="foot"><div class="wrap">
 <div>
@@ -109,5 +110,15 @@ voor wat bij jou geldt op de site van je gemeente of van de terreinbeheerder.</p
 <div class="langs" style="margin-top:16px;display:inline-flex"><a href="../gids/uitlaten-regels.html" hreflang="nl" lang="nl" aria-current="true">NL</a><a href="../en/guides/dog-walking-rules.html" hreflang="en" lang="en">EN</a><a href="../ru/guides/dog-walking-rules.html" hreflang="ru" lang="ru">RU</a></div>
 </div>
 </div></footer>
+<script>
+(function () {
+  var items = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) { items.forEach(function (el) { el.classList.add('in'); }); return; }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+  items.forEach(function (el) { io.observe(el); });
+})();
+</script>
 </body>
 </html>

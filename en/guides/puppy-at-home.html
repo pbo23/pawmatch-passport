@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>document.documentElement.classList.add('js')</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>A puppy at home: the checklist for the first weeks | PaWow</title>
 <meta name="description" content="What to get before your puppy arrives and what to arrange in the first weeks, from crate to microchip registration.">
@@ -105,7 +106,7 @@ everything at hand, even when the passport is at home, and you get a reminder wh
 microchipping and registration: <a href="https://www.rijksoverheid.nl/onderwerpen/dierenwelzijn/vraag-en-antwoord/moet-ik-mijn-hond-laten-chippen-en-registreren" hreflang="nl">Rijksoverheid</a> (in Dutch).</p>
 
 </article>
-<aside class="related"><h2>More guides</h2><div class="guides"><a class="guide" href="../../en/guides/travelling-in-the-eu.html"><div class="thumb" aria-hidden="true">🧳</div><div class="body"><div class="meta"><span>5 min read</span></div><h3>Travelling with your dog or cat in the EU</h3><p>Microchip, rabies vaccination and pet passport: what you need, how early to start and which countries ask for more.</p><span class="go">Read more →</span></div></a><a class="guide" href="../../en/guides/dog-walking-rules.html"><div class="thumb" aria-hidden="true">🦮</div><div class="body"><div class="meta"><span>4 min read</span></div><h3>Walking your dog in the Netherlands: leash rules, clean-up and off-leash areas</h3><p>Where can your dog run free? Rules differ per municipality. The key ones, plus tips for hot days and dark evenings.</p><span class="go">Read more →</span></div></a></div></aside>
+<aside class="related"><h2>More guides</h2><div class="guides"><a class="guide reveal" style="--i:0" href="../../en/guides/travelling-in-the-eu.html"><div class="thumb" aria-hidden="true"><span>🧳</span></div><div class="body"><div class="meta"><span>5 min read</span></div><h3>Travelling with your dog or cat in the EU</h3><p>Microchip, rabies vaccination and pet passport: what you need, how early to start and which countries ask for more.</p><span class="go">Read more →</span></div></a><a class="guide reveal" style="--i:1" href="../../en/guides/dog-walking-rules.html"><div class="thumb" aria-hidden="true"><span>🦮</span></div><div class="body"><div class="meta"><span>4 min read</span></div><h3>Walking your dog in the Netherlands: leash rules, clean-up and off-leash areas</h3><p>Where can your dog run free? Rules differ per municipality. The key ones, plus tips for hot days and dark evenings.</p><span class="go">Read more →</span></div></a></div></aside>
 </main>
 <footer class="foot"><div class="wrap">
 <div>
@@ -125,5 +126,15 @@ microchipping and registration: <a href="https://www.rijksoverheid.nl/onderwerpe
 <div class="langs" style="margin-top:16px;display:inline-flex"><a href="../../gids/puppy-in-huis.html" hreflang="nl" lang="nl">NL</a><a href="../../en/guides/puppy-at-home.html" hreflang="en" lang="en" aria-current="true">EN</a><a href="../../ru/guides/puppy-at-home.html" hreflang="ru" lang="ru">RU</a></div>
 </div>
 </div></footer>
+<script>
+(function () {
+  var items = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) { items.forEach(function (el) { el.classList.add('in'); }); return; }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+  items.forEach(function (el) { io.observe(el); });
+})();
+</script>
 </body>
 </html>
