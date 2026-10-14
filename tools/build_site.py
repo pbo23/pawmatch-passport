@@ -3,10 +3,11 @@
 
     python3 tools/build_site.py
 
-Пишет index.html (нидерландский — основной язык сайта: аудитория в NL и
-проверка партнёрки bol), en/index.html, ru/index.html, раздел gids/ (статьи
-только по-нидерландски), 404.html и картинки в assets/ (нужен Pillow).
-Тексты правятся здесь — сгенерированные html руками не трогать.
+Пишет лендинг на трёх языках (index.html по-нидерландски: аудитория в NL и
+проверка партнёрки bol; en/ и ru/), гид на тех же трёх языках (gids/,
+en/guides/, ru/guides/; статьи лежат в site_guides.py), 404.html и картинки
+в assets/ (нужен Pillow). Тексты правятся здесь и в site_guides.py,
+сгенерированные html руками не трогать. Длинных тире в текстах нет.
 
 passport.html (рендерер QR-ветпаспорта) и privacy/terms скрипт не трогает.
 """
@@ -14,6 +15,8 @@ import html
 import json
 import random
 from pathlib import Path
+
+from site_guides import GIDS, GUIDE_DIR, GUIDES
 
 ROOT = Path(__file__).resolve().parent.parent
 BASE = "https://pbo23.github.io/pawmatch-passport/"
@@ -34,7 +37,6 @@ def on(selected):
 
 
 CURRENT = ' aria-current="true"'
-HREFLANG_NL = ' hreflang="nl"'
 
 
 # ── Иконки ────────────────────────────────────────────────────────────────────
@@ -70,7 +72,7 @@ SVG_CHEVRON = ('<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" strok
 
 
 def fake_qr(seed=11, n=25):
-    """Узор «как QR» для макета. Не настоящий код — сканировать нечего."""
+    """Узор «как QR» для макета. Не настоящий код: сканировать нечего."""
     rnd = random.Random(seed)
     cells = [[rnd.random() < .5 for _ in range(n)] for _ in range(n)]
     for r0, c0 in ((0, 0), (0, n - 7), (n - 7, 0)):
@@ -107,7 +109,7 @@ def eur(cents, lang):
 
 T = {
     "nl": {
-        "title": "PaWow – alles voor je huisdier, in één app",
+        "title": "PaWow: alles voor je huisdier in één app",
         "desc": ("PaWow is een iPhone-app voor huisdiereigenaren in Nederland: vind speelmaatjes in de buurt, houd "
                  "vaccinaties en dierenartsbezoeken bij, deel een QR-dierenpaspoort met je dierenarts en vind "
                  "dierenartsen en trimsalons om de hoek."),
@@ -125,7 +127,7 @@ T = {
         "features_h2": "Wat je met PaWow kunt",
         "features_lead": "Van de eerste ontmoeting in het park tot de jaarlijkse controle: alles rond je huisdier op één plek.",
         "features": [
-            ("💞", "Matchen", "Vind speelmaatjes – of een partner – voor je hond of kat bij jou in de buurt. Filter op ras "
+            ("💞", "Matchen", "Vind speelmaatjes of een partner voor je hond of kat bij jou in de buurt. Filter op ras "
                              "en afstand, en chat met de eigenaar zodra het klikt."),
             ("🩺", "Gezondheidsdossier", "Vaccinaties, medicijnen en bezoeken aan de dierenarts op één plek, met "
                                         "herinneringen op je telefoon."),
@@ -145,7 +147,7 @@ T = {
         "health_text": ("Vaccinaties, medicijnen, chipnummer en bezoeken aan de dierenarts: in PaWow staat alles op één "
                         "plek, ook als het papieren paspoort thuis in een la ligt."),
         "health_points": [
-            "Herinneringen voor de volgende vaccinatie, controle of medicijnen – gewoon op je telefoon.",
+            "Herinneringen voor de volgende vaccinatie, controle of medicijnen, gewoon op je telefoon.",
             "Een QR-link voor de dierenarts: 7 dagen geldig en op elk moment in te trekken.",
             "De kliniek stuurt de factuur via dezelfde link terug, zodat jij hem kunt doorsturen naar je verzekeraar.",
         ],
@@ -193,7 +195,7 @@ T = {
         "privacy_text": "We bewaren alleen wat nodig is om de app te laten werken, en jij houdt de regie.",
         "privacy_points": [
             "Opgeslagen in datacenters in de EU.",
-            "Medische gegevens zie alleen jij – en de dierenarts, als jij een QR-link deelt.",
+            "Medische gegevens zie alleen jij, en de dierenarts als jij een QR-link deelt.",
             "Anderen zien de locatie van je huisdier alleen afgerond.",
             "We verkopen je gegevens niet en gebruiken ze niet voor advertenties.",
             "Account verwijderen? Dan wissen we alles, ook je dieren en berichten.",
@@ -211,7 +213,7 @@ T = {
              "Voor honden, katten, vogels, konijnen en andere huisdieren. Samen wandelen is er alleen voor honden."),
             ("Wie kan de gegevens van mijn huisdier zien?",
              "Naam, ras en foto van je huisdier zien andere gebruikers bij het matchen, in de feed en op de wandelkaart. "
-             "Medische gegevens, documenten en berichten zie alleen jij – en degene met wie je chat of een QR-link deelt."),
+             "Medische gegevens, documenten en berichten zie alleen jij, plus degene met wie je chat of een QR-link deelt."),
             ("Verkoopt PaWow zelf producten?",
              'Nee. De catalogus verwijst naar webwinkels; daar bestel en betaal je. Lees <a href="#partners">hoe '
              'partnerlinks werken</a>.'),
@@ -220,7 +222,7 @@ T = {
         "about_h2": "Over PaWow",
         "about": [
             "PaWow is een onafhankelijke app voor huisdiereigenaren in Nederland. We bouwen hem stap voor stap, samen met "
-            "de eerste gebruikers – elke reactie helpt.",
+            "de eerste gebruikers. Elke reactie helpt.",
             "Ben je dierenarts, trimsalon of asiel en wil je in PaWow zichtbaar zijn? Laat het ons weten.",
         ],
         "contact_h3": "Contact",
@@ -251,7 +253,7 @@ T = {
         },
     },
     "en": {
-        "title": "PaWow – everything for your pet, in one app",
+        "title": "PaWow: everything for your pet in one app",
         "desc": ("PaWow is an iPhone app for pet owners in the Netherlands: find playmates nearby, keep track of "
                  "vaccinations and vet visits, share a QR vet passport with your clinic and find vets and groomers "
                  "around the corner."),
@@ -269,7 +271,7 @@ T = {
         "features_h2": "What you can do with PaWow",
         "features_lead": "From the first meeting in the park to the yearly check-up: everything about your pet in one place.",
         "features": [
-            ("💞", "Matching", "Find playmates – or a mate – for your dog or cat nearby. Filter by breed and distance, and "
+            ("💞", "Matching", "Find playmates or a mate for your dog or cat nearby. Filter by breed and distance, and "
                               "chat with the owner once it clicks."),
             ("🩺", "Health record", "Vaccinations, medication and vet visits in one place, with reminders on your phone."),
             ("🔳", "QR vet passport", "Your vet scans a QR code and instantly sees vaccinations, the microchip number and "
@@ -288,7 +290,7 @@ T = {
         "health_text": ("Vaccinations, medication, the microchip number and vet visits: PaWow keeps it all in one place, "
                         "even when the paper passport is in a drawer at home."),
         "health_points": [
-            "Reminders for the next vaccination, check-up or medication – right on your phone.",
+            "Reminders for the next vaccination, check-up or medication, right on your phone.",
             "A QR link for the vet: valid for 7 days and revocable at any time.",
             "The clinic sends the invoice back through the same link, so you can forward it to your insurer.",
         ],
@@ -311,10 +313,10 @@ T = {
         ],
         "guides_kicker": "Guides",
         "guides_h2": "Guides for pet owners",
-        "guides_lead": ("Practical articles we write ourselves – about the first weeks with a puppy, travelling with your "
-                        "pet and the rules for walking your dog. The articles are in Dutch."),
-        "guides_all": "All articles (in Dutch) →",
-        "read": "Read (in Dutch) →",
+        "guides_lead": ("Practical articles we write ourselves: about the first weeks with a puppy, travelling with your "
+                        "pet and the rules for walking your dog."),
+        "guides_all": "All guides →",
+        "read": "Read more →",
         "min": "min read",
         "partners_kicker": "Affiliate links",
         "partners_h2": "Open about affiliate links",
@@ -334,7 +336,7 @@ T = {
         "privacy_text": "We keep only what the app needs to work, and you stay in control.",
         "privacy_points": [
             "Stored in data centres in the EU.",
-            "Medical records are visible only to you – and to your vet, if you share a QR link.",
+            "Medical records are visible only to you, and to your vet if you share a QR link.",
             "Other people only see your pet's location rounded.",
             "We never sell your data or use it for advertising.",
             "Delete your account and we erase everything, including your pets and messages.",
@@ -352,7 +354,7 @@ T = {
              "Dogs, cats, birds, rabbits and other pets. Walking together is for dogs only."),
             ("Who can see my pet's data?",
              "Your pet's name, breed and photo are visible to other users in matching, in the feed and on the walks map. "
-             "Medical records, documents and messages are visible only to you – and to whoever you chat with or share a "
+             "Medical records, documents and messages are visible only to you and to whoever you chat with or share a "
              "QR link with."),
             ("Does PaWow sell products itself?",
              'No. The catalog links to web shops, where you order and pay. Read <a href="#partners">how affiliate links '
@@ -362,7 +364,7 @@ T = {
         "about_h2": "About PaWow",
         "about": [
             "PaWow is an independent app for pet owners in the Netherlands. We are building it step by step, together with "
-            "our first users – every bit of feedback helps.",
+            "our first users. Every bit of feedback helps.",
             "Are you a vet, groomer or shelter and would you like to be visible in PaWow? Let us know.",
         ],
         "contact_h3": "Contact",
@@ -393,15 +395,15 @@ T = {
         },
     },
     "ru": {
-        "title": "PaWow — всё для питомца в одном приложении",
-        "desc": ("PaWow — приложение для iPhone для владельцев питомцев в Нидерландах: друзья и пара для питомца рядом, "
+        "title": "PaWow: всё для питомца в одном приложении",
+        "desc": ("PaWow: приложение для iPhone для владельцев питомцев в Нидерландах. Друзья и пара для питомца рядом, "
                  "прививки и визиты к ветеринару, QR-ветпаспорт для клиники, ветклиники и груминг-салоны поблизости."),
         "skip": "К содержимому",
         "nav": [("features", "Возможности"), ("how", "Как это работает"), ("partners", "Партнёрские ссылки"),
                 ("contact", "Контакты")],
         "nav_guide": "Гайды",
         "eyebrow": "Бета-версия для iPhone",
-        "h1": 'Всё для питомца — <span class="g">в одном приложении</span>',
+        "h1": 'Всё для питомца <span class="g">в одном приложении</span>',
         "lead": ("Находите друзей и пару для питомца рядом, храните прививки и визиты к ветеринару в одном месте и "
                  "показывайте ветпаспорт одним QR-кодом. PaWow сделан для владельцев собак и кошек в Нидерландах."),
         "cta": "Что умеет PaWow",
@@ -412,17 +414,17 @@ T = {
         "features_lead": "От первого знакомства в парке до ежегодного осмотра: всё о питомце в одном месте.",
         "features": [
             ("💞", "Матч", "Друзья для игр или пара для собаки или кошки рядом с вами. Фильтр по породе и расстоянию, а "
-                          "когда симпатия взаимна — чат с владельцем."),
+                          "когда симпатия взаимна, можно написать владельцу."),
             ("🩺", "Медкарта", "Прививки, препараты и визиты к ветеринару в одном месте, с напоминаниями на телефоне."),
             ("🔳", "QR-ветпаспорт", "Ветеринар сканирует QR-код и сразу видит прививки, номер чипа и прошлые визиты. По "
                                    "той же ссылке клиника может прислать счёт."),
             ("🐕", "Прогулки вместе", "Смотрите, какие собаки гуляют рядом прямо сейчас, и присоединяйтесь. Своё место "
                                      "вы показываете, только когда сами начинаете прогулку."),
-            ("📸", "Лента", "Делитесь фото питомца и смотрите, что публикуют другие. Понравился профиль — поставьте лайк "
+            ("📸", "Лента", "Делитесь фото питомца и смотрите, что публикуют другие. Понравился профиль? Поставьте лайк "
                            "прямо из ленты."),
-            ("📍", "Услуги рядом", "Ветклиники, груминг-салоны и зоомагазины поблизости — на карте."),
-            ("🛍️", "Каталог товаров", "Корм, игрушки и средства ухода из интернет-магазинов bol и Zooplus — с учётом "
-                                     "вида питомца. Заказ — как обычно, на сайте магазина."),
+            ("📍", "Услуги рядом", "Ветклиники, груминг-салоны и зоомагазины поблизости, на карте."),
+            ("🛍️", "Каталог товаров", "Корм, игрушки и средства ухода из интернет-магазинов bol и Zooplus с учётом "
+                                     "вида питомца. Заказ как обычно, на сайте магазина."),
             ("🏠", "Усыновление", "Животные из приютов поблизости, которые ищут дом."),
         ],
         "health_kicker": "Здоровье",
@@ -430,34 +432,34 @@ T = {
         "health_text": ("Прививки, препараты, номер чипа и визиты к ветеринару: в PaWow всё в одном месте, даже если "
                         "бумажный паспорт остался дома в ящике стола."),
         "health_points": [
-            "Напоминания о следующей прививке, осмотре или приёме препарата — прямо на телефоне.",
+            "Напоминания о следующей прививке, осмотре или приёме препарата, прямо на телефоне.",
             "QR-ссылка для ветеринара: действует 7 дней, отозвать можно в любой момент.",
             "По той же ссылке клиника присылает счёт, и вы пересылаете его в страховую.",
         ],
         "catalog_kicker": "Каталог",
-        "catalog_h2": "Всё нужное для питомца — без долгих поисков",
+        "catalog_h2": "Всё нужное для питомца без долгих поисков",
         "catalog_text": ("В каталоге собраны корм, игрушки, аксессуары и средства ухода из интернет-магазинов bol и "
-                         "Zooplus — с учётом того, какой у вас питомец."),
+                         "Zooplus, с учётом того, какой у вас питомец."),
         "catalog_points": [
             "Фильтр по виду: для собак, для кошек или всё.",
             "Цена, скидка и срок доставки сразу видны. Цены обновляются ежедневно.",
-            "Заказ и оплата — на сайте магазина, с его сервисом и условиями возврата.",
+            "Заказ и оплата на сайте магазина, с его сервисом и условиями возврата.",
         ],
         "catalog_link": "Как работают партнёрские ссылки →",
         "how_kicker": "Как это работает",
-        "how_h2": "Три шага — и готово",
+        "how_h2": "Три шага, и готово",
         "steps": [
             ("Создайте анкету", "Кличка, вид, порода, дата рождения и фото. Несколько питомцев? Переключение одним "
                                "касанием."),
-            ("Наведите порядок в здоровье", "Добавьте прививки и визиты — PaWow напомнит, когда подойдёт срок."),
+            ("Наведите порядок в здоровье", "Добавьте прививки и визиты, и PaWow напомнит, когда подойдёт срок."),
             ("Откройте свой район", "Матчи, компания для прогулок, ветклиники и груминг-салоны рядом."),
         ],
         "guides_kicker": "Гайды",
         "guides_h2": "Гайды для владельцев",
         "guides_lead": ("Практичные статьи, которые мы пишем сами: первые недели со щенком, поездки с питомцем и "
-                        "правила выгула. Статьи на нидерландском."),
-        "guides_all": "Все статьи (на нидерландском) →",
-        "read": "Читать (на нидерландском) →",
+                        "правила выгула."),
+        "guides_all": "Все гайды →",
+        "read": "Читать →",
         "min": "мин чтения",
         "partners_kicker": "Партнёрские ссылки",
         "partners_h2": "Честно о партнёрских ссылках",
@@ -465,9 +467,9 @@ T = {
         "partners": [
             ("Комиссия без наценки", "Если вы покупаете что-то по ссылке из нашего каталога, магазин платит PaWow "
                                      "небольшую комиссию. Для вас цена не меняется."),
-            ("Покупка — в магазине", "Сами мы ничего не продаём. Заказ, оплата, доставка и возврат — у магазина, по "
-                                     "его правилам."),
-            ("Главная цена — у магазина", "Цены мы обновляем ежедневно, но решающая — цена на сайте магазина."),
+            ("Покупка в магазине", "Сами мы ничего не продаём. Заказ, оплата, доставка и возврат проходят через "
+                                     "магазин, по его правилам."),
+            ("Главная цена у магазина", "Цены мы обновляем ежедневно, но решает цена на сайте магазина."),
             ("Чёткая пометка", "Партнёрские ссылки в приложении помечены, а ваши личные данные магазину мы не "
                                "передаём."),
             ("Честные советы", "Статьи мы пишем сами. Комиссия не влияет на то, что мы советуем."),
@@ -477,10 +479,10 @@ T = {
         "privacy_text": "Мы храним только то, что нужно для работы приложения, а управляете ими вы.",
         "privacy_points": [
             "Хранятся в дата-центрах в ЕС.",
-            "Медицинские записи видите только вы — и ветеринар, если вы поделились QR-ссылкой.",
+            "Медицинские записи видите только вы и ветеринар, если вы поделились QR-ссылкой.",
             "Другим пользователям местоположение питомца показывается только округлённым.",
             "Мы не продаём данные и не используем их для рекламы.",
-            "Удалите аккаунт — и мы сотрём всё, включая питомцев и переписку.",
+            "Если удалить аккаунт, мы сотрём всё, включая питомцев и переписку.",
         ],
         "privacy_link": "Полная политика конфиденциальности",
         "faq_kicker": "Вопросы",
@@ -492,20 +494,20 @@ T = {
             ("Есть ли версия для Android?", "Пока нет: PaWow сейчас только для iPhone."),
             ("На каких языках приложение?", "На английском и русском."),
             ("Для каких животных PaWow?",
-             "Для собак, кошек, птиц, кроликов и других питомцев. Совместные прогулки — только для собак."),
+             "Для собак, кошек, птиц, кроликов и других питомцев. Совместные прогулки есть только для собак."),
             ("Кто видит данные моего питомца?",
-             "Кличку, породу и фото питомца видят другие пользователи — в подборе пар, в ленте и на карте прогулок. "
-             "Медицинские записи, документы и переписку видите только вы — и тот, с кем вы переписываетесь или кому "
+             "Кличку, породу и фото питомца видят другие пользователи: в подборе пар, в ленте и на карте прогулок. "
+             "Медицинские записи, документы и переписку видите только вы и тот, с кем вы переписываетесь или кому "
              "отправили QR-ссылку."),
             ("PaWow сам продаёт товары?",
-             'Нет. Каталог ведёт в интернет-магазины — заказ и оплата там. Подробнее — <a href="#partners">как работают '
+             'Нет. Каталог ведёт в интернет-магазины, заказ и оплата там. Подробнее: <a href="#partners">как работают '
              'партнёрские ссылки</a>.'),
         ],
         "about_kicker": "О нас",
         "about_h2": "О PaWow",
         "about": [
-            "PaWow — независимое приложение для владельцев питомцев в Нидерландах. Мы делаем его шаг за шагом, вместе с "
-            "первыми пользователями, — любой отзыв помогает.",
+            "Мы делаем PaWow, независимое приложение для владельцев питомцев в Нидерландах, шаг за шагом и вместе с "
+            "первыми пользователями. Любой отзыв помогает.",
             "Вы ветклиника, груминг-салон или приют и хотите появиться в PaWow? Напишите нам.",
         ],
         "contact_h3": "Контакты",
@@ -535,236 +537,6 @@ T = {
                          ("🐟", "Корм для щенков лосось, 3 кг", "zooplus", 1699, 1999)],
         },
     },
-}
-
-
-# ── Статьи (только нидерландский) ─────────────────────────────────────────────
-
-RIJKSOVERHEID_CHIP = ("https://www.rijksoverheid.nl/onderwerpen/dierenwelzijn/vraag-en-antwoord/"
-                      "moet-ik-mijn-hond-laten-chippen-en-registreren")
-RIJKSOVERHEID_TRAVEL = ("https://www.rijksoverheid.nl/onderwerpen/dierenwelzijn/vraag-en-antwoord/"
-                        "mag-mijn-kat-of-hond-mee-op-vakantie")
-NVWA_EU = "https://www.nvwa.nl/onderwerpen/op-reis-met-mijn-huisdier/dier-mee-binnen-eu/hond-of-kat"
-NVWA_ALL = "https://www.nvwa.nl/onderwerpen/op-reis-met-mijn-huisdier"
-
-GUIDES = [
-    {
-        "slug": "puppy-in-huis", "emoji": "🐶", "minutes": 6,
-        "title": {"nl": "Een pup in huis: de checklist voor de eerste weken",
-                  "en": "A puppy at home: the checklist for the first weeks",
-                  "ru": "Щенок дома: чек-лист на первые недели"},
-        "excerpt": {"nl": "Welke spullen heb je nodig voordat je pup komt, en wat regel je in de eerste weken? Van bench "
-                          "tot chipregistratie.",
-                    "en": "What to get before your puppy arrives and what to arrange in the first weeks – from crate to "
-                          "microchip registration.",
-                    "ru": "Что купить до приезда щенка и что оформить в первые недели — от клетки-домика до регистрации "
-                          "чипа."},
-        "body": f"""
-<p class="intro">Een pup ophalen is spannend, en de eerste dagen vliegen voorbij. Met deze lijst heb je de spullen klaar
-voordat hij er is, en weet je wat je in de eerste weken moet regelen.</p>
-
-<h2>Vóór de pup komt: de spullen</h2>
-<h3>Een eigen plek: bench of mand</h3>
-<p>Een bench geeft je pup een veilige plek om te slapen en tot rust te komen, en helpt bij de zindelijkheidstraining: een
-hond plast niet graag waar hij slaapt. Kies een bench waarin je hond als volwassene kan staan, draaien en liggen; met een
-tussenschot maak je hem kleiner zolang de pup nog klein is. Leg er een kussen of kleed in en zet hem op een rustige plek
-waar je pup jullie wel kan zien.</p>
-<h3>Voer- en drinkbak</h3>
-<p>Kies bakken van rvs of keramiek: ze zijn stevig, kantelen minder snel en zijn makkelijk schoon te houden. Zet altijd
-vers water klaar.</p>
-<h3>Puppyvoer</h3>
-<p>Vraag de fokker of het asiel welk voer je pup nu krijgt en houd dat de eerste weken aan: de verhuizing is al spannend
-genoeg. Wil je overstappen, doe dat dan geleidelijk in ongeveer een week, door steeds iets meer nieuw voer door het oude
-te mengen. Kies voer dat geschikt is voor pups en past bij het formaat dat je hond later krijgt.</p>
-<h3>Halsband of tuigje, riem en penning</h3>
-<p>Je pup groeit de eerste maanden hard, dus een licht en verstelbaar tuigje of halsbandje is handig. Een riem van 1,5 tot
-2 meter werkt goed voor de dagelijkse rondjes. Hang een penning met je telefoonnummer aan de halsband.</p>
-<h3>Speelgoed en kauwmateriaal</h3>
-<p>Pups wisselen tussen ongeveer drie en zeven maanden hun tanden en willen dan op alles kauwen. Stevig kauwspeelgoed dat
-bij hun formaat past, spaart je schoenen en stoelpoten. Wissel het speelgoed af, dan blijft het interessant.</p>
-<h3>Handig om in huis te hebben</h3>
-<ul>
-<li>Poepzakjes, voor elk rondje.</li>
-<li>Een reiniger met enzymen: die breekt de geur van een ongelukje echt af, zodat je pup niet terugkomt naar dezelfde
-plek.</li>
-<li>Kleine, zachte beloningssnoepjes voor de training.</li>
-<li>Een borstel of kam die past bij de vacht van het ras.</li>
-<li>Een kauwartikel of likmat voor de momenten dat je pup even alleen moet zijn.</li>
-</ul>
-
-<h2>Maak je huis puppy-proof</h2>
-<p>Een pup ontdekt de wereld met zijn bek. Berg snoeren, schoenen, medicijnen en schoonmaakmiddelen op, en zet een hekje
-voor de trap. Let ook op wat er binnen handbereik ligt: chocolade, druiven en rozijnen, ui en xylitol (een zoetstof in
-onder meer suikervrije kauwgom) zijn giftig voor honden. Ook sommige kamer- en tuinplanten zijn giftig; zoek het op als je
-twijfelt.</p>
-
-<h2>De eerste weken: dit regel je</h2>
-<h3>Chip en registratie op jouw naam</h3>
-<p>In Nederland moet elke hond binnen 7 weken na de geboorte gechipt en geregistreerd zijn, dus je pup heeft al een chip
-als je hem ophaalt. Hij hoort ook een Europees dierenpaspoort te hebben. Controleer bij het ophalen of het chipnummer in
-het paspoort klopt. Daarna geef je online door dat jij de nieuwe eigenaar bent.</p>
-<h3>Kennismaken met de dierenarts</h3>
-<p>Plan in de eerste week of twee een eerste bezoek. De dierenarts controleert de gezondheid van je pup en bespreekt het
-vaccinatieschema en het ontwormen. Vaak heeft je pup bij de fokker of het asiel al een eerste vaccinatie gehad; die staat
-dan in het paspoort.</p>
-<h3>Hondenbelasting</h3>
-<p>Veel gemeenten heffen hondenbelasting. Hoeveel het is en hoe je je hond aanmeldt, verschilt per gemeente; je vindt het
-op de site van je gemeente.</p>
-<h3>Een verzekering overwegen</h3>
-<p>Een behandeling bij de dierenarts kan flink in de papieren lopen. Bekijk of een dierenverzekering bij je past, en let
-goed op wat er wel en niet onder valt, zoals erfelijke aandoeningen en het eigen risico.</p>
-<h3>Puppycursus en socialisatie</h3>
-<p>In de eerste levensmaanden went je pup het makkelijkst aan nieuwe mensen, dieren, geluiden en plekken. Laat hem rustig
-en in kleine stapjes veel verschillende dingen meemaken. Een puppycursus helpt daarbij, en je leert er de basis: zit, af,
-hier en netjes aan de lijn lopen.</p>
-<h3>Zindelijk worden</h3>
-<p>Breng je pup naar buiten na het wakker worden, na het eten, na het spelen en verder om de paar uur. Beloon hem meteen
-als hij buiten plast. Gaat het binnen mis, ruim het dan op zonder boos te worden: straffen werkt averechts.</p>
-
-<div class="tip"><p><b>Tip:</b> zet het chipnummer, de vaccinaties en de afspraken bij de dierenarts in PaWow. Dan heb je
-alles bij de hand, ook als het paspoort thuis ligt, en krijg je een herinnering als de volgende vaccinatie eraan
-komt.</p></div>
-
-<p class="disclaimer">Dit artikel geeft algemene informatie en vervangt geen advies van je dierenarts. Regels rond chippen
-en registreren: <a href="{RIJKSOVERHEID_CHIP}">Rijksoverheid</a>.</p>
-""",
-    },
-    {
-        "slug": "op-reis-met-huisdier", "emoji": "🧳", "minutes": 5,
-        "title": {"nl": "Op reis met je hond of kat binnen de EU",
-                  "en": "Travelling with your dog or cat in the EU",
-                  "ru": "Поездка с собакой или кошкой по ЕС"},
-        "excerpt": {"nl": "Chip, rabiësvaccinatie en dierenpaspoort: wat je nodig hebt, hoe lang van tevoren je begint en "
-                          "welke landen extra eisen stellen.",
-                    "en": "Microchip, rabies vaccination and pet passport: what you need, how early to start and which "
-                          "countries ask for more.",
-                    "ru": "Чип, прививка от бешенства и ветпаспорт: что нужно, за сколько начинать и какие страны "
-                          "требуют больше."},
-        "body": f"""
-<p class="intro">Ga je met je hond of kat op vakantie in Europa? Binnen de EU gelden dezelfde basisregels voor huisdieren.
-Begin wel op tijd: sommige stappen kosten minstens drie weken.</p>
-
-<h2>De drie basisvoorwaarden</h2>
-<h3>1. Een chip</h3>
-<p>Je dier moet gechipt zijn vóór of op hetzelfde moment als de vaccinatie tegen rabiës (hondsdolheid). Een
-rabiësvaccinatie die vóór het chippen is gegeven, telt voor reizen niet mee.</p>
-<h3>2. Een geldige rabiësvaccinatie</h3>
-<p>De eerste vaccinatie tegen rabiës mag vanaf een leeftijd van 12 weken. Daarna wacht je minstens 21 dagen voordat je met
-je dier de grens over mag. Laat de vaccinatie op tijd herhalen: is hij eenmaal verlopen, dan telt de nieuwe prik weer als
-eerste vaccinatie en begint de wachttijd opnieuw.</p>
-<h3>3. Een Europees dierenpaspoort</h3>
-<p>In het paspoort staan onder meer het chipnummer en de rabiësvaccinatie, ingevuld door de dierenarts. Neem het altijd mee
-op reis: bij een controle moet je het kunnen laten zien.</p>
-
-<h2>Extra eisen per land</h2>
-<p>Reis je met je hond naar Ierland, Finland, Malta, Noorwegen of Noord-Ierland? Dan moet hij 1 tot 5 dagen (24 tot 120
-uur) vóór aankomst door een dierenarts behandeld zijn tegen de lintworm <i>Echinococcus multilocularis</i>. De dierenarts
-noteert de behandeling in het paspoort.</p>
-<p>Voor landen buiten de EU gelden vaak andere regels, en ook voor de terugreis naar Nederland kunnen strengere eisen
-gelden dan voor de heenreis. Kijk voor je bestemming op de site van de <a href="{NVWA_ALL}">NVWA</a>.</p>
-
-<h2>Zo plan je het</h2>
-<ol class="timeline">
-<li><b>Een paar maanden vooraf</b>Check of de chip leesbaar is, of het paspoort compleet is en tot wanneer de
-rabiësvaccinatie geldig is.</li>
-<li><b>Minstens 21 dagen vooraf</b>De eerste rabiësvaccinatie, als je dier die nog niet heeft.</li>
-<li><b>1 tot 5 dagen vóór aankomst</b>De lintwormbehandeling, als je bestemming die vraagt.</li>
-<li><b>Bij vertrek</b>Paspoort, riem, water, voer- en drinkbak, poepzakjes, eventuele medicijnen en iets dat naar huis
-ruikt.</li>
-</ol>
-
-<h2>Onderweg met de auto</h2>
-<p>Vervoer je dier vastgezet: in een bench of met een autogordel voor honden. Plan elke twee tot drie uur een pauze om te
-drinken, te plassen en de poten te strekken. Laat je dier nooit achter in een geparkeerde auto als het warm is: binnen een
-paar minuten kan het daar levensgevaarlijk heet worden.</p>
-
-<h2>Naar de dierenarts in het buitenland</h2>
-<p>Moet je onderweg naar een dierenarts? Dan scheelt het veel als je de medische geschiedenis van je dier bij de hand
-hebt.</p>
-<div class="tip"><p><b>Tip:</b> met het QR-dierenpaspoort in PaWow laat je een dierenarts in het buitenland in een paar
-seconden de vaccinaties, het chipnummer en eerdere bezoeken zien, in het Engels. Het officiële Europese dierenpaspoort
-blijft wel verplicht.</p></div>
-
-<p class="disclaimer">Dit artikel geeft algemene informatie; regels kunnen veranderen. Check vlak voor vertrek de actuele
-eisen bij de <a href="{NVWA_EU}">NVWA</a> en de <a href="{RIJKSOVERHEID_TRAVEL}">Rijksoverheid</a>.</p>
-""",
-    },
-    {
-        "slug": "uitlaten-regels", "emoji": "🦮", "minutes": 4,
-        "title": {"nl": "Uitlaten in Nederland: aanlijnen, opruimen en losloopgebieden",
-                  "en": "Walking your dog in the Netherlands: leash rules, clean-up and off-leash areas",
-                  "ru": "Прогулки с собакой в Нидерландах: поводок, уборка и зоны без поводка"},
-        "excerpt": {"nl": "Waar mag je hond los en waar niet? Dat verschilt per gemeente. De belangrijkste regels, plus "
-                          "tips voor warme dagen en donkere avonden.",
-                    "en": "Where can your dog run free? Rules differ per municipality. The key ones, plus tips for hot "
-                          "days and dark evenings.",
-                    "ru": "Где собаке можно без поводка? Правила зависят от муниципалитета. Главное — и советы для жары "
-                          "и тёмных вечеров."},
-        "body": """
-<p class="intro">Waar mag je hond los, en waar moet hij aan de lijn? In Nederland bepaalt vooral je gemeente dat. Dit zijn
-de regels waar je in de praktijk mee te maken krijgt.</p>
-
-<h2>Elke gemeente heeft eigen regels</h2>
-<p>Gemeenten leggen hun hondenregels vast in de Algemene Plaatselijke Verordening (APV), vaak met een kaart van
-uitlaatzones. Een veelvoorkomende regel is dat honden binnen de bebouwde kom aan de lijn moeten, behalve in aangewezen
-losloopgebieden. Zoek op de site van je gemeente naar ‘honden’ of ‘hondenkaart’ voor wat er bij jou geldt.</p>
-
-<h2>Opruimplicht</h2>
-<p>In de meeste gemeenten moet je de poep van je hond opruimen, en vaak moet je ook een poepzakje bij je hebben. Wie dat
-niet doet, riskeert een boete.</p>
-
-<h2>Losloopgebieden</h2>
-<p>In een losloopgebied mag je hond vrij rennen, zolang je hem onder appel hebt. Roep je hond bij je als er kinderen,
-fietsers of andere honden aankomen, en ruim ook hier de poep op.</p>
-
-<h2>Natuurgebieden en het broedseizoen</h2>
-<p>In veel bossen en natuurgebieden moeten honden aan de lijn, vaak met aparte losloopgebieden. In het broedseizoen,
-grofweg van half maart tot half juli, gelden op veel plekken strengere regels om vogels te beschermen die op de grond
-broeden. Kijk op de borden bij de ingang of op de site van de beheerder, zoals Staatsbosbeheer of Natuurmonumenten.</p>
-
-<h2>Op het strand</h2>
-<p>Op veel stranden zijn honden in het zomerseizoen overdag niet of alleen aangelijnd welkom; buiten het seizoen mag vaak
-meer. Ook dit verschilt per gemeente, en soms per strandopgang.</p>
-
-<h2>Hondenbelasting</h2>
-<p>Veel gemeenten heffen hondenbelasting, maar niet allemaal: een deel heeft hem afgeschaft. Meld je hond aan als jouw
-gemeente die belasting heft.</p>
-
-<h2>Wat neem je mee?</h2>
-<ul>
-<li>Een riem, ook in een losloopgebied: je weet nooit wanneer je hem nodig hebt.</li>
-<li>Poepzakjes, genoeg voor het hele rondje.</li>
-<li>Water en een opvouwbare drinkbak op warme dagen.</li>
-<li>Beloningssnoepjes, om het terugkomen te oefenen.</li>
-<li>In het donker: een lichtgevende halsband of een lampje, zodat je hond goed zichtbaar is.</li>
-</ul>
-
-<h2>Warm weer</h2>
-<p>Asfalt en tegels kunnen in de zon zo heet worden dat je hond zijn voetzolen verbrandt. Leg je hand vijf seconden op de
-grond: is het voor jou te heet, dan ook voor je hond. Wandel op warme dagen vroeg in de ochtend of ’s avonds, en kies
-schaduw en gras.</p>
-
-<div class="tip"><p><b>Tip:</b> met Wandelen in PaWow zie je welke honden er nu bij jou in de buurt lopen, zodat je samen
-een rondje kunt doen. Je plek wordt alleen gedeeld als je zelf een wandeling start, afgerond tot ongeveer een huizenblok,
-en verdwijnt na een uur vanzelf.</p></div>
-
-<p class="disclaimer">Dit artikel geeft algemene informatie. De regels verschillen per gemeente en per natuurgebied; kijk
-voor wat bij jou geldt op de site van je gemeente of van de terreinbeheerder.</p>
-""",
-    },
-]
-
-GIDS = {
-    "title": "Gids voor baasjes – PaWow",
-    "h1": "Gids voor baasjes",
-    "lead": ("Praktische artikelen over het leven met je hond of kat in Nederland. We schrijven ze zelf en houden ze "
-             "actueel."),
-    "desc": ("Praktische artikelen voor hondenbaasjes en kattenmensen in Nederland: een pup in huis, op reis binnen de EU "
-             "en de regels voor het uitlaten."),
-    "updated": "Bijgewerkt op 14 oktober 2026",
-    "by": "Door de redactie van PaWow",
-    "more": "Meer uit de gids",
-    "crumb_home": "Home",
 }
 
 
@@ -832,17 +604,26 @@ def phone_catalog(m, lang):
 
 
 # ── Каркас страницы ───────────────────────────────────────────────────────────
+#
+# У каждой страницы есть адреса на всех трёх языках (`paths`): по ним строятся
+# переключатель языка и hreflang. Переключатель ведёт на ту же страницу в
+# другом языке, а не на главную.
 
-def lang_href(lang, root):
-    return (root + LANG_PATH[lang]) or "./"
+def root_of(path):
+    """Путь от страницы до корня сайта: "" → "", "en/" → "../", "en/guides/a.html" → "../../"."""
+    return "../" * path.count("/")
 
 
-def head(*, lang, title, desc, path, root, alternates=False, early="", extra=""):
+def rel(root, path):
+    return (root + path) or "./"
+
+
+def head(*, lang, title, desc, path, root, alternates=None, early="", extra=""):
     canonical = BASE + path
     alt = ""
     if alternates:
-        alt = "".join(f'<link rel="alternate" hreflang="{l}" href="{BASE + LANG_PATH[l]}">\n' for l in LANGS)
-        alt += f'<link rel="alternate" hreflang="x-default" href="{BASE}">\n'
+        alt = "".join(f'<link rel="alternate" hreflang="{l}" href="{BASE + alternates[l]}">\n' for l in LANGS)
+        alt += f'<link rel="alternate" hreflang="x-default" href="{BASE + alternates["nl"]}">\n'
     return f"""<!doctype html>
 <html lang="{lang}">
 <head>
@@ -867,35 +648,33 @@ def head(*, lang, title, desc, path, root, alternates=False, early="", extra="")
 """
 
 
-def header(*, t, root, lang, on_landing, langs):
-    home = lang_href(lang, root)
+def lang_switch(root, lang, paths):
+    return "".join(
+        f'<a href="{rel(root, paths[code])}" hreflang="{code}" lang="{code}"{CURRENT if code == lang else ""}>'
+        f'{code.upper()}</a>'
+        for code in LANGS
+    )
+
+
+def header(*, t, root, lang, on_landing, paths):
+    home = rel(root, LANG_PATH[lang])
     pre = "" if on_landing else home
     links = [f'<a href="{pre}#{anchor}">{esc(label)}</a>' for anchor, label in t["nav"][:2]]
-    links.append(f'<a class="keep" href="{root}gids/">{esc(t["nav_guide"])}</a>')
+    links.append(f'<a class="keep" href="{rel(root, GUIDE_DIR[lang])}">{esc(t["nav_guide"])}</a>')
     links += [f'<a href="{pre}#{anchor}">{esc(label)}</a>' for anchor, label in t["nav"][2:]]
-    switch = "".join(
-        f'<a href="{href}" hreflang="{code}" lang="{code}"{CURRENT if code == lang else ""}>'
-        f'{code.upper()}</a>'
-        for code, href in langs.items()
-    )
     return f"""<a class="skip" href="#main">{esc(t["skip"])}</a>
 <header class="top"><div class="wrap">
 <a class="brand" href="{home}"><img src="{root}assets/logo-128.png" alt="" width="34" height="34">PaWow</a>
 <nav class="nav" aria-label="Menu">{"".join(links)}</nav>
-<div class="langs" aria-label="Language">{switch}</div>
+<div class="langs" aria-label="Language">{lang_switch(root, lang, paths)}</div>
 </div></header>
 """
 
 
-def footer(*, t, root, lang, on_landing, langs):
-    home = lang_href(lang, root)
+def footer(*, t, root, lang, on_landing, paths):
+    home = rel(root, LANG_PATH[lang])
     pre = "" if on_landing else home
     ll = t["legal_lang"]
-    switch = "".join(
-        f'<a href="{href}" hreflang="{code}" lang="{code}"{CURRENT if code == lang else ""}>'
-        f'{code.upper()}</a>'
-        for code, href in langs.items()
-    )
     return f"""<footer class="foot"><div class="wrap">
 <div>
 <a class="brand" href="{home}"><img src="{root}assets/logo-128.png" alt="" width="28" height="28">PaWow</a>
@@ -906,12 +685,12 @@ def footer(*, t, root, lang, on_landing, langs):
 <div>
 <nav aria-label="Footer">
 <a href="{pre}#features">{esc(t["nav"][0][1])}</a>
-<a href="{root}gids/">{esc(t["nav_guide"])}</a>
+<a href="{rel(root, GUIDE_DIR[lang])}">{esc(t["nav_guide"])}</a>
 <a href="{pre}#partners">{esc(t["nav"][2][1])}</a>
 <a href="{root}privacy.html?lang={ll}">{esc(t["legal_privacy"])}</a>
 <a href="{root}terms.html?lang={ll}">{esc(t["legal_terms"])}</a>
 </nav>
-<div class="langs" style="margin-top:16px;display:inline-flex">{switch}</div>
+<div class="langs" style="margin-top:16px;display:inline-flex">{lang_switch(root, lang, paths)}</div>
 </div>
 </div></footer>
 </body>
@@ -919,11 +698,14 @@ def footer(*, t, root, lang, on_landing, langs):
 """
 
 
+def guide_path(g, lang):
+    return GUIDE_DIR[lang] + g["slug"][lang] + ".html"
+
+
 def guide_card(g, lang, root, t):
-    tag = '<span class="tag">NL</span>' if lang != "nl" else ""
-    return (f'<a class="guide" href="{root}gids/{g["slug"]}.html"{HREFLANG_NL if lang != "nl" else ""}>'
+    return (f'<a class="guide" href="{root}{guide_path(g, lang)}">'
             f'<div class="thumb" aria-hidden="true">{g["emoji"]}</div>'
-            f'<div class="body"><div class="meta">{tag}<span>{g["minutes"]} {esc(t["min"])}</span></div>'
+            f'<div class="body"><div class="meta"><span>{g["minutes"]} {esc(t["min"])}</span></div>'
             f'<h3>{esc(g["title"][lang])}</h3><p>{esc(g["excerpt"][lang])}</p>'
             f'<span class="go">{esc(t["read"])}</span></div></a>')
 
@@ -931,7 +713,7 @@ def guide_card(g, lang, root, t):
 # ── Лендинг ───────────────────────────────────────────────────────────────────
 
 # Ссылки QR-ветпаспорта из приложения ведут на корень (`?id=…&lang=…`), и такие
-# QR уже распечатаны и разосланы. Сама страница паспорта теперь passport.html —
+# QR уже распечатаны и разосланы. Сама страница паспорта теперь passport.html:
 # переадресация стоит первой в <head>, до загрузки стилей, чтобы врач не видел
 # мелькнувший лендинг.
 PASSPORT_REDIRECT = ("<script>if(new URLSearchParams(location.search).has('id'))"
@@ -941,12 +723,13 @@ PASSPORT_REDIRECT = ("<script>if(new URLSearchParams(location.search).has('id'))
 def landing(lang):
     t = T[lang]
     m = t["m"]
-    root = "" if lang == "nl" else "../"
-    langs = {code: lang_href(code, root) for code in LANGS}
+    path = LANG_PATH[lang]
+    root = root_of(path)
+    guides_href = rel(root, GUIDE_DIR[lang])
     ld = {
         "@context": "https://schema.org", "@type": "MobileApplication", "name": "PaWow",
         "operatingSystem": "iOS", "applicationCategory": "LifestyleApplication",
-        "description": t["desc"], "url": BASE + LANG_PATH[lang], "inLanguage": lang,
+        "description": t["desc"], "url": BASE + path, "inLanguage": lang,
         "image": BASE + "assets/logo-512.png",
         "publisher": {"@type": "Organization", "name": "PaWow", "email": EMAIL, "url": BASE},
     }
@@ -962,10 +745,10 @@ def landing(lang):
     about = "".join(f"<p>{esc(p)}</p>" for p in t["about"])
     ll = t["legal_lang"]
 
-    page = head(lang=lang, title=t["title"], desc=t["desc"], path=LANG_PATH[lang], root=root, alternates=True,
+    page = head(lang=lang, title=t["title"], desc=t["desc"], path=path, root=root, alternates=LANG_PATH,
                 early=PASSPORT_REDIRECT if lang == "nl" else "",
                 extra=f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>\n')
-    page += "<body>\n" + header(t=t, root=root, lang=lang, on_landing=True, langs=langs)
+    page += "<body>\n" + header(t=t, root=root, lang=lang, on_landing=True, paths=LANG_PATH)
     page += f"""<main id="main">
 
 <section class="hero"><div class="wrap">
@@ -974,7 +757,7 @@ def landing(lang):
 <h1>{t["h1"]}</h1>
 <p class="lead">{esc(t["lead"])}</p>
 <div class="ctas"><a class="btn btn-primary" href="#features">{esc(t["cta"])}</a>
-<a class="btn btn-ghost" href="{root}gids/">{esc(t["cta_guide"])}</a></div>
+<a class="btn btn-ghost" href="{guides_href}">{esc(t["cta_guide"])}</a></div>
 <p class="soon"><span class="dot" aria-hidden="true"></span><span>{t["soon"]}</span></p>
 </div>
 {phone_match(m)}
@@ -1008,7 +791,7 @@ def landing(lang):
 <div class="sec-head"><span class="kicker">{esc(t["guides_kicker"])}</span><h2>{esc(t["guides_h2"])}</h2>
 <p>{esc(t["guides_lead"])}</p></div>
 <div class="guides">{guides}</div>
-<p class="after"><a class="more-link" href="{root}gids/">{esc(t["guides_all"])}</a></p>
+<p class="after"><a class="more-link" href="{guides_href}">{esc(t["guides_all"])}</a></p>
 </div></section>
 
 <section id="partners"><div class="wrap"><div class="panel">
@@ -1040,76 +823,73 @@ def landing(lang):
 
 </main>
 """
-    page += footer(t=t, root=root, lang=lang, on_landing=True, langs=langs)
+    page += footer(t=t, root=root, lang=lang, on_landing=True, paths=LANG_PATH)
     return page
 
 
 # ── Гид ───────────────────────────────────────────────────────────────────────
 
-def gids_langs(root):
-    # Статьи только на нидерландском: EN/RU ведут на лендинг своего языка.
-    return {"nl": "./", "en": root + "en/", "ru": root + "ru/"}
-
-
-def gids_index():
-    t = T["nl"]
-    root = "../"
-    page = head(lang="nl", title=GIDS["title"], desc=GIDS["desc"], path="gids/", root=root)
-    page += "<body>\n" + header(t=t, root=root, lang="nl", on_landing=False, langs=gids_langs(root))
-    cards = "".join(guide_card(g, "nl", root, t) for g in GUIDES)
+def gids_index(lang):
+    t, gt = T[lang], GIDS[lang]
+    path = GUIDE_DIR[lang]
+    root = root_of(path)
+    page = head(lang=lang, title=gt["title"], desc=gt["desc"], path=path, root=root, alternates=GUIDE_DIR)
+    page += "<body>\n" + header(t=t, root=root, lang=lang, on_landing=False, paths=GUIDE_DIR)
+    cards = "".join(guide_card(g, lang, root, t) for g in GUIDES)
     page += f"""<main id="main">
 <div class="wrap page-head">
-<nav class="crumbs" aria-label="Kruimelpad"><a href="../">{GIDS["crumb_home"]}</a> / Gids</nav>
-<span class="kicker">Gids</span>
-<h1>{esc(GIDS["h1"])}</h1>
-<p>{esc(GIDS["lead"])}</p>
+<nav class="crumbs" aria-label="{esc(gt["crumbs"])}"><a href="{rel(root, LANG_PATH[lang])}">{esc(gt["home"])}</a> / {esc(gt["kicker"])}</nav>
+<span class="kicker">{esc(gt["kicker"])}</span>
+<h1>{esc(gt["h1"])}</h1>
+<p>{esc(gt["lead"])}</p>
 </div>
 <section style="padding-top:32px"><div class="wrap"><div class="guides">{cards}</div></div></section>
 </main>
 """
-    page += footer(t=t, root=root, lang="nl", on_landing=False, langs=gids_langs(root))
+    page += footer(t=t, root=root, lang=lang, on_landing=False, paths=GUIDE_DIR)
     return page
 
 
-def article(g):
-    t = T["nl"]
-    root = "../"
-    title = g["title"]["nl"]
+def article(g, lang):
+    t, gt = T[lang], GIDS[lang]
+    path = guide_path(g, lang)
+    root = root_of(path)
+    paths = {code: guide_path(g, code) for code in LANGS}
+    title = g["title"][lang]
     ld = {
         "@context": "https://schema.org", "@type": "Article", "headline": title,
-        "description": g["excerpt"]["nl"], "inLanguage": "nl", "datePublished": UPDATED, "dateModified": UPDATED,
+        "description": g["excerpt"][lang], "inLanguage": lang, "datePublished": UPDATED, "dateModified": UPDATED,
         "author": {"@type": "Organization", "name": "PaWow", "url": BASE},
         "publisher": {"@type": "Organization", "name": "PaWow",
                       "logo": {"@type": "ImageObject", "url": BASE + "assets/logo-512.png"}},
-        "mainEntityOfPage": BASE + f"gids/{g['slug']}.html",
+        "mainEntityOfPage": BASE + path,
     }
-    page = head(lang="nl", title=f"{title} – PaWow", desc=g["excerpt"]["nl"], path=f"gids/{g['slug']}.html", root=root,
+    page = head(lang=lang, title=f"{title} | PaWow", desc=g["excerpt"][lang], path=path, root=root, alternates=paths,
                 extra=f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>\n')
-    page += "<body>\n" + header(t=t, root=root, lang="nl", on_landing=False, langs=gids_langs(root))
-    related = "".join(guide_card(o, "nl", root, t) for o in GUIDES if o is not g)
+    page += "<body>\n" + header(t=t, root=root, lang=lang, on_landing=False, paths=paths)
+    related = "".join(guide_card(o, lang, root, t) for o in GUIDES if o is not g)
     page += f"""<main id="main">
 <article class="article">
-<nav class="crumbs" aria-label="Kruimelpad"><a href="../">{GIDS["crumb_home"]}</a> / <a href="./">Gids</a></nav>
+<nav class="crumbs" aria-label="{esc(gt["crumbs"])}"><a href="{rel(root, LANG_PATH[lang])}">{esc(gt["home"])}</a> / <a href="./">{esc(gt["kicker"])}</a></nav>
 <h1>{esc(title)}</h1>
-<div class="meta"><span>{g["minutes"]} {esc(t["min"])}</span><span><time datetime="{UPDATED}">{GIDS["updated"]}</time></span>
-<span>{GIDS["by"]}</span></div>
-{g["body"]}
+<div class="meta"><span>{g["minutes"]} {esc(t["min"])}</span><span><time datetime="{UPDATED}">{esc(gt["updated"])}</time></span>
+<span>{esc(gt["by"])}</span></div>
+{g["body"][lang]}
 </article>
-<aside class="related"><h2>{GIDS["more"]}</h2><div class="guides">{related}</div></aside>
+<aside class="related"><h2>{esc(gt["more"])}</h2><div class="guides">{related}</div></aside>
 </main>
 """
-    page += footer(t=t, root=root, lang="nl", on_landing=False, langs=gids_langs(root))
+    page += footer(t=t, root=root, lang=lang, on_landing=False, paths=paths)
     return page
 
 
 def not_found():
-    # 404 GitHub Pages отдаёт на любой глубине — поэтому пути абсолютные.
+    # 404 GitHub Pages отдаёт на любой глубине, поэтому пути абсолютные.
     root = "/pawmatch-passport/"
     t = T["nl"]
-    page = head(lang="nl", title="Pagina niet gevonden – PaWow", desc=t["desc"], path="404.html", root=root,
+    page = head(lang="nl", title="Pagina niet gevonden | PaWow", desc=t["desc"], path="404.html", root=root,
                 extra='<meta name="robots" content="noindex">\n')
-    page += "<body>\n" + header(t=t, root=root, lang="nl", on_landing=False,
-                                langs={code: root + LANG_PATH[code] for code in LANGS})
+    page += "<body>\n" + header(t=t, root=root, lang="nl", on_landing=False, paths=LANG_PATH)
     page += f"""<main id="main"><div class="center-page"><div>
 <div style="font-size:64px" aria-hidden="true">🐾</div>
 <h1 style="font-size:40px">Pagina niet gevonden</h1>
@@ -1117,7 +897,7 @@ def not_found():
 <p><a class="btn btn-primary" href="{root}">Naar de homepage</a></p>
 </div></div></main>
 """
-    page += footer(t=t, root=root, lang="nl", on_landing=False, langs={code: root + LANG_PATH[code] for code in LANGS})
+    page += footer(t=t, root=root, lang="nl", on_landing=False, paths=LANG_PATH)
     return page
 
 
@@ -1143,7 +923,7 @@ def images():
     # Превью для ссылок (Open Graph), 1200×630.
     w, h = 1200, 630
     og = Image.new("RGB", (w, h), (251, 248, 250))
-    # Пятна света — размытые эллипсы: у маски нулевые края, и квадрат слоя не виден.
+    # Пятна света: размытые эллипсы: у маски нулевые края, и квадрат слоя не виден.
     for (cx, cy, color) in ((260, 180, (255, 79, 139)), (1000, 140, (168, 85, 247)), (900, 620, (255, 79, 139))):
         glow = Image.new("L", (900, 900), 0)
         ImageDraw.Draw(glow).ellipse((200, 200, 700, 700), fill=70)
@@ -1185,10 +965,10 @@ def write(rel, content):
 
 def main():
     for lang in LANGS:
-        write("index.html" if lang == "nl" else f"{lang}/index.html", landing(lang))
-    write("gids/index.html", gids_index())
-    for g in GUIDES:
-        write(f"gids/{g['slug']}.html", article(g))
+        write(LANG_PATH[lang] + "index.html", landing(lang))
+        write(GUIDE_DIR[lang] + "index.html", gids_index(lang))
+        for g in GUIDES:
+            write(guide_path(g, lang), article(g, lang))
     write("404.html", not_found())
     images()
     print("  assets/*.png")
