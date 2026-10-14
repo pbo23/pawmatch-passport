@@ -92,8 +92,10 @@ a:focus-visible, summary:focus-visible, .btn:focus-visible { outline: 3px solid 
 .kicker { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: var(--brand-ink) }
 
 h1, h2, h3 { letter-spacing: -.02em }
-h1 { font-size: clamp(38px, 6vw, 62px); line-height: 1.04; letter-spacing: -.035em; margin: 18px 0; font-weight: 800 }
+h1 { font-size: clamp(32px, 8.6vw, 56px); line-height: 1.06; letter-spacing: -.035em; margin: 18px 0; font-weight: 800 }
 h1 .g, h2 .g { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent }
+/* Цветная часть заголовка всегда с новой строки: иначе по-русски рвётся «питомца в / одном / приложении». */
+h1 .g { display: block }
 h2 { font-size: clamp(28px, 4vw, 40px); line-height: 1.12; letter-spacing: -.028em; margin: 8px 0 12px; font-weight: 800 }
 
 section { padding: 56px 0 }
@@ -226,7 +228,7 @@ section { padding: 56px 0 }
 .pc s { font-size: 9.5px; color: #8e8e93; font-weight: 400; margin-left: 3px }
 
 /* ── Возможности ───────────────────────────────────────── */
-.features { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) }
+.features { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr)) }
 .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 22px; box-shadow: var(--shadow) }
 .card h3 { margin: 0 0 6px; font-size: 18px }
 .card p { margin: 0; color: var(--muted); font-size: 15px }
@@ -253,7 +255,7 @@ section { padding: 56px 0 }
 .more-link:hover { text-decoration: underline }
 
 /* ── Шаги ──────────────────────────────────────────────── */
-.steps { list-style: none; padding: 0; margin: 0; display: grid; gap: 16px; counter-reset: s; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) }
+.steps { list-style: none; padding: 0; margin: 0; display: grid; gap: 16px; counter-reset: s; grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)) }
 .steps li { counter-increment: s }
 .steps li::before {
   content: counter(s); display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%;
@@ -261,7 +263,7 @@ section { padding: 56px 0 }
 }
 
 /* ── Гайды ─────────────────────────────────────────────── */
-.guides { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) }
+.guides { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)) }
 .guide {
   display: flex; flex-direction: column; text-decoration: none; color: inherit;
   background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden;
@@ -282,7 +284,7 @@ section { padding: 56px 0 }
 /* ── Партнёрские ссылки ────────────────────────────────── */
 .panel { background: linear-gradient(135deg, var(--soft), var(--soft-violet)); border-radius: 30px; padding: clamp(24px, 5vw, 52px) }
 .panel .sec-head { margin-bottom: 8px }
-.points { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) }
+.points { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)) }
 .points li { background: var(--surface); border-radius: 18px; padding: 18px 20px; font-size: 15px }
 .points b { display: block; margin-bottom: 4px; font-size: 16px }
 
@@ -305,13 +307,15 @@ section { padding: 56px 0 }
 .faq details p { margin: 0 0 20px; color: var(--muted) }
 
 /* ── О проекте ─────────────────────────────────────────── */
-.about { display: grid; gap: 16px }
+.about { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr) }
 @media (min-width: 900px) { .about { grid-template-columns: 1.2fr .8fr } }
 .about .card p + p { margin-top: 12px }
 .contact { display: flex; flex-direction: column; gap: 14px; justify-content: center; background: var(--grad); color: #fff; border: 0 }
 .contact h3 { color: #fff }
 .contact p { color: rgba(255, 255, 255, .92) }
 .contact .btn { background: #fff; color: #b5174f; align-self: flex-start }
+.contact .btn svg { width: 20px; height: 20px; flex: none }
+.contact .btn span { overflow-wrap: anywhere }
 
 /* ── Подвал ────────────────────────────────────────────── */
 .foot { border-top: 1px solid var(--line); padding: 36px 0 48px; color: var(--muted); font-size: 14px }
@@ -354,3 +358,39 @@ section { padding: 56px 0 }
 .page-head p { color: var(--muted); font-size: 19px; max-width: 40em; margin: 0 }
 .center-page { min-height: 60vh; display: grid; place-items: center; text-align: center; padding: 64px 16px }
 .center-page p { color: var(--muted) }
+
+/* ── Телефон ───────────────────────────────────────────────
+   На узком экране карточки в столбик выходили слишком высокими, а кнопки
+   разной ширины (под русские подписи) стояли лесенкой. */
+@media (max-width: 599px) {
+  section { padding: 48px 0 }
+  .sec-head { margin-bottom: 24px }
+  .sec-head p { font-size: 17px }
+  .lead { margin-bottom: 24px }
+
+  .ctas { flex-direction: column; align-items: stretch }
+  .soon { display: flex; margin-top: 16px }
+
+  .features { gap: 12px }
+  .features .card { display: grid; grid-template-columns: 44px 1fr; column-gap: 14px; padding: 16px 18px }
+  .features .card .ico { grid-row: span 2; width: 44px; height: 44px; font-size: 22px; margin: 0 }
+  .features .card h3 { margin: 2px 0 4px; font-size: 17px }
+
+  .steps { gap: 12px }
+  .steps li { display: grid; grid-template-columns: 38px 1fr; column-gap: 14px; padding: 16px 18px }
+  .steps li::before { grid-row: span 2; margin: 0 }
+  .steps h3 { margin: 6px 0 4px; font-size: 17px }
+
+  .guides { gap: 12px }
+  .thumb { height: 88px; font-size: 44px }
+  .guide .body { padding: 14px 18px 18px }
+
+  .panel { padding: 24px 16px; border-radius: 24px }
+  .points { gap: 10px; margin-top: 16px }
+  .points li { padding: 16px }
+
+  .spot { gap: 28px }
+  .spot-media { padding: 28px 0 }
+
+  .contact .btn { align-self: stretch; padding: 0 14px }
+}

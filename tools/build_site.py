@@ -14,6 +14,7 @@ passport.html (рендерер QR-ветпаспорта) и privacy/terms ск
 import html
 import json
 import random
+import re
 from pathlib import Path
 
 from site_guides import GIDS, GUIDE_DIR, GUIDES
@@ -67,6 +68,9 @@ TAB_ICONS = [
 SVG_X = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round">'
          '<path d="M6 6l12 12M18 6L6 18"/></svg>')
 SVG_I = '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2.4"/><rect x="9.8" y="9" width="4.4" height="12" rx="2.2"/></svg>'
+SVG_MAIL = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" '
+            'stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/>'
+            '<path d="M4 7.5l8 6 8-6"/></svg>')
 SVG_CHEVRON = ('<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" '
                'stroke-linejoin="round"><path d="M2.5 4.5L6 8l3.5-3.5"/></svg>')
 
@@ -817,7 +821,7 @@ def landing(lang):
 <div class="about">
 <div class="card">{about}</div>
 <div class="card contact"><h3>{esc(t["contact_h3"])}</h3><p>{esc(t["contact_text"])}</p>
-<a class="btn" href="mailto:{EMAIL}">{esc(t["contact_btn"])} · {EMAIL}</a></div>
+<a class="btn" href="mailto:{EMAIL}" aria-label="{esc(t["contact_btn"])}: {EMAIL}">{SVG_MAIL}<span>{EMAIL}</span></a></div>
 </div>
 </div></section>
 
@@ -956,7 +960,26 @@ def images():
 
 # ── Сборка ────────────────────────────────────────────────────────────────────
 
-def write(rel, content):
+# Неразрывный пробел после числа («7 дней») и, по-русски, после коротких
+# предлогов и союзов («по ЕС», «в одном»): иначе они повисают в конце строки,
+# особенно на узком экране. Теги, <script> и <style> не трогаем.
+RU_SHORT = (r"(?<![\w-])(?:[вВкКсСуУоОиИаАяЯ]|на|На|не|Не|по|По|за|За|от|От|до|До|из|Из|во|Во|со|Со|"
+            r"ко|Ко|об|Об|но|Но) (?=\S)")
+
+
+def typo(page, lang):
+    parts = re.split(r"(<script.*?</script>|<style.*?</style>|<[^>]+>)", page, flags=re.S)
+    for i in range(0, len(parts), 2):
+        text = re.sub(r"(\d) (?=\S)", "\\1" + NBSP, parts[i])
+        text = text.replace("QR-", "QR\u2011")   # неразрывный дефис: «QR-» не отрывается от «кода»
+        if lang == "ru":
+            text = re.sub(RU_SHORT, lambda m: m.group(0)[:-1] + NBSP, text)
+        parts[i] = text
+    return "".join(parts)
+
+
+def write(rel, content, lang="nl"):
+    content = typo(content, lang)
     path = ROOT / rel
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content, encoding="utf-8")
@@ -965,10 +988,10 @@ def write(rel, content):
 
 def main():
     for lang in LANGS:
-        write(LANG_PATH[lang] + "index.html", landing(lang))
-        write(GUIDE_DIR[lang] + "index.html", gids_index(lang))
+        write(LANG_PATH[lang] + "index.html", landing(lang), lang)
+        write(GUIDE_DIR[lang] + "index.html", gids_index(lang), lang)
         for g in GUIDES:
-            write(guide_path(g, lang), article(g, lang))
+            write(guide_path(g, lang), article(g, lang), lang)
     write("404.html", not_found())
     images()
     print("  assets/*.png")
