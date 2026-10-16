@@ -31,7 +31,7 @@ UPDATED = "2026-10-14"
 LANGS = ("nl", "en", "ru")
 LANG_PATH = {"nl": "", "en": "en/", "ru": "ru/"}
 OG_LOCALE = {"nl": "nl_NL", "en": "en_GB", "ru": "ru_RU"}
-NBSP = " "
+NBSP = "\u00a0"   # неразрывный пробел; явной escape-последовательностью, чтобы не потерялся при правке
 
 # Публичная ссылка TestFlight (testflight.apple.com/join/…). Пока её нет,
 # кнопки беты на сайте нет вовсе, а честно сказано, что бета закрыта.
@@ -117,17 +117,16 @@ def fake_qr(seed=11, n=25):
 
 T = {
     "nl": {
-        "title": "PaWow: de dag van je huisdier, in één app",
+        "title": "PaWow: het hele leven van je huisdier, in je broekzak",
         "desc": ("PaWow is een iPhone-app voor honden- en kattenbaasjes in Nederland: vaccinaties en een "
                  "QR-dierenpaspoort voor de dierenarts, facturen die declaraties worden, wandelmaatjes en matches, "
                  "asielen, rasverenigingen en diensten in de buurt."),
         "skip": "Naar de inhoud",
         "nav": [("gezondheid", "Gezondheid"), ("buren", "Buren"), ("buurt", "In de buurt")],
         "nav_guide": "Gids",
-        "h1": "Een dag met Houston en Appolon",
-        "lead": ("Houston, een jack russell, wandelt met de buren en regelt zijn eerste date. Appolon, een maine coon, "
-                 "krijgt zijn vaccinaties op tijd. En de factuur van de dierenarts is in een paar tikken een "
-                 "concept-declaratie. Scroll door hun dinsdag: daar is één app voor."),
+        "h1": "Het hele leven van je huisdier, in je broekzak",
+        "lead": ("Gezondheid en papieren, buren en maatjes, asielen, trimsalons en voer om de hoek. Alles rond je hond "
+                 "of kat, in één app."),
         "chapters": {"health": "Gezondheid en papieren", "buren": "Buren en maatjes", "buurt": "In de buurt"},
         "chapters_label": "Drie hoofdstukken",
         "beta_btn": "Probeer de bèta",
@@ -147,7 +146,8 @@ T = {
                 "busy": "Het is nu erg druk. Probeer het over een minuut opnieuw.",
                 "offline": "Geen verbinding. Probeer het opnieuw als je weer online bent."},
         "day_h": "Een dinsdag met Houston en Appolon",
-        "day_lead": "De schermen zijn nagebouwd uit de app; de dag is een voorbeeld.",
+        "day_lead": ("Een voorbeelddag: dinsdag met jack russell Houston en maine coon Appolon. De schermen zijn "
+                     "nagebouwd uit de app."),
         "weekday": "dinsdag",
         "moments": [
             {"id": "buren", "time": "07:30", "ch": "buren", "kind": "walk",
@@ -254,7 +254,7 @@ T = {
         "legal_privacy": "Privacybeleid",
         "legal_terms": "Gebruiksvoorwaarden",
         "legal_lang": "nl",
-        "foot_tag": "De dag van je huisdier, in één app.",
+        "foot_tag": "Het hele leven van je huisdier, in je broekzak",
         "foot_partner": "PaWow neemt deel aan het partnerprogramma van bol en is een onafhankelijke app.",
         "foot_cookies": "Deze website plaatst geen cookies en gebruikt geen trackers.",
         "foot_contact": "Vragen of samenwerken?",
@@ -263,17 +263,16 @@ T = {
         "cta_mini_btn": "Laat het me weten",
     },
     "en": {
-        "title": "PaWow: your pet's day, in one app",
+        "title": "PaWow: your pet's whole life, in your pocket",
         "desc": ("PaWow is an iPhone app for dog and cat owners in the Netherlands: vaccinations and a QR vet passport "
                  "for your vet, invoices that become insurance claims, walking buddies and matches, shelters, breed "
                  "clubs and services nearby."),
         "skip": "Skip to content",
         "nav": [("health", "Health"), ("neighbours", "Neighbours"), ("nearby", "Nearby")],
         "nav_guide": "Guides",
-        "h1": "A day with Houston and Appolon",
-        "lead": ("Houston the Jack Russell walks with the neighbours and sets up his first date. Appolon the Maine "
-                 "Coon gets his vaccinations on time. And the vet's invoice becomes a claim draft in a few taps. "
-                 "Scroll through their Tuesday: there's one app for all of it."),
+        "h1": "Your pet's whole life, in your pocket",
+        "lead": ("Health and paperwork, neighbours and buddies, shelters, groomers and food nearby. Everything about "
+                 "your dog or cat, in one app."),
         "chapters": {"health": "Health and paperwork", "buren": "Neighbours and buddies", "buurt": "Nearby"},
         "chapters_label": "Three chapters",
         "beta_btn": "Try the beta",
@@ -293,7 +292,8 @@ T = {
                 "busy": "It is very busy right now. Please try again in a minute.",
                 "offline": "No connection. Please try again when you are back online."},
         "day_h": "A Tuesday with Houston and Appolon",
-        "day_lead": "The screens are rebuilt from the app; the day is an example.",
+        "day_lead": ("An example day: a Tuesday with Houston the Jack Russell and Appolon the Maine Coon. The screens "
+                     "are rebuilt from the app."),
         "weekday": "Tuesday",
         "moments": [
             {"id": "neighbours", "time": "07:30", "ch": "buren", "kind": "walk",
@@ -400,7 +400,7 @@ T = {
         "legal_privacy": "Privacy policy",
         "legal_terms": "Terms of use",
         "legal_lang": "en",
-        "foot_tag": "Your pet's day, in one app.",
+        "foot_tag": "Your pet's whole life, in your pocket",
         "foot_partner": "PaWow takes part in the bol affiliate program and is an independent app.",
         "foot_cookies": "This website sets no cookies and uses no trackers.",
         "foot_contact": "Questions or partnerships?",
@@ -409,17 +409,16 @@ T = {
         "cta_mini_btn": "Tell me",
     },
     "ru": {
-        "title": "PaWow: день вашего питомца в одном приложении",
+        "title": "PaWow: вся жизнь питомца в одном кармане",
         "desc": ("PaWow: приложение для iPhone для владельцев собак и кошек в Нидерландах. Прививки и QR-ветпаспорт "
                  "для врача, счета, которые становятся страховыми декларациями, соседи по прогулкам и пары, приюты, "
                  "клубы пород и услуги рядом."),
         "skip": "К содержимому",
         "nav": [("zdorovye", "Здоровье"), ("sosedi", "Соседи"), ("ryadom", "Рядом")],
         "nav_guide": "Гайды",
-        "h1": "День с Хьюстоном и Апполоном",
-        "lead": ("Джек-рассел Хьюстон гуляет с соседями и договаривается о первом свидании. Мейн-кун Апполон "
-                 "получает прививки вовремя. А счёт от ветеринара за пару нажатий становится черновиком "
-                 "декларации. Листайте их вторник: на всё это одно приложение."),
+        "h1": "Вся жизнь питомца в одном кармане",
+        "lead": ("Здоровье и бумаги, соседи и пары, приюты, груминг и корм рядом. Всё, что касается вашей собаки или "
+                 "кошки, в одном приложении."),
         "chapters": {"health": "Здоровье и бумаги", "buren": "Соседи и пары", "buurt": "Рядом"},
         "chapters_label": "Три главы",
         "beta_btn": "Попробовать бету",
@@ -439,7 +438,8 @@ T = {
                 "busy": "Сейчас слишком много подписок. Попробуйте через минуту.",
                 "offline": "Нет соединения. Попробуйте ещё раз, когда появится интернет."},
         "day_h": "Вторник с Хьюстоном и Апполоном",
-        "day_lead": "Экраны собраны по образцу приложения; день взят для примера.",
+        "day_lead": ("Пример дня: вторник джек-рассела Хьюстона и мейн-куна Апполона. Экраны собраны по образцу "
+                     "приложения."),
         "weekday": "вторник",
         "moments": [
             {"id": "sosedi", "time": "07:30", "ch": "buren", "kind": "walk",
@@ -546,7 +546,7 @@ T = {
         "legal_privacy": "Политика конфиденциальности",
         "legal_terms": "Условия использования",
         "legal_lang": "ru",
-        "foot_tag": "День вашего питомца в одном приложении.",
+        "foot_tag": "Вся жизнь питомца в одном кармане",
         "foot_partner": "PaWow участвует в партнёрской программе bol и является независимым приложением.",
         "foot_cookies": "Сайт не ставит cookies и не использует трекеры.",
         "foot_contact": "Вопросы или сотрудничество?",
@@ -1161,11 +1161,11 @@ def images():
         except Exception:
             return ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", size)
 
-    big = rounded(logo.resize((132, 132), Image.LANCZOS), 30)
-    og.paste(big, (90, 90), big)
-    d.text((90, 262), "De dag van je huisdier,", font=font(64, "Bold"), fill=(28, 28, 30))
-    d.text((90, 338), "in één app", font=font(64, "Bold"), fill=(28, 28, 30))
-    d.text((90, 436), "Vaccinaties, QR-paspoort, matches en asielen.", font=font(28, "Regular"),
+    big = rounded(logo.resize((112, 112), Image.LANCZOS), 26)
+    og.paste(big, (90, 70), big)
+    for i, line in enumerate(("Het hele leven", "van je huisdier,", "in je broekzak")):
+        d.text((90, 214 + i * 66), line, font=font(60, "Bold"), fill=(28, 28, 30))
+    d.text((90, 438), "Vaccinaties, QR-paspoort, matches en asielen.", font=font(28, "Regular"),
            fill=(92, 92, 97))
     pill = "Bèta voor iPhone"
     pf = font(26, "Semibold")
