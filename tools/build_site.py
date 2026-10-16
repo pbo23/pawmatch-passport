@@ -201,8 +201,8 @@ T = {
         "screens_lead": ("Echte schermen uit de bèta. Houston en Appolon zijn echte huisdieren; de profielen bij "
                          "Matchen zijn demoprofielen."),
         "shots": [("home", "Thuis: Houston in één oogopslag", "Homescherm van PaWow met Houston, een Jack Russell-terriër"),
-                  ("cat", "Ook voor je kat", "Homescherm van PaWow met Appolon, een Maine coon"),
-                  ("health", "Gezondheid en verzekering", "Gezondheid in PaWow: vaccinaties, verzekering en het QR-dierenpaspoort"),
+                  ("health", "Gezondheid en verzekering, ook voor je kat",
+                   "Gezondheid in PaWow voor Appolon, een Maine coon: vaccinaties, verzekering en het QR-dierenpaspoort"),
                   ("match", "Matchen in de buurt (demoprofiel)", "Matchen in PaWow: het demoprofiel van Bonnie"),
                   ("adopt", "Asielen bij jou in de buurt", "Lijst van asielen in PaWow met afstand en diersoorten")],
         "privacy_h": "Je gegevens blijven van jou",
@@ -347,8 +347,8 @@ T = {
         "screens_lead": ("Real screens from the beta. Houston and Appolon are real pets; the profiles in Match are demo "
                          "profiles."),
         "shots": [("home", "Home: Houston at a glance", "PaWow home screen with Houston, a Jack Russell Terrier"),
-                  ("cat", "For your cat too", "PaWow home screen with Appolon, a Maine Coon"),
-                  ("health", "Health and insurance", "Health in PaWow: vaccinations, insurance and the QR vet passport"),
+                  ("health", "Health and insurance, for your cat too",
+                   "Health in PaWow for Appolon, a Maine Coon: vaccinations, insurance and the QR vet passport"),
                   ("match", "Matching nearby (demo profile)", "Matching in PaWow: Bonnie's demo profile"),
                   ("adopt", "Shelters near you", "List of shelters in PaWow with distance and species")],
         "privacy_h": "Your data stays yours",
@@ -493,8 +493,8 @@ T = {
         "screens_lead": ("Настоящие экраны из беты. Хьюстон и Апполон настоящие питомцы; анкеты в «Матче» "
                          "демонстрационные."),
         "shots": [("home", "Главная: Хьюстон с одного взгляда", "Главный экран PaWow с Хьюстоном, джек-рассел-терьером"),
-                  ("cat", "И для кошки тоже", "Главный экран PaWow с Апполоном, мейн-куном"),
-                  ("health", "Здоровье и страховка", "Здоровье в PaWow: прививки, страховка и QR-ветпаспорт"),
+                  ("health", "Здоровье и страховка, и для кошки тоже",
+                   "Здоровье в PaWow для Апполона, мейн-куна: прививки, страховка и QR-ветпаспорт"),
                   ("match", "Пары рядом (демо-анкета)", "Матч в PaWow: демо-анкета Бонни"),
                   ("adopt", "Приюты рядом с вами", "Список приютов в PaWow с расстоянием и видами животных")],
         "privacy_h": "Ваши данные остаются вашими",
