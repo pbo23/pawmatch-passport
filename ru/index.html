@@ -4,18 +4,19 @@
 <meta charset="utf-8">
 <script>document.documentElement.classList.add('js')</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PaWow: всё для питомца в одном приложении</title>
-<meta name="description" content="PaWow: приложение для iPhone для владельцев питомцев в Нидерландах. Друзья и пара для питомца рядом, прививки и визиты к ветеринару, QR-ветпаспорт для клиники, ветклиники и груминг-салоны поблизости.">
+<title>PaWow: день вашего питомца в одном приложении</title>
+<meta name="description" content="PaWow: приложение для iPhone для владельцев собак и кошек в Нидерландах. Прививки и QR-ветпаспорт для врача, счета, которые становятся страховыми декларациями, соседи по прогулкам и пары, приюты, клубы пород и услуги рядом.">
 <link rel="canonical" href="https://pbo23.github.io/pawmatch-passport/ru/">
 <link rel="alternate" hreflang="nl" href="https://pbo23.github.io/pawmatch-passport/">
 <link rel="alternate" hreflang="en" href="https://pbo23.github.io/pawmatch-passport/en/">
 <link rel="alternate" hreflang="ru" href="https://pbo23.github.io/pawmatch-passport/ru/">
 <link rel="alternate" hreflang="x-default" href="https://pbo23.github.io/pawmatch-passport/">
-<meta name="theme-color" content="#e84b7a">
+<meta name="theme-color" content="#f2f2f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="PaWow">
-<meta property="og:title" content="PaWow: всё для питомца в одном приложении">
-<meta property="og:description" content="PaWow: приложение для iPhone для владельцев питомцев в Нидерландах. Друзья и пара для питомца рядом, прививки и визиты к ветеринару, QR-ветпаспорт для клиники, ветклиники и груминг-салоны поблизости.">
+<meta property="og:title" content="PaWow: день вашего питомца в одном приложении">
+<meta property="og:description" content="PaWow: приложение для iPhone для владельцев собак и кошек в Нидерландах. Прививки и QR-ветпаспорт для врача, счета, которые становятся страховыми декларациями, соседи по прогулкам и пары, приюты, клубы пород и услуги рядом.">
 <meta property="og:url" content="https://pbo23.github.io/pawmatch-passport/ru/">
 <meta property="og:image" content="https://pbo23.github.io/pawmatch-passport/assets/og.png">
 <meta property="og:locale" content="ru_RU">
@@ -23,132 +24,200 @@
 <link rel="icon" href="../assets/favicon-64.png" type="image/png">
 <link rel="apple-touch-icon" href="../assets/icon-180.png">
 <link rel="stylesheet" href="../assets/site.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "MobileApplication", "name": "PaWow", "operatingSystem": "iOS", "applicationCategory": "LifestyleApplication", "description": "PaWow: приложение для iPhone для владельцев питомцев в Нидерландах. Друзья и пара для питомца рядом, прививки и визиты к ветеринару, QR-ветпаспорт для клиники, ветклиники и груминг-салоны поблизости.", "url": "https://pbo23.github.io/pawmatch-passport/ru/", "inLanguage": "ru", "image": "https://pbo23.github.io/pawmatch-passport/assets/logo-512.png", "publisher": {"@type": "Organization", "name": "PaWow", "email": "support@pawmatch.app", "url": "https://pbo23.github.io/pawmatch-passport/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "MobileApplication", "name": "PaWow", "operatingSystem": "iOS 17", "applicationCategory": "LifestyleApplication", "description": "PaWow: приложение для iPhone для владельцев собак и кошек в Нидерландах. Прививки и QR-ветпаспорт для врача, счета, которые становятся страховыми декларациями, соседи по прогулкам и пары, приюты, клубы пород и услуги рядом.", "url": "https://pbo23.github.io/pawmatch-passport/ru/", "inLanguage": "ru", "image": "https://pbo23.github.io/pawmatch-passport/assets/logo-512.png", "publisher": {"@type": "Organization", "name": "PaWow", "email": "support@pawmatch.app", "url": "https://pbo23.github.io/pawmatch-passport/"}}</script>
 </head>
 <body>
-<a class="skip" href="#main">К содержимому</a>
+<a class="skip" href="#main">К содержимому</a>
 <header class="top"><div class="wrap">
-<a class="brand" href="../ru/"><img src="../assets/logo-128.png" alt="" width="34" height="34">PaWow</a>
-<nav class="nav" aria-label="Menu"><a href="#features">Возможности</a><a href="#how">Как это работает</a><a class="keep" href="../ru/guides/">Гайды</a><a href="#partners">Партнёрские ссылки</a><a href="#contact">Контакты</a></nav>
-<details class="lang-menu"><summary aria-label="Выбрать язык: Русский"><span class="flag flag-ru" aria-hidden="true"></span>RU<svg class="chev" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary><ul><li><a href="../" hreflang="nl" lang="nl"><span class="flag flag-nl" aria-hidden="true"></span>Nederlands</a></li><li><a href="../en/" hreflang="en" lang="en"><span class="flag flag-gb" aria-hidden="true"></span>English</a></li><li><a href="../ru/" hreflang="ru" lang="ru" aria-current="true"><span class="flag flag-ru" aria-hidden="true"></span>Русский</a></li></ul></details>
+<a class="brand" href="../ru/"><img src="../assets/logo-128.png" alt="" width="32" height="32">PaWow</a>
+<nav class="nav" aria-label="Menu"><a href="#zdorovye">Здоровье</a><a href="#sosedi">Соседи</a><a href="#ryadom">Рядом</a><a class="keep" href="../ru/guides/">Гайды</a></nav>
+<details class="lang-menu"><summary aria-label="Выбрать язык: Русский">RU<svg class="chev" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary><ul><li><a href="../" hreflang="nl" lang="nl">Nederlands</a></li><li><a href="../en/" hreflang="en" lang="en">English</a></li><li><a href="../ru/" hreflang="ru" lang="ru" aria-current="true">Русский</a></li></ul></details>
 </div></header>
 <main id="main">
 
-<section class="hero"><div class="wrap">
-<div>
-<span class="eyebrow">Бета-версия для iPhone</span>
-<h1>Всё для питомца <span class="g">в одном приложении</span></h1>
-<p class="lead">Находите друзей и пару для питомца рядом, храните прививки и визиты к ветеринару в одном месте и показывайте ветпаспорт одним QR‑кодом. PaWow сделан для владельцев собак и кошек в Нидерландах.</p>
-<div class="ctas"><a class="btn btn-primary" href="#features">Что умеет PaWow</a>
-<a class="btn btn-ghost" href="../ru/guides/">Читать гайды</a></div>
-<p class="soon"><span class="dot" aria-hidden="true"></span><span><b>Скоро в App Store</b> · сейчас бета в TestFlight</span></p>
+<section class="hero"><div class="wrap hero-grid">
+<div class="hero-copy">
+<h1>День с Хьюстоном и Апполоном.</h1>
+<p class="lead">PaWow собирает всё о собаке или кошке в одном приложении: прививки и QR‑паспорт, соседей по прогулкам и пары, приюты и груминг за углом. Вот обычный вторник с Хьюстоном, это собака, и Апполоном, это кот.</p>
 </div>
-<div class="hero-phones">
-<div class="hero-back"><div class="phone"><div class="screen shot"><div class="island"></div><img src="../assets/shots/ru-home.webp" alt="Главный экран PaWow с Хьюстоном, джек-расселом" width="600" height="1304" loading="lazy" decoding="async"></div></div></div>
-<div class="hero-phone"><div class="phone"><div class="screen shot"><div class="island"></div><img src="../assets/shots/ru-match.webp" alt="Матч в PaWow: анкета Бонни, джек-рассела по соседству" width="600" height="1304" fetchpriority="high" decoding="async"></div></div></div>
+<div class="act-card" id="aanmelden"><h2 class="act-h">Сообщить о запуске</h2><p class="hint">Бета сейчас закрытая: мы тестируем с небольшой группой владельцев. Оставьте email, и мы напишем, когда она откроется или PaWow появится в App Store.</p><form class="notify" id="notify-top" data-lang="ru" data-msg="{&quot;sending&quot;: &quot;Секунду…&quot;, &quot;ok&quot;: &quot;Готово. Напишем, когда придёт время.&quot;, &quot;bad&quot;: &quot;Похоже, в адресе ошибка. Проверьте его, пожалуйста.&quot;, &quot;busy&quot;: &quot;Сейчас слишком много подписок. Попробуйте через минуту.&quot;, &quot;offline&quot;: &quot;Нет соединения. Попробуйте ещё раз, когда появится интернет.&quot;}" action="mailto:support@pawmatch.app" method="post" novalidate>
+<label class="field-label" for="notify-top-email">Email</label>
+<div class="field-row">
+<input id="notify-top-email" name="email" type="email" inputmode="email" autocomplete="email" required maxlength="254" placeholder="vy@primer.nl">
+<button class="btn btn-primary" type="submit">Подписаться</button>
+</div>
+<label class="consent"><input type="checkbox" name="consent" required><span>Напишите мне, когда откроется бета или PaWow появится в App Store. <a href="../privacy.html?lang=ru">Конфиденциальность</a></span></label>
+<input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+<p class="status" role="status" aria-live="polite"></p>
+</form><p class="fine"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg>Только email и язык. Без трекеров.</p></div>
+</div></section>
+
+<section class="day" aria-labelledby="day-h"><div class="wrap">
+<h2 id="day-h" class="vh">Вторник с Хьюстоном и Апполоном</h2>
+<div class="day-top"><ul class="chapters" aria-label="Три главы"><li><a class="chip c-health" href="#zdorovye"><i aria-hidden="true"></i>Здоровье и бумаги</a></li><li><a class="chip c-buren" href="#sosedi"><i aria-hidden="true"></i>Соседи и пары</a></li><li><a class="chip c-buurt" href="#ryadom"><i aria-hidden="true"></i>Рядом</a></li></ul>
+<p class="day-note">Экраны собраны по образцу приложения; день взят для примера.</p></div>
+<div class="day-grid">
+<div class="clock-wrap" aria-hidden="true"><div class="clock"><span class="digits"><span class="col" style="--n:0"><span class="strip"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></span></span><span class="col" style="--n:7"><span class="strip"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></span></span><span class="sep">:</span><span class="col" style="--n:3"><span class="strip"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></span></span><span class="col" style="--n:0"><span class="strip"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></span></span></span>
+<span class="weekday">вторник</span></div></div>
+<div class="track">
+<span class="marker" aria-hidden="true"></span>
+<ol class="moments"><li class="moment is-now" data-time="07:30" id="sosedi"><time class="m-time c-buren" datetime="07:30">07:30</time><div class="m-text"><h3><span class="vh">Соседи и пары: </span>Утренняя прогулка с соседями</h3><p>Видно, какие собаки сейчас гуляют рядом, и можно пойти вместе. Ваше место видно, только если вы сами начали прогулку, и то с точностью до квартала.</p></div><div class="m-ui u-walk"><div class="u-card"><div class="u-head a"><span class="tile c-buren"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13" cy="4.5" r="1.8"/><path d="M10 21l2.2-6.2L15 17v4"/><path d="M8 11.5l2.8-3.2 3.4 1 2.3 3.2"/><path d="M12.2 14.8l-1.4-6.5"/></svg></span><span class="u-txt"><b>3 собаки гуляют сейчас</b><span>в пределах 1 км</span></span><span class="badge c-health">Сейчас</span></div><div class="u-row a" style="--d:1"><img class="ava" src="../assets/avatars/molly.webp" alt="" width="40" height="40" decoding="async"><span class="u-txt"><b>Molly</b><span>самоед</span></span><span class="dist">400 м</span></div><div class="u-row a" style="--d:2"><img class="ava" src="../assets/avatars/oscar.webp" alt="" width="40" height="40" decoding="async"><span class="u-txt"><b>Oscar</b><span>золотистый ретривер</span></span><span class="dist">650 м</span></div><div class="u-row a" style="--d:3"><img class="ava" src="../assets/avatars/toby.webp" alt="" width="40" height="40" decoding="async"><span class="u-txt"><b>Toby</b><span>бигль</span></span><span class="dist">900 м</span></div></div></div></li><li class="moment" data-time="09:00" id="zdorovye"><time class="m-time c-health" datetime="09:00">09:00</time><div class="m-text"><h3><span class="vh">Здоровье и бумаги: </span>Напоминание для Апполона</h3><p>Глистогонное, прививки, лекарства: PaWow напомнит вовремя, и про кошку, и про собаку.</p></div><div class="m-ui u-reminder"><div class="u-stack"><div class="u-notif a" style="--d:0"><img src="../assets/logo-128.png" alt="" width="38" height="38"><span class="u-txt"><span class="n-top"><b>PaWow</b><span>сейчас</span></span><b>Апполон: глистогонное сегодня</b><span>Нажмите, чтобы отметить</span></span></div><div class="u-notif a" style="--d:1"><img src="../assets/logo-128.png" alt="" width="38" height="38"><span class="u-txt"><span class="n-top"><b>PaWow</b><span>8 мин</span></span><b>Хьюстон: ревакцинация Nobivac через 12 дней</b><span>Запишитесь к ветеринару</span></span></div></div></div></li><li class="moment" data-time="10:15"><time class="m-time c-health" datetime="10:15">10:15</time><div class="m-text"><h3><span class="vh">Здоровье и бумаги: </span>Врач сканирует QR‑паспорт</h3><p>Прививки, номер чипа и прошлые визиты открываются в браузере клиники, без приложения. Ссылка действует 7 дней, и её можно отозвать в любой момент.</p></div><div class="m-ui u-passport"><div class="u-browser"><div class="u-bar a"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg>pawmatch-passport/passport</span></div><div class="u-page"><div class="u-head a" style="--d:1"><span class="qr"><svg viewBox="0 0 25 25" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M0 0h7v1h-7zM10 0h3v1h-3zM15 0h1v1h-1zM18 0h7v1h-7zM0 1h1v1h-1zM6 1h1v1h-1zM9 1h2v1h-2zM15 1h2v1h-2zM18 1h1v1h-1zM24 1h1v1h-1zM0 2h1v1h-1zM2 2h3v1h-3zM6 2h1v1h-1zM9 2h3v1h-3zM14 2h3v1h-3zM18 2h1v1h-1zM20 2h3v1h-3zM24 2h1v1h-1zM0 3h1v1h-1zM2 3h3v1h-3zM6 3h1v1h-1zM9 3h2v1h-2zM13 3h1v1h-1zM15 3h2v1h-2zM18 3h1v1h-1zM20 3h3v1h-3zM24 3h1v1h-1zM0 4h1v1h-1zM2 4h3v1h-3zM6 4h1v1h-1zM10 4h2v1h-2zM14 4h1v1h-1zM18 4h1v1h-1zM20 4h3v1h-3zM24 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM10 5h1v1h-1zM12 5h5v1h-5zM18 5h1v1h-1zM24 5h1v1h-1zM0 6h7v1h-7zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM18 6h7v1h-7zM9 7h1v1h-1zM14 7h1v1h-1zM1 8h1v1h-1zM4 8h3v1h-3zM8 8h2v1h-2zM12 8h1v1h-1zM14 8h1v1h-1zM16 8h2v1h-2zM21 8h1v1h-1zM23 8h2v1h-2zM0 9h1v1h-1zM5 9h6v1h-6zM12 9h2v1h-2zM16 9h3v1h-3zM20 9h1v1h-1zM23 9h1v1h-1zM0 10h4v1h-4zM5 10h3v1h-3zM9 10h1v1h-1zM15 10h5v1h-5zM21 10h3v1h-3zM3 11h1v1h-1zM6 11h1v1h-1zM9 11h2v1h-2zM13 11h1v1h-1zM18 11h1v1h-1zM20 11h1v1h-1zM0 12h1v1h-1zM6 12h1v1h-1zM9 12h3v1h-3zM14 12h2v1h-2zM17 12h1v1h-1zM19 12h2v1h-2zM22 12h2v1h-2zM4 13h1v1h-1zM6 13h2v1h-2zM9 13h1v1h-1zM15 13h2v1h-2zM19 13h1v1h-1zM24 13h1v1h-1zM3 14h1v1h-1zM6 14h1v1h-1zM9 14h1v1h-1zM11 14h1v1h-1zM13 14h1v1h-1zM16 14h4v1h-4zM22 14h3v1h-3zM2 15h1v1h-1zM4 15h3v1h-3zM8 15h2v1h-2zM11 15h1v1h-1zM13 15h1v1h-1zM15 15h2v1h-2zM18 15h3v1h-3zM22 15h2v1h-2zM5 16h1v1h-1zM9 16h2v1h-2zM12 16h1v1h-1zM15 16h2v1h-2zM18 16h2v1h-2zM21 16h1v1h-1zM23 16h2v1h-2zM11 17h4v1h-4zM18 17h3v1h-3zM24 17h1v1h-1zM0 18h7v1h-7zM9 18h1v1h-1zM12 18h2v1h-2zM15 18h3v1h-3zM19 18h1v1h-1zM0 19h1v1h-1zM6 19h1v1h-1zM10 19h1v1h-1zM16 19h1v1h-1zM18 19h5v1h-5zM0 20h1v1h-1zM2 20h3v1h-3zM6 20h1v1h-1zM13 20h1v1h-1zM16 20h7v1h-7zM0 21h1v1h-1zM2 21h3v1h-3zM6 21h1v1h-1zM9 21h1v1h-1zM11 21h4v1h-4zM16 21h1v1h-1zM18 21h1v1h-1zM21 21h2v1h-2zM0 22h1v1h-1zM2 22h3v1h-3zM6 22h1v1h-1zM8 22h1v1h-1zM11 22h1v1h-1zM14 22h1v1h-1zM16 22h2v1h-2zM19 22h1v1h-1zM23 22h1v1h-1zM0 23h1v1h-1zM6 23h1v1h-1zM8 23h2v1h-2zM11 23h2v1h-2zM14 23h1v1h-1zM20 23h2v1h-2zM0 24h7v1h-7zM8 24h1v1h-1zM12 24h4v1h-4zM17 24h1v1h-1zM19 24h2v1h-2zM24 24h1v1h-1z"/></svg></span><span class="u-txt"><b>Ветпаспорт Хьюстона</b><span>Джек-рассел-терьер · Мальчик · Чип •••• 4127</span></span></div><div class="u-row a" style="--d:2"><span class="tile c-health"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5.5c0 4.4-3 8-7 9.5-4-1.5-7-5.1-7-9.5V6z"/><path d="M8.8 12.2l2.2 2.2 4.2-4.4"/></svg></span><span class="u-txt"><b>Комплексная (DHPPi)</b><span>действует до мар. 2027</span></span><span class="badge c-health">Действует</span></div><div class="u-row a" style="--d:3"><span class="tile c-health"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5.5c0 4.4-3 8-7 9.5-4-1.5-7-5.1-7-9.5V6z"/><path d="M8.8 12.2l2.2 2.2 4.2-4.4"/></svg></span><span class="u-txt"><b>Питомниковый кашель</b><span>действует до янв. 2027</span></span><span class="badge c-health">Действует</span></div><p class="u-foot a" style="--d:4">Ссылка до пн, 20 окт.</p></div></div></div></li><li class="moment" data-time="14:00"><time class="m-time c-health" datetime="14:00">14:00</time><div class="m-text"><h3><span class="vh">Здоровье и бумаги: </span>Счёт становится декларацией</h3><p>Клиника присылает счёт по той же ссылке. Вы делаете из него черновик декларации для страховой, ничего не перепечатывая.</p></div><div class="m-ui u-invoice"><div class="u-flow"><div class="u-card"><div class="u-row a"><span class="tile c-attn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><path d="M9.5 12h6M9.5 15.5h6"/></svg></span><span class="u-txt"><b>Счёт от клиники</b><span>Приём и прививка · 86,50 €</span></span></div></div><span class="u-arrow a" style="--d:1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6.5l5.5 5.5-5.5 5.5"/></svg></span><div class="u-card"><div class="u-row a" style="--d:2"><span class="tile c-lilac"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5.5c0 4.4-3 8-7 9.5-4-1.5-7-5.1-7-9.5V6z"/><path d="M8.8 12.2l2.2 2.2 4.2-4.4"/></svg></span><span class="u-txt"><b>Черновик декларации</b><span>Можно отправить в страховую</span></span><span class="badge c-lilac">Застрахован</span></div></div></div></div></li><li class="moment" data-time="17:30" id="ryadom"><time class="m-time c-buurt" datetime="17:30">17:30</time><div class="m-text"><h3><span class="vh">Рядом: </span>Груминг, приют или клуб породы</h3><p>Ветклиники и салоны на карте, с заявкой в салоны-партнёры. Приюты и клубы пород со ссылками на их сайты, а ещё корм и игрушки с bol.</p></div><div class="m-ui u-nearby"><div class="u-near"><div class="u-card"><div class="u-row a" style="--d:0"><span class="tile c-health"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11l8-7 8 7"/><path d="M6 9.5V20h12V9.5"/><path d="M10 20v-5h4v5"/></svg></span><span class="u-txt"><b>Приютов</b><span>со ссылкой на их сайт</span></span><span class="val">79</span></div><div class="u-row a" style="--d:1"><span class="tile c-lilac"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="7" cy="9" r="1.8"/><circle cx="11" cy="6" r="1.8"/><circle cx="15" cy="6.5" r="1.8"/><circle cx="18" cy="10" r="1.8"/><path d="M12 12c-3 0-5.5 3.2-5.5 5.4 0 1.5 1.2 2.1 2.6 2.1 1.1 0 1.9-.6 2.9-.6s1.8.6 2.9.6c1.4 0 2.6-.6 2.6-2.1C17.5 15.2 15 12 12 12z"/></svg></span><span class="u-txt"><b>Клубов пород</b><span>Raad van Beheer</span></span><span class="val">56</span></div><div class="u-row a" style="--d:2"><span class="tile c-neutral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg></span><span class="u-txt"><b>Товаров bol</b><span>примерно, обновление каждые 6 часов</span></span><span class="val">775</span></div></div><div class="u-card"><div class="u-row a" style="--d:3"><span class="tile c-neutral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6.5" cy="17" r="2.5"/><circle cx="17.5" cy="17" r="2.5"/><path d="M8.3 15.3L18 4M15.7 15.3L6 4"/></svg></span><span class="u-txt"><b>Заявка в салон</b><span>чт 10:30 · мытьё и стрижка</span></span><span class="badge c-health">Подтверждено</span></div></div><p class="u-note a" style="--d:4">Ссылки партнёрские: если вы покупаете через каталог, bol платит PaWow небольшую комиссию.</p></div></div></li><li class="moment" data-time="21:00"><time class="m-time c-buren" datetime="21:00">21:00</time><div class="m-text"><h3><span class="vh">Соседи и пары: </span>Пара для Хьюстона</h3><p>Хьюстон и Бонни понравились друг другу. Теперь хозяева могут списаться и договориться о встрече.</p></div><div class="m-ui u-match"><div class="u-card"><div class="u-row a"><span class="tile t-brand"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 20.3l-1.4-1.3C5.6 14.6 3 12.2 3 8.9 3 6.2 5.1 4 7.7 4c1.6 0 3.2.8 4.3 2.1C13.1 4.8 14.7 4 16.3 4 18.9 4 21 6.2 21 8.9c0 3.3-2.6 5.7-7.6 10.1z"/></svg></span><span class="u-txt"><b>Взаимное совпадение</b><span>Bonnie · джек-рассел-терьер</span></span></div><div class="u-chat"><p class="bubble a" style="--d:2">Погуляем завтра в парке?</p><p class="bubble a me" style="--d:3">С удовольствием! В 18:00 у пруда?</p></div></div></div></li></ol>
+</div>
 </div>
 </div></section>
 
-<section id="features"><div class="wrap">
-<div class="sec-head reveal"><span class="kicker">Возможности</span><h2>Что можно делать в PaWow</h2>
-<p>От первого знакомства в парке до ежегодного осмотра: всё о питомце в одном месте.</p></div>
-<div class="features"><article class="card reveal" style="--i:0"><div class="ico" aria-hidden="true">💞</div><h3>Матч</h3><p>Друзья для игр или пара для собаки или кошки рядом с вами. Фильтр по породе и расстоянию, а когда симпатия взаимна, можно написать владельцу.</p></article><article class="card reveal" style="--i:1"><div class="ico" aria-hidden="true">🩺</div><h3>Медкарта</h3><p>Прививки, препараты и визиты к ветеринару в одном месте, с напоминаниями на телефоне.</p></article><article class="card reveal" style="--i:2"><div class="ico" aria-hidden="true">🔳</div><h3>QR‑ветпаспорт</h3><p>Ветеринар сканирует QR‑код и сразу видит прививки, номер чипа и прошлые визиты. По той же ссылке клиника может прислать счёт.</p></article><article class="card reveal" style="--i:3"><div class="ico" aria-hidden="true">🐕</div><h3>Прогулки вместе</h3><p>Смотрите, какие собаки гуляют рядом прямо сейчас, и присоединяйтесь. Своё место вы показываете, только когда сами начинаете прогулку.</p></article><article class="card reveal" style="--i:0"><div class="ico" aria-hidden="true">📸</div><h3>Лента</h3><p>Делитесь фото питомца и смотрите, что публикуют другие. Понравился профиль? Поставьте лайк прямо из ленты.</p></article><article class="card reveal" style="--i:1"><div class="ico" aria-hidden="true">📍</div><h3>Услуги рядом</h3><p>Ветклиники, груминг-салоны и зоомагазины поблизости, на карте.</p></article><article class="card reveal" style="--i:2"><div class="ico" aria-hidden="true">🛍️</div><h3>Каталог товаров</h3><p>Корм, игрушки и средства ухода из интернет-магазинов bol и Zooplus с учётом вида питомца. Заказ как обычно, на сайте магазина.</p></article><article class="card reveal" style="--i:3"><div class="ico" aria-hidden="true">🏠</div><h3>Усыновление</h3><p>Животные из приютов поблизости, которые ищут дом.</p></article></div>
-</div></section>
-
-<section id="screens" class="screens">
-<div class="wrap"><div class="sec-head reveal"><span class="kicker">В приложении</span>
-<h2>Так выглядит PaWow</h2><p>Настоящие экраны из бета-версии, а не иллюстрации.</p></div></div>
-<div class="gallery" tabindex="0" aria-label="Так выглядит PaWow"><figure class="shot-item reveal" style="--i:0"><div class="phone"><div class="screen shot"><div class="island"></div><img src="../assets/shots/ru-home.webp" alt="Главный экран PaWow с Хьюстоном, джек-расселом" width="600" height="1304" loading="lazy" decoding="async"></div></div><figcaption>Всё на одном экране</figcaption></figure><figure class="shot-item reveal" style="--i:1"><div class="phone"><div class="screen shot"><div class="island"></div><img src="../assets/shots/ru-match.webp" alt="Матч в PaWow: анкета Бонни, джек-рассела по соседству" width="600" height="1304" loading="lazy" decoding="async"></div></div><figcaption>Друзья по соседству</figcaption></figure><figure class="shot-item reveal" style="--i:2"><div class="phone"><div class="screen shot"><div class="island"></div><img src="../assets/shots/ru-feed.webp" alt="Лента PaWow с фотографиями других собак" width="600" height="1304" loading="lazy" decoding="async"></div></div><figcaption>Фото других владельцев</figcaption></figure><figure class="shot-item reveal" style="--i:3"><div class="phone"><div class="screen shot"><div class="island"></div><img src="../assets/shots/ru-health.webp" alt="Здоровье в PaWow: прививки, страховка и QR-ветпаспорт" width="600" height="1304" loading="lazy" decoding="async"></div></div><figcaption>Прививки и паспорт</figcaption></figure><figure class="shot-item reveal" style="--i:4"><div class="phone"><div class="screen shot"><div class="island"></div><img src="../assets/shots/ru-catalog.webp" alt="Каталог PaWow с игрушками для собак из bol" width="600" height="1304" loading="lazy" decoding="async"></div></div><figcaption>Товары для питомцев</figcaption></figure></div>
+<section class="screens" aria-labelledby="screens-h"><div class="wrap">
+<div class="sec-head sec-split"><div><h2 id="screens-h">Как PaWow выглядит на самом деле</h2><p>Настоящие экраны из беты. Хьюстон и Апполон настоящие питомцы; анкеты в «Матче» демонстрационные.</p></div>
+<div class="shots-nav"><button type="button" class="round" data-dir="-1" aria-label="Предыдущие экраны" aria-controls="shots"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 6l-6 6 6 6"/></svg></button>
+<button type="button" class="round" data-dir="1" aria-label="Следующие экраны" aria-controls="shots"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 6l6 6-6 6"/></svg></button></div></div>
+</div>
+<div class="shots" id="shots" tabindex="0" role="region" aria-labelledby="screens-h"><figure class="shot"><div class="frame"><img src="../assets/shots/ru-home.webp" alt="Главный экран PaWow с Хьюстоном, джек-рассел-терьером" width="600" height="840" loading="lazy" decoding="async"></div><figcaption>Главная: Хьюстон с одного взгляда</figcaption></figure><figure class="shot"><div class="frame"><img src="../assets/shots/ru-cat.webp" alt="Главный экран PaWow с Апполоном, мейн-куном" width="600" height="840" loading="lazy" decoding="async"></div><figcaption>И для кошки тоже</figcaption></figure><figure class="shot"><div class="frame"><img src="../assets/shots/ru-health.webp" alt="Здоровье в PaWow: прививки, страховка и QR-ветпаспорт" width="600" height="840" loading="lazy" decoding="async"></div><figcaption>Здоровье и страховка</figcaption></figure><figure class="shot"><div class="frame"><img src="../assets/shots/ru-match.webp" alt="Матч в PaWow: демо-анкета Бонни" width="600" height="840" loading="lazy" decoding="async"></div><figcaption>Пары рядом (демо-анкета)</figcaption></figure><figure class="shot"><div class="frame"><img class="fit" src="../assets/shots/ru-adopt.webp" alt="Список приютов в PaWow с расстоянием и видами животных" width="600" height="840" loading="lazy" decoding="async"></div><figcaption>Приюты рядом с вами</figcaption></figure></div>
 </section>
 
-<section><div class="wrap spot">
-<div class="spot-media reveal"><div class="phone"><div class="screen shot"><div class="island"></div><img src="../assets/shots/ru-passport.webp" alt="QR-ветпаспорт Хьюстона в PaWow" width="600" height="1304" loading="lazy" decoding="async"></div></div></div>
-<div class="reveal" style="--i:1"><span class="kicker">Здоровье</span><h2>Ветпаспорт всегда под рукой</h2>
-<p>Прививки, препараты, номер чипа и визиты к ветеринару: в PaWow всё в одном месте, даже если бумажный паспорт остался дома в ящике стола.</p><ul class="checks"><li>Напоминания о следующей прививке, осмотре или приёме препарата, прямо на телефоне.</li><li>QR‑ссылка для ветеринара: действует 7 дней, отозвать можно в любой момент.</li><li>По той же ссылке клиника присылает счёт, и вы пересылаете его в страховую.</li></ul></div>
+<section class="trust" id="privacy"><div class="wrap trust-grid">
+<div class="card"><h2>Ваши данные остаются вашими</h2><ul class="checks"><li>Хранятся в дата-центрах в ЕС.</li><li>Медицинские записи видите только вы, и врач, если вы поделились QR‑ссылкой.</li><li>Другие видят местоположение питомца только округлённо.</li><li>Мы не продаём ваши данные и не используем их для рекламы.</li><li>Удалите аккаунт, и мы сотрём всё, включая питомцев и переписку.</li></ul>
+<a class="more" href="../privacy.html?lang=ru">Политика конфиденциальности целиком<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6.5l5.5 5.5-5.5 5.5"/></svg></a></div>
+<div class="card" id="partners"><h2>Как PaWow зарабатывает</h2><p>На партнёрских ссылках, а не на ваших данных. Если вы покупаете что-то через каталог, bol платит PaWow небольшую комиссию. Для вас цена та же.</p>
+<details class="more-details"><summary>Подробнее о партнёрских ссылках</summary><ul class="plain"><li><b>Партнёрская программа bol</b> PaWow участвует в партнёрской программе bol. Товары и цены в каталоге берутся у bol, а кнопка «Купить» ведёт на bol.com. PaWow независимое приложение и не часть bol.</li><li><b>Покупка в магазине</b> Сами мы ничего не продаём. Заказ, оплата, доставка и возврат идут через bol, по их условиям.</li><li><b>Главная цена у магазина</b> Цены мы обновляем каждые 6 часов, но действует всегда цена на bol.com.</li><li><b>Явная пометка</b> Партнёрские ссылки в приложении помечены, и личные данные магазину мы не передаём.</li><li><b>Честные советы</b> Статьи мы пишем сами. Комиссия не меняет того, что мы советуем.</li></ul></details></div>
 </div></section>
 
-<section><div class="wrap spot rev">
-<div class="spot-media reveal"><div class="phone"><div class="screen shot"><div class="island"></div><img src="../assets/shots/ru-catalog.webp" alt="Каталог PaWow с игрушками для собак из bol" width="600" height="1304" loading="lazy" decoding="async"></div></div></div>
-<div class="reveal" style="--i:1"><span class="kicker">Каталог</span><h2>Всё нужное для питомца без долгих поисков</h2>
-<p>В каталоге собраны корм, игрушки, аксессуары и средства ухода из интернет-магазинов bol и Zooplus, с учётом того, какой у вас питомец.</p><ul class="checks"><li>Фильтр по виду: для собак, для кошек или всё.</li><li>Цена, скидка и срок доставки сразу видны. Цены обновляются несколько раз в сутки.</li><li>Заказ и оплата на сайте магазина, с его сервисом и условиями возврата.</li></ul>
-<a class="more-link" href="#partners">Как работают партнёрские ссылки →</a></div>
+<section class="guides-sec" aria-labelledby="guides-h"><div class="wrap">
+<div class="sec-row"><h2 id="guides-h">Из гайдов</h2><a class="more" href="../ru/guides/">Все статьи<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6.5l5.5 5.5-5.5 5.5"/></svg></a></div>
+<div class="guides"><a class="guide" href="../ru/guides/puppy-at-home.html"><h3>Щенок дома: чек-лист на первые недели</h3><p>Что купить до приезда щенка и что оформить в первые недели: от клетки-домика до регистрации чипа.</p><span class="guide-foot"><span class="go">Читать<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6.5l5.5 5.5-5.5 5.5"/></svg></span><span class="meta">6 мин чтения</span></span></a><a class="guide" href="../ru/guides/travelling-in-the-eu.html"><h3>Поездка с собакой или кошкой по ЕС</h3><p>Чип, прививка от бешенства и ветпаспорт: что нужно, за сколько начинать и какие страны требуют больше.</p><span class="guide-foot"><span class="go">Читать<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6.5l5.5 5.5-5.5 5.5"/></svg></span><span class="meta">5 мин чтения</span></span></a><a class="guide" href="../ru/guides/dog-walking-rules.html"><h3>Прогулки с собакой в Нидерландах: поводок, уборка и зоны без поводка</h3><p>Где собаке можно без поводка? Правила зависят от муниципалитета. Главное из них и советы для жары и тёмных вечеров.</p><span class="guide-foot"><span class="go">Читать<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6.5l5.5 5.5-5.5 5.5"/></svg></span><span class="meta">4 мин чтения</span></span></a></div>
 </div></section>
 
-<section id="how"><div class="wrap">
-<div class="sec-head reveal"><span class="kicker">Как это работает</span><h2>Три шага, и готово</h2></div>
-<ol class="steps"><li class="card reveal" style="--i:0"><h3>Создайте анкету</h3><p>Кличка, вид, порода, дата рождения и фото. Несколько питомцев? Переключение одним касанием.</p></li><li class="card reveal" style="--i:1"><h3>Наведите порядок в здоровье</h3><p>Добавьте прививки и визиты, и PaWow напомнит, когда подойдёт срок.</p></li><li class="card reveal" style="--i:2"><h3>Откройте свой район</h3><p>Матчи, компания для прогулок, ветклиники и груминг-салоны рядом.</p></li></ol>
+<section class="faq-sec" id="faq" aria-labelledby="faq-h"><div class="wrap faq-grid">
+<h2 id="faq-h">Частые вопросы</h2>
+<div class="faq"><details><summary>Как попасть в бету?</summary><p>Бета идёт через TestFlight, приложение Apple для тестовых версий. Сейчас она закрытая. Оставьте email выше, и мы напишем, как только вы сможете присоединиться или PaWow появится в App Store.</p></details><details><summary>Есть ли версия для Android?</summary><p>Пока нет: сейчас PaWow только для iPhone с iOS 17 или новее.</p></details><details><summary>На каких языках приложение?</summary><p>На нидерландском, английском и русском. Язык меняется прямо в приложении.</p></details><details><summary>Для каких животных PaWow?</summary><p>Для собак, кошек, птиц, кроликов и других питомцев. Совместные прогулки только для собак.</p></details><details><summary>Кто видит данные моего питомца?</summary><p>Кличку, породу и фото питомца другие пользователи видят в подборе пар, в ленте и на карте прогулок. Медицинские записи, документы и переписку видите только вы и тот, с кем вы переписываетесь или кому отправили QR‑ссылку.</p></details><details><summary>PaWow сам продаёт товары?</summary><p>Нет. Каталог ведёт на bol, там вы заказываете и платите. Читайте, <a href="#partners">как устроены партнёрские ссылки</a>.</p></details></div>
 </div></section>
 
-<section id="guides"><div class="wrap">
-<div class="sec-head reveal"><span class="kicker">Гайды</span><h2>Гайды для владельцев</h2>
-<p>Практичные статьи, которые мы пишем сами: первые недели со щенком, поездки с питомцем и правила выгула.</p></div>
-<div class="guides"><a class="guide reveal" style="--i:0" href="../ru/guides/puppy-at-home.html"><div class="thumb" aria-hidden="true"><span>🐶</span></div><div class="body"><div class="meta"><span>6 мин чтения</span></div><h3>Щенок дома: чек-лист на первые недели</h3><p>Что купить до приезда щенка и что оформить в первые недели: от клетки-домика до регистрации чипа.</p><span class="go">Читать →</span></div></a><a class="guide reveal" style="--i:1" href="../ru/guides/travelling-in-the-eu.html"><div class="thumb" aria-hidden="true"><span>🧳</span></div><div class="body"><div class="meta"><span>5 мин чтения</span></div><h3>Поездка с собакой или кошкой по ЕС</h3><p>Чип, прививка от бешенства и ветпаспорт: что нужно, за сколько начинать и какие страны требуют больше.</p><span class="go">Читать →</span></div></a><a class="guide reveal" style="--i:2" href="../ru/guides/dog-walking-rules.html"><div class="thumb" aria-hidden="true"><span>🦮</span></div><div class="body"><div class="meta"><span>4 мин чтения</span></div><h3>Прогулки с собакой в Нидерландах: поводок, уборка и зоны без поводка</h3><p>Где собаке можно без поводка? Правила зависят от муниципалитета. Главное из них и советы для жары и тёмных вечеров.</p><span class="go">Читать →</span></div></a></div>
-<p class="after"><a class="more-link" href="../ru/guides/">Все гайды →</a></p>
-</div></section>
-
-<section id="partners"><div class="wrap"><div class="panel">
-<div class="sec-head reveal"><span class="kicker">Партнёрские ссылки</span><h2>Честно о партнёрских ссылках</h2>
-<p>PaWow зарабатывает на партнёрских ссылках, а не на ваших данных. Как это устроено:</p></div>
-<ul class="points"><li class="reveal" style="--i:0"><b>Партнёрская программа bol</b>PaWow участвует в партнёрской программе bol. Товары и цены в каталоге от bol, а «Купить» ведёт на bol.com. PaWow независимое приложение и не входит в bol.</li><li class="reveal" style="--i:1"><b>Комиссия без наценки</b>Если вы покупаете что-то по ссылке из нашего каталога, магазин платит PaWow небольшую комиссию. Для вас цена не меняется.</li><li class="reveal" style="--i:2"><b>Покупка в магазине</b>Сами мы ничего не продаём. Заказ, оплата, доставка и возврат проходят через магазин, по его правилам.</li><li class="reveal" style="--i:3"><b>Главная цена у магазина</b>Цены мы обновляем несколько раз в сутки, но решает цена на сайте магазина.</li><li class="reveal" style="--i:4"><b>Чёткая пометка</b>Партнёрские ссылки в приложении помечены, а ваши личные данные магазину мы не передаём.</li><li class="reveal" style="--i:5"><b>Честные советы</b>Статьи мы пишем сами. Комиссия не влияет на то, что мы советуем.</li></ul>
-</div></div></section>
-
-<section id="privacy"><div class="wrap split">
-<div class="reveal"><span class="kicker">Приватность</span><h2>Ваши данные остаются вашими</h2>
-<p class="lead" style="font-size:17px">Мы храним только то, что нужно для работы приложения, а управляете ими вы.</p>
-<a class="more-link" href="../privacy.html?lang=ru">Полная политика конфиденциальности →</a></div>
-<ul class="checks reveal" style="--i:1"><li>Хранятся в дата-центрах в ЕС.</li><li>Медицинские записи видите только вы и ветеринар, если вы поделились QR‑ссылкой.</li><li>Другим пользователям местоположение питомца показывается только округлённым.</li><li>Мы не продаём данные и не используем их для рекламы.</li><li>Если удалить аккаунт, мы сотрём всё, включая питомцев и переписку.</li></ul>
-</div></section>
-
-<section id="faq"><div class="wrap">
-<div class="sec-head reveal"><span class="kicker">Вопросы</span><h2>Частые вопросы</h2></div>
-<div class="faq"><details class="reveal" style="--i:0"><summary>Когда PaWow появится в App Store?</summary><p>Сейчас мы тестируем приложение в TestFlight с небольшой группой владельцев. Как только PaWow выйдет в App Store, ссылка появится на этой странице.</p></details><details class="reveal" style="--i:1"><summary>Есть ли версия для Android?</summary><p>Пока нет: PaWow сейчас только для iPhone.</p></details><details class="reveal" style="--i:2"><summary>На каких языках приложение?</summary><p>На нидерландском, английском и русском.</p></details><details class="reveal" style="--i:3"><summary>Для каких животных PaWow?</summary><p>Для собак, кошек, птиц, кроликов и других питомцев. Совместные прогулки есть только для собак.</p></details><details class="reveal" style="--i:4"><summary>Кто видит данные моего питомца?</summary><p>Кличку, породу и фото питомца видят другие пользователи: в подборе пар, в ленте и на карте прогулок. Медицинские записи, документы и переписку видите только вы и тот, с кем вы переписываетесь или кому отправили QR‑ссылку.</p></details><details class="reveal" style="--i:5"><summary>PaWow сам продаёт товары?</summary><p>Нет. Каталог ведёт в интернет-магазины, заказ и оплата там. Подробнее: <a href="#partners">как работают партнёрские ссылки</a>.</p></details></div>
-</div></section>
-
-<section id="contact"><div class="wrap">
-<div class="sec-head reveal"><span class="kicker">О нас</span><h2>О PaWow</h2></div>
-<div class="about">
-<div class="card reveal"><p>Мы делаем PaWow, независимое приложение для владельцев питомцев в Нидерландах, шаг за шагом и вместе с первыми пользователями. Любой отзыв помогает.</p><p>Вы ветклиника, груминг-салон или приют и хотите появиться в PaWow? Напишите нам.</p></div>
-<div class="card contact reveal" style="--i:1"><h3>Контакты</h3><p>Вопросы, идеи или сотрудничество? Будем рады письму.</p>
-<a class="btn" href="mailto:support@pawmatch.app" aria-label="Написать: support@pawmatch.app"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7.5l8 6 8-6"/></svg><span>support@pawmatch.app</span></a></div>
+<section class="final" aria-labelledby="final-h"><div class="wrap final-grid">
+<div class="final-copy"><h2 id="final-h">Узнайте первыми, когда PaWow откроется</h2><p>Одно письмо, когда откроется бета или PaWow появится в App Store. Больше ничего.</p></div>
+<div class="act-card"><form class="notify" id="notify-end" data-lang="ru" data-msg="{&quot;sending&quot;: &quot;Секунду…&quot;, &quot;ok&quot;: &quot;Готово. Напишем, когда придёт время.&quot;, &quot;bad&quot;: &quot;Похоже, в адресе ошибка. Проверьте его, пожалуйста.&quot;, &quot;busy&quot;: &quot;Сейчас слишком много подписок. Попробуйте через минуту.&quot;, &quot;offline&quot;: &quot;Нет соединения. Попробуйте ещё раз, когда появится интернет.&quot;}" action="mailto:support@pawmatch.app" method="post" novalidate>
+<label class="field-label" for="notify-end-email">Email</label>
+<div class="field-row">
+<input id="notify-end-email" name="email" type="email" inputmode="email" autocomplete="email" required maxlength="254" placeholder="vy@primer.nl">
+<button class="btn btn-primary" type="submit">Подписаться</button>
 </div>
+<label class="consent"><input type="checkbox" name="consent" required><span>Напишите мне, когда откроется бета или PaWow появится в App Store. <a href="../privacy.html?lang=ru">Конфиденциальность</a></span></label>
+<input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+<p class="status" role="status" aria-live="polite"></p>
+</form><p class="fine"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg>Только email и язык. Без трекеров.</p></div>
 </div></section>
 
 </main>
 <footer class="foot"><div class="wrap">
-<div>
+<div class="foot-main">
 <a class="brand" href="../ru/"><img src="../assets/logo-128.png" alt="" width="28" height="28">PaWow</a>
-<p>Всё для питомца в одном приложении.</p>
-<p>PaWow участвует в партнёрской программе bol и остаётся независимым приложением.</p>
-<p>Этот сайт не ставит cookies и не использует трекеры.</p>
-<p>© 2026 PaWow · <a href="mailto:support@pawmatch.app">support@pawmatch.app</a></p>
+<p>День вашего питомца в одном приложении.</p>
+<p>Вопросы или сотрудничество? <a href="mailto:support@pawmatch.app">support@pawmatch.app</a></p>
 </div>
-<div>
-<nav aria-label="Footer">
-<a href="#features">Возможности</a>
+<nav class="foot-nav" aria-label="Footer">
 <a href="../ru/guides/">Гайды</a>
-<a href="#partners">Партнёрские ссылки</a>
+<a href="#partners">Как PaWow зарабатывает</a>
 <a href="../privacy.html?lang=ru">Политика конфиденциальности</a>
 <a href="../terms.html?lang=ru">Условия использования</a>
 </nav>
-<div class="foot-lang"><details class="lang-menu up"><summary aria-label="Выбрать язык: Русский"><span class="flag flag-ru" aria-hidden="true"></span>RU<svg class="chev" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary><ul><li><a href="../" hreflang="nl" lang="nl"><span class="flag flag-nl" aria-hidden="true"></span>Nederlands</a></li><li><a href="../en/" hreflang="en" lang="en"><span class="flag flag-gb" aria-hidden="true"></span>English</a></li><li><a href="../ru/" hreflang="ru" lang="ru" aria-current="true"><span class="flag flag-ru" aria-hidden="true"></span>Русский</a></li></ul></details></div>
+<div class="foot-lang"><details class="lang-menu up"><summary aria-label="Выбрать язык: Русский">RU<svg class="chev" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary><ul><li><a href="../" hreflang="nl" lang="nl">Nederlands</a></li><li><a href="../en/" hreflang="en" lang="en">English</a></li><li><a href="../ru/" hreflang="ru" lang="ru" aria-current="true">Русский</a></li></ul></details></div>
+<div class="foot-fine">
+<p>PaWow участвует в партнёрской программе bol и является независимым приложением. Сайт не ставит cookies и не использует трекеры.</p>
+<p>© 2026 PaWow</p>
 </div>
 </div></footer>
 <script>
 (function () {
-  var items = document.querySelectorAll('.reveal');
-  if (!('IntersectionObserver' in window)) { items.forEach(function (el) { el.classList.add('in'); }); return; }
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
-  items.forEach(function (el) { io.observe(el); });
-})();
-(function () {
-  // Меню языка: открыто только одно, закрывается по клику мимо и по Esc.
-  var menus = Array.prototype.slice.call(document.querySelectorAll('.lang-menu'));
-  menus.forEach(function (m) {
-    m.addEventListener('toggle', function () {
-      if (m.open) menus.forEach(function (o) { if (o !== m) o.open = false; });
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasIO = 'IntersectionObserver' in window;
+
+  // День: часы крутят цифры к времени текущей отметки, фон «сейчас»
+  // переходит на неё (opacity), маркер едет по линейке (transform), а
+  // фрагмент интерфейса собирается, когда отметка показалась на экране.
+  var day = document.querySelector('.day');
+  if (day) {
+    var moments = [].slice.call(day.querySelectorAll('.moment'));
+    var marker = day.querySelector('.marker');
+    var cols = [].slice.call(day.querySelectorAll('.clock .col'));
+    var current = null;
+    var place = function (m) {
+      if (!marker) return;
+      var t = m.querySelector('.m-time');
+      // offsetTop отметки считается от списка, а маркер стоит в дорожке.
+      // Над меткой времени, чтобы не закрывать цифры.
+      var y = m.offsetTop + m.offsetParent.offsetTop + t.offsetTop - 20;
+      marker.style.transform = 'translateY(' + y + 'px)';
+    };
+    var see = function (m) { m.classList.add('seen'); };
+    var activate = function (m) {
+      if (m === current) return;
+      current = m;
+      // Всё, что выше текущей отметки, тоже собрано: при быстрой прокрутке
+      // пролистанный фрагмент не должен остаться пустым.
+      var before = true;
+      moments.forEach(function (o) {
+        o.classList.toggle('is-now', o === m);
+        if (before) see(o);
+        if (o === m) before = false;
+      });
+      var d = m.dataset.time.replace(':', '').split('');
+      cols.forEach(function (c, i) { c.style.setProperty('--n', d[i]); });
+      place(m);
+    };
+    if (reduce || !hasIO) { moments.forEach(see); }
+    else {
+      day.classList.add('live');
+      var vis = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { see(e.target); vis.unobserve(e.target); } });
+      }, { threshold: 0.2 });
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) activate(e.target); });
+      }, { rootMargin: '-42% 0px -42% 0px' });
+      moments.forEach(function (m) { vis.observe(m); io.observe(m); });
+      activate(moments[0]);
+      window.addEventListener('resize', function () { if (current) place(current); });
+    }
+  }
+
+  // Галерея настоящих экранов: кнопки листают ленту на одну карточку.
+  var strip = document.getElementById('shots');
+  document.querySelectorAll('.shots-nav .round').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var card = strip.querySelector('.shot');
+      var step = card ? card.getBoundingClientRect().width + 20 : 320;
+      strip.scrollBy({ left: step * +b.dataset.dir, behavior: reduce ? 'auto' : 'smooth' });
     });
+  });
+
+  // Подписка «сообщить о запуске»: прямо в Supabase (только вставка).
+  document.querySelectorAll('form.notify').forEach(function (f) {
+    var status = f.querySelector('.status');
+    var btn = f.querySelector('button');
+    var msg = JSON.parse(f.dataset.msg);
+    f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (f.website.value) { f.classList.add('done'); status.textContent = msg.ok; return; }
+      if (!f.checkValidity()) { f.reportValidity(); return; }
+      btn.disabled = true;
+      status.textContent = msg.sending;
+      fetch('https://ltvgxpdcxejxhzemlamj.supabase.co/rest/v1/launch_signups', {
+        method: 'POST',
+        headers: { apikey: 'sb_publishable_BkiC7nGdqI_XV7S3NWOWxA_hosVZRnN', 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+        body: JSON.stringify({ email: f.email.value.trim(), lang: f.dataset.lang, consent: true })
+      }).then(function (r) {
+        // 409: адрес уже в списке. Отвечаем так же, как на новый: по ответу
+        // нельзя узнать, подписан ли чужой адрес.
+        if (r.ok || r.status === 409) { f.classList.add('done'); status.textContent = msg.ok; return; }
+        return r.json().catch(function () { return {}; }).then(function (j) {
+          status.textContent = j && j.code === 'P0001' ? msg.busy : msg.bad;
+          btn.disabled = false;
+        });
+      }).catch(function () { status.textContent = msg.offline; btn.disabled = false; });
+    });
+  });
+
+  // Меню языка: открыто только одно, закрывается по клику мимо и по Esc.
+  var menus = [].slice.call(document.querySelectorAll('.lang-menu'));
+  menus.forEach(function (m) {
+    m.addEventListener('toggle', function () { if (m.open) menus.forEach(function (o) { if (o !== m) o.open = false; }); });
   });
   document.addEventListener('click', function (e) {
     menus.forEach(function (m) { if (m.open && !m.contains(e.target)) m.open = false; });

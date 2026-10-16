@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="nl"><head><meta charset="utf-8"><title>Uit de la, in de app</title>
+<style>
+*{box-sizing:border-box;margin:0}
+html,body{width:1440px;height:900px;overflow:hidden}
+body{background:#F2F2F7;color:#1C1C1E;font:17px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif}
+.top{display:flex;align-items:center;justify-content:space-between;padding:24px 72px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:20px}
+.logo{width:34px;height:34px;border-radius:9px;background:#E84B7A}
+.nav{display:flex;gap:28px;color:#6E6E73;font-size:15px}
+.hero{display:grid;grid-template-columns:560px 1fr;gap:40px;padding:56px 72px 0}
+h1{font:700 64px/1.02 -apple-system,"SF Pro Display",system-ui;letter-spacing:-.02em}
+.lead{margin-top:22px;font-size:20px;color:#3C3C43;max-width:500px}
+.ctas{display:flex;gap:12px;margin-top:32px}
+.btn{height:52px;padding:0 24px;border-radius:14px;display:flex;align-items:center;font-weight:600;font-size:17px}
+.primary{background:#E84B7A;color:#fff}
+.tinted{background:rgba(232,75,122,.12);color:#C2185B}
+.note{margin-top:16px;font-size:14px;color:#6E6E73}
+.table{position:relative;height:640px}
+.sheet{position:absolute;background:#fff;border-radius:16px;padding:18px 20px;width:250px}
+.sheet small{display:block;font-size:12px;font-weight:600;letter-spacing:.02em;color:#6E6E73;text-transform:uppercase}
+.sheet b{display:block;font-size:17px;margin-top:6px}
+.sheet p{font-size:14px;color:#6E6E73;margin-top:4px}
+.passport{left:20px;top:30px;transform:rotate(-7deg);background:#1E3A8A;color:#fff}
+.passport small,.passport p{color:#C7D2FE}
+.invoice{left:150px;top:250px;transform:rotate(4deg)}
+.invoice .row{display:flex;justify-content:space-between;font-size:14px;margin-top:8px;color:#3C3C43}
+.sticky{left:40px;top:470px;transform:rotate(-3deg);background:#FFF4D6;width:200px}
+.flyer{left:330px;top:40px;transform:rotate(6deg);width:220px}
+.flyer .tag{display:inline-block;margin-top:10px;padding:4px 8px;border-radius:6px;background:rgba(29,158,117,.12);color:#1D9E75;font-size:12px;font-weight:600}
+.arrow{position:absolute;left:520px;top:300px;font-size:28px;color:#E84B7A}
+.card{position:absolute;right:20px;top:120px;width:360px;background:#FDE8EF;border-radius:16px;padding:22px}
+.id{display:flex;gap:14px;align-items:flex-start}
+.ava{width:64px;height:64px;border-radius:50%;background:#D9A27A}
+.id b{font-size:24px}.id p{color:#6E6E73;font-size:15px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chip{padding:4px 8px;border-radius:6px;font-size:13px;font-weight:600}
+.mint{background:rgba(29,158,117,.14);color:#167C5B}.lilac{background:rgba(123,104,238,.14);color:#5B4BC9}
+.rows{margin-top:16px;background:#fff;border-radius:16px;padding:6px 0}
+.r{display:flex;gap:12px;align-items:center;padding:10px 14px}
+.tile{width:44px;height:44px;border-radius:12px}
+.r b{font-size:15px;display:block}.r span{font-size:13px;color:#6E6E73}
+.chapters{position:absolute;left:72px;right:72px;bottom:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.ch{background:#fff;border-radius:16px;padding:16px 18px;display:flex;gap:12px;align-items:center}
+.ch b{display:block;font-size:16px}.ch span{font-size:13px;color:#6E6E73}
+</style></head><body>
+<header class="top"><div class="brand"><span class="logo"></span>PaWow</div>
+<nav class="nav"><span>Gezondheid</span><span>Buren</span><span>In de buurt</span><span>Gids</span><span>NL</span></nav></header>
+<section class="hero">
+<div>
+<h1>Het leven van je huisdier, niet meer in een la.</h1>
+<p class="lead">Paspoort, vaccinaties, verzekering, speelmaatjes en asielen in de buurt: PaWow zet het op één plek. Voor honden én katten.</p>
+<div class="ctas"><span class="btn primary">Probeer de bèta</span><span class="btn tinted">Laat het me weten bij de lancering</span></div>
+<p class="note">iPhone, iOS 17 of nieuwer · bèta via TestFlight, de app van Apple voor testversies</p>
+</div>
+<div class="table">
+<div class="sheet passport"><small>Europees dierenpaspoort</small><b>Houston</b><p>Chip 528 140 000 ··· · Nobivac</p></div>
+<div class="sheet invoice"><small>Factuur dierenkliniek</small><b>Controle en vaccinatie</b>
+<div class="row"><span>Consult</span><span>€ 42,00</span></div><div class="row"><span>Vaccinatie</span><span>€ 44,50</span></div></div>
+<div class="sheet sticky"><small>Briefje op de koelkast</small><b>Bonnie, 18:00 park</b><p>Speelafspraak</p></div>
+<div class="sheet flyer"><small>Dierenasiel</small><b>Op zoek naar een nieuw thuis?</b><span class="tag">79 asielen in de app</span></div>
+<span class="arrow">→</span>
+<div class="card">
+<div class="id"><span class="ava"></span><div><b>Houston ♂</b><p>Jack Russell · 2 jaar 6 maanden</p></div></div>
+<div class="chips"><span class="chip mint">Gevaccineerd</span><span class="chip lilac">Verzekerd</span><span class="chip lilac">Zoekt een partner</span></div>
+<div class="rows">
+<div class="r"><span class="tile" style="background:rgba(232,138,58,.14)"></span><div><b>Factuur van de kliniek</b><span>Stuur door naar je verzekeraar</span></div></div>
+<div class="r"><span class="tile" style="background:rgba(232,75,122,.14)"></span><div><b>Wederzijdse match</b><span>Bonnie · Jack Russell</span></div></div>
+</div></div>
+</div>
+</section>
+<div class="chapters">
+<div class="ch"><span class="tile" style="background:rgba(29,158,117,.14)"></span><div><b>Gezondheid en papieren</b><span>QR-paspoort, vaccinaties, declaraties</span></div></div>
+<div class="ch"><span class="tile" style="background:rgba(232,75,122,.14)"></span><div><b>Buren en maatjes</b><span>Matchen, wandelen, feed</span></div></div>
+<div class="ch"><span class="tile" style="background:rgba(123,104,238,.14)"></span><div><b>In de buurt</b><span>79 asielen, 56 rasverenigingen, diensten</span></div></div>
+</div>
+</body></html>

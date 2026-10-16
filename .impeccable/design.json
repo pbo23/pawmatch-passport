@@ -1,0 +1,936 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-16T14:05:47+00:00",
+  "title": "Design System: PaWow, сайт",
+  "parentSystem": "/Users/pbo/PawMatch/PawMatch/DESIGN.md",
+  "extensions": {
+    "colorMeta": {
+      "raspberry": {
+        "role": "primary",
+        "displayName": "Малиновый (Raspberry)",
+        "canonical": "#e84b7a",
+        "tonalRamp": [
+          "#1e0007",
+          "#49001c",
+          "#770834",
+          "#a71b4e",
+          "#d5386b",
+          "#fd5e8b",
+          "#fea8b9",
+          "#fee8ec"
+        ],
+        "note": "В тёмной теме заливка кнопки не меняется; меняются только чернила и тонировка."
+      },
+      "raspberry-ink": {
+        "role": "primary",
+        "displayName": "Малиновые чернила",
+        "canonical": "#b5174f",
+        "tonalRamp": [
+          "#1e0007",
+          "#48021a",
+          "#760c31",
+          "#ad0649",
+          "#d43b67",
+          "#fb6187",
+          "#fda9b7",
+          "#ffe8eb"
+        ]
+      },
+      "raspberry-ink-dark": {
+        "role": "primary",
+        "displayName": "Малиновые чернила, тёмная тема",
+        "canonical": "#ff86ab",
+        "tonalRamp": [
+          "#1d0009",
+          "#470420",
+          "#74103a",
+          "#9d2d57",
+          "#c25076",
+          "#e97297",
+          "#faa9bf",
+          "#fee8ed"
+        ],
+        "theme": "dark",
+        "lightCounterpart": "raspberry-ink"
+      },
+      "raspberry-tint": {
+        "role": "primary",
+        "displayName": "Малиновая тонировка",
+        "canonical": "rgba(232, 75, 122, 0.12)",
+        "tonalRamp": [
+          "#1e0007",
+          "#49001c",
+          "#770834",
+          "#a71b4e",
+          "#d5386b",
+          "#fd5e8b",
+          "#fea8b9",
+          "#fee8ec"
+        ]
+      },
+      "raspberry-tint-dark": {
+        "role": "primary",
+        "displayName": "Малиновая тонировка, тёмная тема",
+        "canonical": "rgba(232, 75, 122, 0.22)",
+        "tonalRamp": [
+          "#1e0007",
+          "#49001c",
+          "#770834",
+          "#a71b4e",
+          "#d5386b",
+          "#fd5e8b",
+          "#fea8b9",
+          "#fee8ec"
+        ],
+        "theme": "dark",
+        "lightCounterpart": "raspberry-tint"
+      },
+      "blush": {
+        "role": "primary",
+        "displayName": "Розовая дымка (Blush)",
+        "canonical": "#fde8ef",
+        "tonalRamp": [
+          "#13070c",
+          "#2e1f24",
+          "#4b3b40",
+          "#6a585e",
+          "#8a777e",
+          "#ac989f",
+          "#d2bec5",
+          "#fde8ef"
+        ]
+      },
+      "blush-dark": {
+        "role": "primary",
+        "displayName": "Розовая дымка, тёмная тема",
+        "canonical": "#4a2030",
+        "tonalRamp": [
+          "#1d000b",
+          "#3c1424",
+          "#5c3040",
+          "#7c4d5e",
+          "#9e6d7d",
+          "#c28d9e",
+          "#e9b3c4",
+          "#fee8ee"
+        ],
+        "theme": "dark",
+        "lightCounterpart": "blush"
+      },
+      "lilac": {
+        "role": "secondary",
+        "displayName": "Сирень (Lilac)",
+        "canonical": "#7b68ee",
+        "tonalRamp": [
+          "#0b012c",
+          "#240763",
+          "#3f179e",
+          "#5a40c3",
+          "#7763e9",
+          "#978dfb",
+          "#bebcfe",
+          "#ecedfe"
+        ],
+        "note": "Глава «Соседи и пары» на сайте сиреневая, хотя в приложении раздел малиновый: малиновый значит действие."
+      },
+      "lilac-ink": {
+        "role": "secondary",
+        "displayName": "Сиреневые чернила",
+        "canonical": "#4f3fc0",
+        "tonalRamp": [
+          "#09022c",
+          "#21006b",
+          "#391ca0",
+          "#5243c4",
+          "#6f67ea",
+          "#9090fc",
+          "#babdff",
+          "#ebedfe"
+        ]
+      },
+      "lilac-ink-dark": {
+        "role": "secondary",
+        "displayName": "Сиреневые чернила, тёмная тема",
+        "canonical": "#b2a7ff",
+        "tonalRamp": [
+          "#0d012a",
+          "#260e5b",
+          "#402f7c",
+          "#5d4f9e",
+          "#7c6fc2",
+          "#9c91e7",
+          "#c2bbfc",
+          "#edecfe"
+        ],
+        "theme": "dark",
+        "lightCounterpart": "lilac-ink"
+      },
+      "lilac-tint": {
+        "role": "secondary",
+        "displayName": "Сиреневая тонировка",
+        "canonical": "rgba(123, 104, 238, 0.14)",
+        "tonalRamp": [
+          "#0b012c",
+          "#240763",
+          "#3f179e",
+          "#5a40c3",
+          "#7763e9",
+          "#978dfb",
+          "#bebcfe",
+          "#ecedfe"
+        ]
+      },
+      "lilac-tint-dark": {
+        "role": "secondary",
+        "displayName": "Сиреневая тонировка, тёмная тема",
+        "canonical": "rgba(123, 104, 238, 0.26)",
+        "tonalRamp": [
+          "#0b012c",
+          "#240763",
+          "#3f179e",
+          "#5a40c3",
+          "#7763e9",
+          "#978dfb",
+          "#bebcfe",
+          "#ecedfe"
+        ],
+        "theme": "dark",
+        "lightCounterpart": "lilac-tint"
+      },
+      "mint": {
+        "role": "tertiary",
+        "displayName": "Мята (Mint)",
+        "canonical": "#1d9e75",
+        "tonalRamp": [
+          "#000f08",
+          "#012c1e",
+          "#094c36",
+          "#026f50",
+          "#00946b",
+          "#40b68c",
+          "#6cddb1",
+          "#c1ffe3"
+        ]
+      },
+      "mint-ink": {
+        "role": "tertiary",
+        "displayName": "Мята, чернила",
+        "canonical": "#127052",
+        "tonalRamp": [
+          "#000f08",
+          "#032c1e",
+          "#0f4b37",
+          "#0f6e50",
+          "#3b8f6f",
+          "#5fb190",
+          "#85d8b5",
+          "#c3fee3"
+        ]
+      },
+      "mint-ink-dark": {
+        "role": "tertiary",
+        "displayName": "Мята, чернила, тёмная тема",
+        "canonical": "#4fd1a5",
+        "tonalRamp": [
+          "#000f09",
+          "#022c1f",
+          "#0c4b38",
+          "#096e52",
+          "#0d936e",
+          "#2eb88d",
+          "#5fdfb2",
+          "#c2fee5"
+        ],
+        "theme": "dark",
+        "lightCounterpart": "mint-ink"
+      },
+      "mint-tint": {
+        "role": "tertiary",
+        "displayName": "Мята, тонировка",
+        "canonical": "rgba(29, 158, 117, 0.14)",
+        "tonalRamp": [
+          "#000f08",
+          "#012c1e",
+          "#094c36",
+          "#026f50",
+          "#00946b",
+          "#40b68c",
+          "#6cddb1",
+          "#c1ffe3"
+        ]
+      },
+      "mint-tint-dark": {
+        "role": "tertiary",
+        "displayName": "Мята, тонировка, тёмная тема",
+        "canonical": "rgba(29, 158, 117, 0.24)",
+        "tonalRamp": [
+          "#000f08",
+          "#012c1e",
+          "#094c36",
+          "#026f50",
+          "#00946b",
+          "#40b68c",
+          "#6cddb1",
+          "#c1ffe3"
+        ],
+        "theme": "dark",
+        "lightCounterpart": "mint-tint"
+      },
+      "apricot": {
+        "role": "tertiary",
+        "displayName": "Абрикос (Apricot)",
+        "canonical": "#e88a3a",
+        "tonalRamp": [
+          "#160700",
+          "#3a1a00",
+          "#613203",
+          "#8a4b12",
+          "#b6661a",
+          "#e18433",
+          "#feb075",
+          "#fdeadd"
+        ]
+      },
+      "apricot-ink": {
+        "role": "tertiary",
+        "displayName": "Абрикос, чернила",
+        "canonical": "#9a4f10",
+        "tonalRamp": [
+          "#170600",
+          "#3b1901",
+          "#633006",
+          "#8c4915",
+          "#b4672e",
+          "#d98851",
+          "#fcb180",
+          "#feeade"
+        ]
+      },
+      "apricot-ink-dark": {
+        "role": "tertiary",
+        "displayName": "Абрикос, чернила, тёмная тема",
+        "canonical": "#ffb26b",
+        "tonalRamp": [
+          "#150700",
+          "#381c00",
+          "#5e3404",
+          "#854f12",
+          "#b16a1b",
+          "#d58b43",
+          "#feb16a",
+          "#ffead9"
+        ],
+        "theme": "dark",
+        "lightCounterpart": "apricot-ink"
+      },
+      "apricot-tint": {
+        "role": "tertiary",
+        "displayName": "Абрикос, тонировка",
+        "canonical": "rgba(232, 138, 58, 0.16)",
+        "tonalRamp": [
+          "#160700",
+          "#3a1a00",
+          "#613203",
+          "#8a4b12",
+          "#b6661a",
+          "#e18433",
+          "#feb075",
+          "#fdeadd"
+        ]
+      },
+      "apricot-tint-dark": {
+        "role": "tertiary",
+        "displayName": "Абрикос, тонировка, тёмная тема",
+        "canonical": "rgba(232, 138, 58, 0.24)",
+        "tonalRamp": [
+          "#160700",
+          "#3a1a00",
+          "#613203",
+          "#8a4b12",
+          "#b6661a",
+          "#e18433",
+          "#feb075",
+          "#fdeadd"
+        ],
+        "theme": "dark",
+        "lightCounterpart": "apricot-tint"
+      },
+      "blue": {
+        "role": "tertiary",
+        "displayName": "Голубой (Blue)",
+        "canonical": "#007aff",
+        "tonalRamp": [
+          "#000a22",
+          "#002250",
+          "#043c82",
+          "#135ab5",
+          "#1c78ee",
+          "#629ff6",
+          "#a2c6fb",
+          "#e5efff"
+        ]
+      },
+      "blue-ink": {
+        "role": "tertiary",
+        "displayName": "Голубой, чернила",
+        "canonical": "#0058b8",
+        "tonalRamp": [
+          "#000a21",
+          "#01224e",
+          "#073d7e",
+          "#0259b9",
+          "#317bde",
+          "#5d9ffb",
+          "#9fc7fe",
+          "#e5effe"
+        ]
+      },
+      "blue-ink-dark": {
+        "role": "tertiary",
+        "displayName": "Голубой, чернила, тёмная тема",
+        "canonical": "#5aa9ff",
+        "tonalRamp": [
+          "#000b1e",
+          "#002448",
+          "#044076",
+          "#145fa6",
+          "#2f7fd2",
+          "#53a2f7",
+          "#9bc8fc",
+          "#e4f0fe"
+        ],
+        "theme": "dark",
+        "lightCounterpart": "blue-ink"
+      },
+      "blue-tint": {
+        "role": "tertiary",
+        "displayName": "Голубой, тонировка",
+        "canonical": "rgba(0, 122, 255, 0.12)",
+        "tonalRamp": [
+          "#000a22",
+          "#002250",
+          "#043c82",
+          "#135ab5",
+          "#1c78ee",
+          "#629ff6",
+          "#a2c6fb",
+          "#e5efff"
+        ]
+      },
+      "blue-tint-dark": {
+        "role": "tertiary",
+        "displayName": "Голубой, тонировка, тёмная тема",
+        "canonical": "rgba(0, 122, 255, 0.24)",
+        "tonalRamp": [
+          "#000a22",
+          "#002250",
+          "#043c82",
+          "#135ab5",
+          "#1c78ee",
+          "#629ff6",
+          "#a2c6fb",
+          "#e5efff"
+        ],
+        "theme": "dark",
+        "lightCounterpart": "blue-tint"
+      },
+      "canvas": {
+        "role": "neutral",
+        "displayName": "Холст",
+        "canonical": "#f2f2f7",
+        "tonalRamp": [
+          "#0b0b0e",
+          "#242427",
+          "#3f3f43",
+          "#5d5d61",
+          "#7d7d81",
+          "#9e9ea2",
+          "#c3c3c8",
+          "#eeeef3"
+        ]
+      },
+      "canvas-dark": {
+        "role": "neutral",
+        "displayName": "Холст, тёмная тема",
+        "canonical": "#000000",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#242424",
+          "#404040",
+          "#5d5d5d",
+          "#7d7d7d",
+          "#9e9e9e",
+          "#c4c4c4",
+          "#eeeeee"
+        ],
+        "theme": "dark",
+        "lightCounterpart": "canvas"
+      },
+      "card": {
+        "role": "neutral",
+        "displayName": "Карточка",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#242424",
+          "#404040",
+          "#5d5d5d",
+          "#7d7d7d",
+          "#9e9e9e",
+          "#c4c4c4",
+          "#eeeeee"
+        ]
+      },
+      "card-dark": {
+        "role": "neutral",
+        "displayName": "Карточка, тёмная тема",
+        "canonical": "#1c1c1e",
+        "tonalRamp": [
+          "#0b0b0d",
+          "#242426",
+          "#3f3f42",
+          "#5d5d60",
+          "#7d7d7f",
+          "#9e9ea1",
+          "#c4c4c6",
+          "#eeeef1"
+        ],
+        "theme": "dark",
+        "lightCounterpart": "card"
+      },
+      "fill": {
+        "role": "neutral",
+        "displayName": "Заливка",
+        "canonical": "#f2f2f7",
+        "tonalRamp": [
+          "#0b0b0e",
+          "#242427",
+          "#3f3f43",
+          "#5d5d61",
+          "#7d7d81",
+          "#9e9ea2",
+          "#c3c3c8",
+          "#eeeef3"
+        ]
+      },
+      "fill-dark": {
+        "role": "neutral",
+        "displayName": "Заливка, тёмная тема",
+        "canonical": "#2c2c2e",
+        "tonalRamp": [
+          "#0b0b0d",
+          "#242426",
+          "#3f3f42",
+          "#5d5d60",
+          "#7d7d7f",
+          "#9e9ea0",
+          "#c4c4c6",
+          "#eeeef1"
+        ],
+        "theme": "dark",
+        "lightCounterpart": "fill"
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Чернила",
+        "canonical": "#1c1c1e",
+        "tonalRamp": [
+          "#0b0b0d",
+          "#242426",
+          "#3f3f42",
+          "#5d5d60",
+          "#7d7d7f",
+          "#9e9ea1",
+          "#c4c4c6",
+          "#eeeef1"
+        ]
+      },
+      "ink-dark": {
+        "role": "neutral",
+        "displayName": "Чернила, тёмная тема",
+        "canonical": "#f5f5f7",
+        "tonalRamp": [
+          "#0b0b0c",
+          "#242425",
+          "#3f3f41",
+          "#5d5d5f",
+          "#7d7d7f",
+          "#9e9ea0",
+          "#c4c4c6",
+          "#eeeef0"
+        ],
+        "theme": "dark",
+        "lightCounterpart": "ink"
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Приглушённые чернила",
+        "canonical": "#5c5c61",
+        "tonalRamp": [
+          "#0b0b0e",
+          "#242328",
+          "#3f3f44",
+          "#5d5d62",
+          "#7d7d82",
+          "#9e9ea3",
+          "#c3c3c9",
+          "#eeeef4"
+        ]
+      },
+      "muted-dark": {
+        "role": "neutral",
+        "displayName": "Приглушённые чернила, тёмная тема",
+        "canonical": "#aeaeb2",
+        "tonalRamp": [
+          "#0b0b0d",
+          "#242427",
+          "#3f3f43",
+          "#5d5d61",
+          "#7d7d80",
+          "#9e9ea2",
+          "#c4c4c8",
+          "#eeeef2"
+        ],
+        "theme": "dark",
+        "lightCounterpart": "muted"
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Линия",
+        "canonical": "#d8d8dd",
+        "tonalRamp": [
+          "#0b0b0e",
+          "#242427",
+          "#3f3f43",
+          "#5d5d61",
+          "#7d7d81",
+          "#9e9ea2",
+          "#c3c3c8",
+          "#eeeef3"
+        ]
+      },
+      "line-dark": {
+        "role": "neutral",
+        "displayName": "Линия, тёмная тема",
+        "canonical": "#38383a",
+        "tonalRamp": [
+          "#0b0b0d",
+          "#242426",
+          "#3f3f41",
+          "#5d5d5f",
+          "#7d7d7f",
+          "#9e9ea0",
+          "#c4c4c6",
+          "#eeeef1"
+        ],
+        "theme": "dark",
+        "lightCounterpart": "line"
+      },
+      "on-accent": {
+        "role": "neutral",
+        "displayName": "На акценте",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#242424",
+          "#404040",
+          "#5d5d5d",
+          "#7d7d7d",
+          "#9e9e9e",
+          "#c4c4c4",
+          "#eeeeee"
+        ]
+      },
+      "on-accent-dark": {
+        "role": "neutral",
+        "displayName": "На акценте, тёмная тема",
+        "canonical": "#1c1c1e",
+        "tonalRamp": [
+          "#0b0b0d",
+          "#242426",
+          "#3f3f42",
+          "#5d5d60",
+          "#7d7d7f",
+          "#9e9ea1",
+          "#c4c4c6",
+          "#eeeef1"
+        ],
+        "theme": "dark",
+        "lightCounterpart": "on-accent"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Заголовок первого экрана, не шире 12ch; до 719 px clamp(36px, 10.6vw, 48px)."
+      },
+      "headline-page": {
+        "displayName": "Headline Page",
+        "purpose": "Заголовок страницы гидов (до 60 px) и статьи (clamp 32 до 50 px, 1.08)."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Заголовки секций лендинга; финальный призыв clamp(32px, 4.2vw, 54px)."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Заголовок отметки дня."
+      },
+      "title-card": {
+        "displayName": "Title Card",
+        "purpose": "Заголовок карточки гида."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Основной текст лендинга; 16 px до 719 px."
+      },
+      "body-article": {
+        "displayName": "Body Article",
+        "purpose": "Текст статей, не шире 66ch; 17 px до 719 px."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Чипы глав, подписи кадров, названия строк во фрагментах."
+      },
+      "meta": {
+        "displayName": "Meta",
+        "purpose": "Подписи, мета, расстояния; приглушённым цветом."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "Подпись основной кнопки; 19 px 700 ради AA белого на малиновом."
+      },
+      "clock": {
+        "displayName": "Clock",
+        "purpose": "Часы дня, табличные цифры; 28 px до 1023 px."
+      },
+      "time-pill": {
+        "displayName": "Time Pill",
+        "purpose": "Метки времени отметок, табличные цифры; 13 px до 719 px."
+      }
+    },
+    "shadows": [
+      {
+        "name": "marker-halo",
+        "value": "0 0 0 4px var(--blush)",
+        "purpose": "Ореол метки «сейчас» на линейке дня; единственная box-shadow сайта, не тень."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(.2, .8, .2, 1)",
+        "purpose": "Единая ease-out кривая всех переходов."
+      },
+      {
+        "name": "clock-digits",
+        "value": "transform 650ms",
+        "purpose": "Цифры часов прокручиваются к времени отметки."
+      },
+      {
+        "name": "marker-travel",
+        "value": "transform 600ms, opacity 300ms",
+        "purpose": "Метка «сейчас» едет по линейке."
+      },
+      {
+        "name": "now-highlight",
+        "value": "opacity 500ms",
+        "purpose": "Полоса розовой дымки под текущей отметкой."
+      },
+      {
+        "name": "fragment-assemble",
+        "value": "opacity 450-500ms, transform 600ms, stagger 110ms + 150ms",
+        "purpose": "Части фрагмента въезжают на 12-20 px, бейджи из scale(.85)."
+      },
+      {
+        "name": "press",
+        "value": "transform 150ms, scale(.98)",
+        "purpose": "Нажатие основной кнопки."
+      },
+      {
+        "name": "hover",
+        "value": "background 200ms",
+        "purpose": "Наведение на карточки гидов, поворот шевронов."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "transition: none; animation: none",
+        "purpose": "При «уменьшить движение» и без JS всё видно сразу, часы статичны."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wrap",
+        "value": "1180px"
+      },
+      {
+        "name": "tablet",
+        "value": "1023px"
+      },
+      {
+        "name": "mobile",
+        "value": "719px"
+      }
+    ],
+    "focus": {
+      "value": "outline: 3px solid var(--rasp-ink); outline-offset: 2px; border-radius: 8px",
+      "field": "outline: 2px solid var(--rasp); outline-offset: 0"
+    },
+    "masks": [
+      {
+        "name": "frame-fade",
+        "value": "mask-image: linear-gradient(#000 86%, transparent)",
+        "purpose": "Нижний край кадров галереи растворяется."
+      }
+    ],
+    "webDifferences": [
+      "Raspberry Ink #b5174f (тёмная тема #ff86ab) для малинового текста и ссылок; заливка кнопки остаётся #e84b7a.",
+      "Подпись основной кнопки 19 px 700 вместо 15 pt semibold: белый на малиновом 3,67:1 проходит AA только как крупный текст.",
+      "Глава «Соседи и пары» сиреневая: малиновый означает действие.",
+      "Нейтральные в hex через prefers-color-scheme вместо системных семантических цветов; чернила #1c1c1e вместо чёрного, линия #d8d8dd вместо #C7C7CC.",
+      "Плавающее меню языка отделено обводкой 1 px вместо системного стекла."
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Единственное действие блока: подписка или бета. 19 px 700, чтобы белый на малиновом проходил AA.",
+      "html": "<button class=\"ds-btn\">Aanmelden</button>",
+      "css": ":root{--canvas:#f2f2f7;--card:#fff;--fill:#f2f2f7;--ink:#1c1c1e;--muted:#5c5c61;--line:#d8d8dd;--blush:#fde8ef;--rasp:#e84b7a;--rasp-ink:#b5174f;--rasp-tint:rgba(232,75,122,.12);--mint:#1d9e75;--mint-ink:#127052;--mint-tint:rgba(29,158,117,.14);--lilac:#7b68ee;--lilac-ink:#4f3fc0;--lilac-tint:rgba(123,104,238,.14);--blue:#007aff;--ease:cubic-bezier(.2,.8,.2,1)} .ds-btn{font-family:-apple-system,BlinkMacSystemFont,\"SF Pro Text\",\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif;display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 22px;border:0;border-radius:14px;background:var(--rasp);color:#fff;font-weight:700;font-size:19px;line-height:1;cursor:pointer;transition:transform .15s var(--ease),filter .15s}.ds-btn:hover{filter:brightness(.94)}.ds-btn:active{transform:scale(.98)}.ds-btn:focus-visible{outline:3px solid var(--rasp-ink);outline-offset:2px}.ds-btn:disabled{opacity:.4}"
+    },
+    {
+      "name": "Text Link",
+      "kind": "button",
+      "refersTo": "colors.raspberry-ink",
+      "description": "Ссылка-действие малиновыми чернилами со стрелкой, зона 44 px.",
+      "html": "<a class=\"ds-more\" href=\"#\">Lees verder <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></a>",
+      "css": ":root{--canvas:#f2f2f7;--card:#fff;--fill:#f2f2f7;--ink:#1c1c1e;--muted:#5c5c61;--line:#d8d8dd;--blush:#fde8ef;--rasp:#e84b7a;--rasp-ink:#b5174f;--rasp-tint:rgba(232,75,122,.12);--mint:#1d9e75;--mint-ink:#127052;--mint-tint:rgba(29,158,117,.14);--lilac:#7b68ee;--lilac-ink:#4f3fc0;--lilac-tint:rgba(123,104,238,.14);--blue:#007aff;--ease:cubic-bezier(.2,.8,.2,1)} .ds-more{font-family:-apple-system,BlinkMacSystemFont,\"SF Pro Text\",\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif;display:inline-flex;align-items:center;gap:6px;min-height:44px;color:var(--rasp-ink);font-weight:600;font-size:15px;text-decoration:none}.ds-more:hover{text-decoration:underline;text-underline-offset:.18em}.ds-more:focus-visible{outline:3px solid var(--rasp-ink);outline-offset:2px;border-radius:8px}"
+    },
+    {
+      "name": "Email Field",
+      "kind": "input",
+      "refersTo": "field-input",
+      "description": "Поле email на заливке без рамки; фокус обводкой малиновым.",
+      "html": "<label class=\"ds-lab\" for=\"ds-e\">E-mailadres</label><input id=\"ds-e\" class=\"ds-field\" type=\"email\" placeholder=\"jij@voorbeeld.nl\">",
+      "css": ":root{--canvas:#f2f2f7;--card:#fff;--fill:#f2f2f7;--ink:#1c1c1e;--muted:#5c5c61;--line:#d8d8dd;--blush:#fde8ef;--rasp:#e84b7a;--rasp-ink:#b5174f;--rasp-tint:rgba(232,75,122,.12);--mint:#1d9e75;--mint-ink:#127052;--mint-tint:rgba(29,158,117,.14);--lilac:#7b68ee;--lilac-ink:#4f3fc0;--lilac-tint:rgba(123,104,238,.14);--blue:#007aff;--ease:cubic-bezier(.2,.8,.2,1)} .ds-lab{font-family:-apple-system,BlinkMacSystemFont,\"SF Pro Text\",\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif;display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:6px}.ds-field{font-family:-apple-system,BlinkMacSystemFont,\"SF Pro Text\",\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif;height:52px;width:280px;padding:0 16px;border:0;border-radius:12px;background:var(--fill);color:var(--ink);font-size:17px}.ds-field::placeholder{color:var(--muted)}.ds-field:focus-visible{outline:2px solid var(--rasp);outline-offset:0}"
+    },
+    {
+      "name": "Header Nav",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Логотип слева, ссылки-капсулы глав справа, наведение фоном карточки.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-brand\" href=\"#\"><span class=\"ds-logo\"></span>PaWow</a><a href=\"#\">Gezondheid</a><a href=\"#\">Buren</a><a href=\"#\">In de buurt</a><a href=\"#\">Gids</a></nav>",
+      "css": ":root{--canvas:#f2f2f7;--card:#fff;--fill:#f2f2f7;--ink:#1c1c1e;--muted:#5c5c61;--line:#d8d8dd;--blush:#fde8ef;--rasp:#e84b7a;--rasp-ink:#b5174f;--rasp-tint:rgba(232,75,122,.12);--mint:#1d9e75;--mint-ink:#127052;--mint-tint:rgba(29,158,117,.14);--lilac:#7b68ee;--lilac-ink:#4f3fc0;--lilac-tint:rgba(123,104,238,.14);--blue:#007aff;--ease:cubic-bezier(.2,.8,.2,1)} .ds-nav{font-family:-apple-system,BlinkMacSystemFont,\"SF Pro Text\",\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif;display:flex;align-items:center;gap:2px;padding:14px;background:var(--canvas)}.ds-nav a{padding:10px 14px;border-radius:999px;color:var(--ink);text-decoration:none;font-size:15px;font-weight:500}.ds-nav a:hover{background:var(--card)}.ds-nav a:focus-visible{outline:3px solid var(--rasp-ink);outline-offset:2px}.ds-nav .ds-brand{display:inline-flex;align-items:center;gap:10px;margin-right:auto;font-size:19px;font-weight:700;padding:0}.ds-brand:hover{background:none}.ds-logo{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--rasp),var(--lilac))}"
+    },
+    {
+      "name": "Chapter Chip",
+      "kind": "chip",
+      "refersTo": "chip-chapter",
+      "description": "Легенда глав: капсула на карточке с точкой цвета главы.",
+      "html": "<span class=\"ds-chip\"><i style=\"background:var(--mint)\"></i>Gezondheid en papieren</span><span class=\"ds-chip\"><i style=\"background:var(--lilac)\"></i>Buren en maatjes</span><span class=\"ds-chip\"><i style=\"background:var(--blue)\"></i>In de buurt</span>",
+      "css": ":root{--canvas:#f2f2f7;--card:#fff;--fill:#f2f2f7;--ink:#1c1c1e;--muted:#5c5c61;--line:#d8d8dd;--blush:#fde8ef;--rasp:#e84b7a;--rasp-ink:#b5174f;--rasp-tint:rgba(232,75,122,.12);--mint:#1d9e75;--mint-ink:#127052;--mint-tint:rgba(29,158,117,.14);--lilac:#7b68ee;--lilac-ink:#4f3fc0;--lilac-tint:rgba(123,104,238,.14);--blue:#007aff;--ease:cubic-bezier(.2,.8,.2,1)} .ds-chip{font-family:-apple-system,BlinkMacSystemFont,\"SF Pro Text\",\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif;display:inline-flex;align-items:center;gap:8px;margin:4px;padding:9px 15px;border-radius:999px;background:var(--card);color:var(--ink);font-size:15px;font-weight:600}.ds-chip i{width:10px;height:10px;border-radius:50%}"
+    },
+    {
+      "name": "Guide Card",
+      "kind": "card",
+      "refersTo": "guide-card",
+      "description": "Плоская карточка гида r16, наведение заливкой.",
+      "html": "<a class=\"ds-guide\" href=\"#\"><h3>Een pup in huis: de checklist voor de eerste weken</h3><p>Welke spullen heb je nodig voordat je pup komt.</p><span class=\"ds-foot\"><span class=\"ds-go\">Lees verder <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></span><span class=\"ds-meta\">6 min lezen</span></span></a>",
+      "css": ":root{--canvas:#f2f2f7;--card:#fff;--fill:#f2f2f7;--ink:#1c1c1e;--muted:#5c5c61;--line:#d8d8dd;--blush:#fde8ef;--rasp:#e84b7a;--rasp-ink:#b5174f;--rasp-tint:rgba(232,75,122,.12);--mint:#1d9e75;--mint-ink:#127052;--mint-tint:rgba(29,158,117,.14);--lilac:#7b68ee;--lilac-ink:#4f3fc0;--lilac-tint:rgba(123,104,238,.14);--blue:#007aff;--ease:cubic-bezier(.2,.8,.2,1)} .ds-guide{font-family:-apple-system,BlinkMacSystemFont,\"SF Pro Text\",\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif;display:flex;flex-direction:column;max-width:340px;padding:24px;border-radius:16px;background:var(--card);color:var(--ink);text-decoration:none;transition:background .2s}.ds-guide:hover{background:var(--fill)}.ds-guide:focus-visible{outline:3px solid var(--rasp-ink);outline-offset:2px}.ds-guide h3{margin:0 0 8px;font-size:19px;line-height:1.32;font-weight:600}.ds-guide p{margin:0 0 16px;font-size:15px;color:var(--muted)}.ds-foot{display:flex;justify-content:space-between;align-items:center}.ds-go{display:inline-flex;align-items:center;gap:6px;color:var(--rasp-ink);font-weight:600;font-size:15px}.ds-meta{font-size:13px;color:var(--muted)}"
+    },
+    {
+      "name": "UI Fragment Row",
+      "kind": "custom",
+      "refersTo": "ui-row-card",
+      "description": "Строка фрагмента приложения: плитка роли 44/12, название, подпись, бейдж статуса r6.",
+      "html": "<div class=\"ds-ucard\"><div class=\"ds-row\"><span class=\"ds-tile\"><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z\"/></svg></span><span class=\"ds-txt\"><b>Cocktail (DHPPi)</b><span>geldig tot mei 2027</span></span><span class=\"ds-badge\">Geldig</span></div></div>",
+      "css": ":root{--canvas:#f2f2f7;--card:#fff;--fill:#f2f2f7;--ink:#1c1c1e;--muted:#5c5c61;--line:#d8d8dd;--blush:#fde8ef;--rasp:#e84b7a;--rasp-ink:#b5174f;--rasp-tint:rgba(232,75,122,.12);--mint:#1d9e75;--mint-ink:#127052;--mint-tint:rgba(29,158,117,.14);--lilac:#7b68ee;--lilac-ink:#4f3fc0;--lilac-tint:rgba(123,104,238,.14);--blue:#007aff;--ease:cubic-bezier(.2,.8,.2,1)} .ds-ucard{font-family:-apple-system,BlinkMacSystemFont,\"SF Pro Text\",\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif;max-width:380px;padding:4px 0;border-radius:16px;background:var(--card)}.ds-row{display:flex;gap:12px;align-items:center;padding:10px 14px}.ds-tile{width:44px;height:44px;flex:none;border-radius:12px;display:grid;place-items:center;background:var(--mint-tint);color:var(--mint)}.ds-txt{display:flex;flex-direction:column;flex:1;gap:1px}.ds-txt b{font-size:15px;font-weight:600;color:var(--ink)}.ds-txt span{font-size:13px;color:var(--muted)}.ds-badge{padding:4px 8px;border-radius:6px;background:var(--mint-tint);color:var(--mint-ink);font-size:12px;font-weight:600}"
+    },
+    {
+      "name": "Day Timeline Moment",
+      "kind": "custom",
+      "refersTo": "time-pill-now",
+      "description": "Отметка дня: метка времени цвета главы, полоса розовой дымки под текущей отметкой, метка «сейчас» с ореолом.",
+      "html": "<div class=\"ds-moment\"><span class=\"ds-dot\"></span><span class=\"ds-time\">07:30</span><div class=\"ds-mt\"><h3>Ochtendrondje met de buren</h3><p>Zie welke honden er nu in de buurt wandelen.</p></div></div>",
+      "css": ":root{--canvas:#f2f2f7;--card:#fff;--fill:#f2f2f7;--ink:#1c1c1e;--muted:#5c5c61;--line:#d8d8dd;--blush:#fde8ef;--rasp:#e84b7a;--rasp-ink:#b5174f;--rasp-tint:rgba(232,75,122,.12);--mint:#1d9e75;--mint-ink:#127052;--mint-tint:rgba(29,158,117,.14);--lilac:#7b68ee;--lilac-ink:#4f3fc0;--lilac-tint:rgba(123,104,238,.14);--blue:#007aff;--ease:cubic-bezier(.2,.8,.2,1)} .ds-moment{font-family:-apple-system,BlinkMacSystemFont,\"SF Pro Text\",\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif;position:relative;display:grid;grid-template-columns:64px 1fr;gap:24px;padding:24px 14px;border-radius:16px;background:var(--blush);max-width:480px}.ds-moment::before{content:\"\";position:absolute;left:31px;top:0;bottom:0;width:2px;background:var(--line)}.ds-dot{position:absolute;left:26px;top:8px;width:12px;height:12px;border-radius:50%;background:var(--ink);box-shadow:0 0 0 4px var(--blush);z-index:1}.ds-time{position:relative;z-index:1;justify-self:start;align-self:start;padding:6px 9px;border-radius:999px;background:var(--lilac-ink);color:#fff;font-size:14px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums;transition:background .3s,color .3s}.ds-moment:hover .ds-time{background:var(--lilac-tint);color:var(--lilac-ink)}.ds-mt h3{margin:2px 0 8px;font-size:24px;line-height:1.18;font-weight:600;letter-spacing:-.015em;color:var(--ink)}.ds-mt p{margin:0;color:var(--muted);font-size:17px;line-height:1.5}"
+    },
+    {
+      "name": "Chat Bubbles",
+      "kind": "custom",
+      "refersTo": "chat-bubble-me",
+      "description": "Чат во фрагменте совпадения: чужое на заливке, своё на малиновой тонировке.",
+      "html": "<div class=\"ds-chat\"><span class=\"ds-b\">Zin in een rondje in het park morgen?</span><span class=\"ds-b ds-me\">Graag! 18:00 bij de vijver?</span></div>",
+      "css": ":root{--canvas:#f2f2f7;--card:#fff;--fill:#f2f2f7;--ink:#1c1c1e;--muted:#5c5c61;--line:#d8d8dd;--blush:#fde8ef;--rasp:#e84b7a;--rasp-ink:#b5174f;--rasp-tint:rgba(232,75,122,.12);--mint:#1d9e75;--mint-ink:#127052;--mint-tint:rgba(29,158,117,.14);--lilac:#7b68ee;--lilac-ink:#4f3fc0;--lilac-tint:rgba(123,104,238,.14);--blue:#007aff;--ease:cubic-bezier(.2,.8,.2,1)} .ds-chat{font-family:-apple-system,BlinkMacSystemFont,\"SF Pro Text\",\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif;display:flex;flex-direction:column;gap:8px;max-width:360px;padding:12px 14px;border-radius:16px;background:var(--card)}.ds-b{max-width:82%;padding:9px 13px;border-radius:18px;background:var(--fill);color:var(--ink);font-size:15px;line-height:1.35;align-self:flex-start}.ds-me{align-self:flex-end;background:var(--rasp-tint)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "\"Тёплый спутник\" (The Warm Companion), веб-исполнение",
+    "overview": "Сайт не придумывает свой мир, он переносит в браузер систему приложения. Родительский документ: DESIGN.md приложения (/Users/pbo/PawMatch/PawMatch/DESIGN.md, решение владельца от 2026-10-16). Всё, что там сказано о смысле цветов, плоских карточках, плитках и бейджах, действует и здесь; этот файл фиксирует, как система легла на веб, и где веб сознательно отличается.\n\nКаркас тот же: серый холст, белые плоские карточки без теней, системный шрифт Apple, один малиновый цвет действия и четыре смысловых цвета ролей. Страница спокойная и воздушная: эмоцию несут фото питомцев и настоящие экраны, а интерфейс показан фрагментами, собранными из компонентов приложения (строки с плиткой, уведомления, браузер с паспортом, чат). Сигнатура сайта: вертикальная линейка дня с часами, меткой «сейчас» и розовой полосой подсветки, которые движутся только через transform и opacity.\n\nВеб отличается от приложения в трёх местах, и все три продиктованы контрастом или смыслом: малиновый текст и ссылки темнее кнопки, подпись кнопки крупнее и жирнее, глава «Соседи и пары» окрашена сиренью. Нейтральные цвета записаны в hex, потому что у браузера нет системных семантических цветов; тёмная тема переключается через prefers-color-scheme.",
+    "keyCharacteristics": [
+      "Система приложения, перенесённая без новых украшений",
+      "Малиновый только у действия, малиновые чернила для текста и ссылок",
+      "Плоские карточки r16 на сером холсте, глубина тоном",
+      "Цвета ролей через тройку «цвет, чернила, тонировка»",
+      "Время табличными цифрами: часы дня и метки отметок",
+      "Движение один раз на элемент, только transform и opacity"
+    ],
+    "rules": [
+      {
+        "name": "The Raspberry Means Act Rule",
+        "body": "Малиновая заливка только у того, что нажимают или что выбрано. Главы, заголовки и фоны малиновыми не бывают; поэтому «Соседи и пары» сиреневые, а не малиновые, как в приложении.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Raspberries Rule",
+        "body": "Заливка кнопки берётся из Raspberry, любой малиновый текст из Raspberry Ink. Малиновый текст на светлом фоне цветом кнопки не пишется.",
+        "section": "colors"
+      },
+      {
+        "name": "The Role Triplet Rule",
+        "body": "Каждый цвет роли используется тройкой: цвет для точки и иконки, тонировка для подложки, чернила для текста на подложке. Смысл цвета совпадает с приложением и не меняется между страницами.",
+        "section": "colors"
+      },
+      {
+        "name": "The Large Bold Label Rule",
+        "body": "Подпись на малиновой заливке не меньше 19 px и 700: только так белый на малиновом проходит AA как крупный текст. В приложении подпись 15 pt semibold; на вебе так нельзя.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Time Rule",
+        "body": "Время, расстояния и числа во фрагментах набираются табличными цифрами, чтобы колонки не прыгали при смене значения.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Card Rule",
+        "body": "Карточки без тени и без обводки; если карточке нужна граница, ей нужен другой тон фона.",
+        "section": "elevation"
+      },
+      {
+        "name": "The No Card in Card Rule",
+        "body": "Подсветка «сейчас» ложится под время и текст отметки, фрагмент интерфейса остаётся отдельной карточкой на холсте.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** сверять любое новое решение с DESIGN.md приложения; сайт его исполнение, а не отдельная система.",
+      "**Do** заливать малиновым только кнопки и выбранное, а малиновый текст и ссылки писать Raspberry Ink (The Two Raspberries Rule).",
+      "**Do** набирать подпись на малиновой заливке 19 px 700 (The Large Bold Label Rule).",
+      "**Do** красить главы и роли тройкой цвет, тонировка, чернила: мята здоровье, сирень соседи, пары и страховка, голубой рядом и клиники, абрикос внимание.",
+      "**Do** ставить карточки r16 на холст без тени и обводки.",
+      "**Do** набирать время и числа табличными цифрами.",
+      "**Do** двигать только transform и opacity, один раз на элемент, с ease cubic-bezier(.2,.8,.2,1) за 450 до 650 мс, и показывать всё сразу при «уменьшить движение».",
+      "**Do** держать нажимаемые зоны от 44 px и видимое кольцо фокуса."
+    ],
+    "donts": [
+      "**Don't** красить малиновым главы, заголовки, фоны и декоративные точки.",
+      "**Don't** писать малиновый текст цветом кнопки (#e84b7a) на светлом фоне.",
+      "**Don't** добавлять тени карточкам, кнопкам и фрагментам.",
+      "**Don't** брать светлую розовую дымку в тёмной теме.",
+      "**Don't** ставить градиент малиновый → сиреневый вне фирменного момента взаимного совпадения.",
+      "**Don't** вкладывать карточку в карточку: подсветка «сейчас» идёт под текстом, фрагмент остаётся отдельной карточкой.",
+      "**Don't** подменять системный стек веб-шрифтом."
+    ]
+  }
+}

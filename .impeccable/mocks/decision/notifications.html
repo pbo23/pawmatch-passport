@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="nl"><head><meta charset="utf-8"><title>Stapel meldingen</title>
+<style>
+*{box-sizing:border-box;margin:0}
+html,body{width:1440px;height:900px;overflow:hidden}
+body{background:#F2F2F7;color:#1C1C1E;font:17px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif}
+.top{display:flex;align-items:center;justify-content:space-between;padding:24px 72px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:20px}
+.logo{width:34px;height:34px;border-radius:9px;background:#E84B7A}
+.nav{display:flex;gap:28px;color:#6E6E73;font-size:15px}
+.hero{display:grid;grid-template-columns:600px 1fr;gap:56px;padding:64px 72px 0;align-items:start}
+h1{font:700 66px/1.02 -apple-system,"SF Pro Display",system-ui;letter-spacing:-.02em}
+.lead{margin-top:22px;font-size:20px;color:#3C3C43;max-width:520px}
+.ctas{display:flex;gap:12px;margin-top:32px}
+.btn{height:52px;padding:0 24px;border-radius:14px;display:flex;align-items:center;font-weight:600}
+.primary{background:#E84B7A;color:#fff}.tinted{background:rgba(232,75,122,.12);color:#C2185B}
+.note{margin-top:16px;font-size:14px;color:#6E6E73}
+.pets{display:flex;gap:10px;margin-top:40px;align-items:center;color:#6E6E73;font-size:15px}
+.p{display:flex;align-items:center;gap:8px;background:#fff;border-radius:999px;padding:6px 14px 6px 6px}
+.p i{width:28px;height:28px;border-radius:50%;display:block}
+.stack{position:relative;padding-top:8px}
+.when{text-align:center;color:#6E6E73;font-size:15px;font-weight:600}
+.clock{text-align:center;font:600 92px/1 -apple-system,"SF Pro Display",system-ui;letter-spacing:-.03em;color:#3A3A3C;margin:4px 0 26px}
+.n{display:flex;gap:14px;background:rgba(255,255,255,.92);border-radius:22px;padding:16px 18px;margin:0 auto 10px;width:560px}
+.n .ic{width:40px;height:40px;border-radius:10px;background:#E84B7A;flex:none}
+.n .t{flex:1}
+.n .h{display:flex;justify-content:space-between;font-size:14px;color:#6E6E73}
+.n .h b{color:#1C1C1E;font-weight:600}
+.n p{font-size:16px;margin-top:2px}
+.n .role{display:inline-block;margin-top:8px;padding:3px 8px;border-radius:6px;font-size:12px;font-weight:600}
+.n.dim{opacity:.55;transform:scale(.96)}
+.n.dimmer{opacity:.3;transform:scale(.92)}
+.mint{background:rgba(29,158,117,.14);color:#167C5B}.apri{background:rgba(232,138,58,.16);color:#B4621C}
+.rasp{background:rgba(232,75,122,.12);color:#C2185B}.blue{background:rgba(0,122,255,.12);color:#0062CC}
+.chapters{position:absolute;left:72px;bottom:32px;display:flex;gap:10px}
+.ch{background:#fff;border-radius:999px;padding:10px 16px;font-size:15px;font-weight:600}
+</style></head><body>
+<header class="top"><div class="brand"><span class="logo"></span>PaWow</div>
+<nav class="nav"><span>Gezondheid</span><span>Buren</span><span>In de buurt</span><span>Gids</span><span>NL</span></nav></header>
+<section class="hero">
+<div>
+<h1>PaWow onthoudt het, zodat jij dat niet hoeft.</h1>
+<p class="lead">Vaccinaties, facturen van de dierenarts, matches en afspraken bij de trimsalon: alles van je hond of kat in één app, die je op tijd een seintje geeft.</p>
+<div class="ctas"><span class="btn primary">Probeer de bèta</span><span class="btn tinted">Laat het me weten bij de lancering</span></div>
+<p class="note">iPhone, iOS 17 of nieuwer · bèta via TestFlight, de app van Apple voor testversies</p>
+<div class="pets">Voor
+<span class="p"><i style="background:#D9A27A"></i>Houston, hond</span>
+<span class="p"><i style="background:#8E7FB0"></i>Appolon, kat</span></div>
+</div>
+<div class="stack">
+<div class="when">donderdag 16 oktober</div>
+<div class="clock">8:12</div>
+<div class="n"><span class="ic"></span><div class="t"><div class="h"><b>PaWow</b><span>nu</span></div>
+<p>Houston: herhaling Nobivac over 12 dagen. Plan een afspraak bij je dierenarts.</p><span class="role mint">Gezondheid</span></div></div>
+<div class="n"><span class="ic"></span><div class="t"><div class="h"><b>PaWow</b><span>7 min</span></div>
+<p>Je dierenarts heeft een factuur gestuurd. Maak er met één tik een declaratie van.</p><span class="role apri">Factuur</span></div></div>
+<div class="n dim"><span class="ic"></span><div class="t"><div class="h"><b>PaWow</b><span>gisteren</span></div>
+<p>Bonnie en Houston zijn een match. Zeg hallo tegen haar baasje.</p><span class="role rasp">Match</span></div></div>
+<div class="n dimmer"><span class="ic"></span><div class="t"><div class="h"><b>PaWow</b><span>gisteren</span></div>
+<p>De trimsalon heeft je afspraak bevestigd: do 10:30.</p><span class="role blue">Afspraak</span></div></div>
+</div>
+</section>
+<div class="chapters"><span class="ch">Gezondheid en papieren</span><span class="ch">Buren en maatjes</span><span class="ch">In de buurt</span></div>
+</body></html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="nl"><head><meta charset="utf-8"><title>Een dag met je huisdier</title>
+<style>
+*{box-sizing:border-box;margin:0}
+html,body{width:1440px;height:900px;overflow:hidden}
+body{background:#F2F2F7;color:#1C1C1E;font:17px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif}
+.top{display:flex;align-items:center;justify-content:space-between;padding:24px 72px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:20px}
+.logo{width:34px;height:34px;border-radius:9px;background:#E84B7A}
+.nav{display:flex;gap:28px;color:#6E6E73;font-size:15px}
+.head{display:grid;grid-template-columns:1fr 420px;gap:48px;padding:40px 72px 0;align-items:end}
+h1{font:700 64px/1.02 -apple-system,"SF Pro Display",system-ui;letter-spacing:-.02em;max-width:780px}
+.lead{margin-top:18px;font-size:20px;color:#3C3C43;max-width:720px}
+.act{background:#fff;border-radius:16px;padding:20px}
+.btn{height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-weight:600}
+.primary{background:#E84B7A;color:#fff}.tinted{background:rgba(232,75,122,.12);color:#C2185B;margin-top:10px}
+.note{margin-top:12px;font-size:13px;color:#6E6E73;text-align:center}
+.day{position:relative;margin:40px 72px 0;height:470px}
+.rail{position:absolute;left:96px;top:0;bottom:0;width:2px;background:#D1D1D6}
+.now{position:absolute;left:0;right:0;top:118px;height:150px;background:linear-gradient(180deg,rgba(253,232,239,0),#FDE8EF 30%,#FDE8EF 70%,rgba(253,232,239,0));border-radius:16px}
+.m{position:absolute;left:0;right:0;display:grid;grid-template-columns:96px 1fr 1fr;gap:28px;align-items:start}
+.time{font:600 22px/1 -apple-system,"SF Pro Display",system-ui;font-variant-numeric:tabular-nums;color:#3A3A3C;padding-top:14px}
+.dot{position:absolute;left:90px;width:14px;height:14px;border-radius:50%;background:#fff;border:3px solid #E84B7A;margin-top:18px}
+.txt b{display:block;font-size:22px;padding-top:8px}
+.txt p{font-size:16px;color:#6E6E73;margin-top:4px;max-width:440px}
+.ui{background:#fff;border-radius:16px;padding:14px 16px;display:flex;gap:12px;align-items:center;max-width:520px}
+.tile{width:44px;height:44px;border-radius:12px;flex:none}
+.ui b{display:block;font-size:15px}.ui span{font-size:13px;color:#6E6E73}
+.chip{padding:3px 8px;border-radius:6px;font-size:12px;font-weight:600;margin-left:auto}
+.mint{background:rgba(29,158,117,.14);color:#167C5B}.lilac{background:rgba(123,104,238,.14);color:#5B4BC9}
+.apri{background:rgba(232,138,58,.16);color:#B4621C}.rasp{background:rgba(232,75,122,.12);color:#C2185B}
+.fade{opacity:.4}
+</style></head><body>
+<header class="top"><div class="brand"><span class="logo"></span>PaWow</div>
+<nav class="nav"><span>Gezondheid</span><span>Buren</span><span>In de buurt</span><span>Gids</span><span>NL</span></nav></header>
+<section class="head">
+<div><h1>Een dag met Houston en Appolon.</h1>
+<p class="lead">Van de ochtendwandeling tot de dierenarts en de declaratie bij je verzekeraar: zo past PaWow in een gewone dag met een hond en een kat.</p></div>
+<div class="act"><span class="btn primary">Probeer de bèta</span><span class="btn tinted">Laat het me weten bij de lancering</span>
+<p class="note">iPhone, iOS 17 of nieuwer · via TestFlight</p></div>
+</section>
+<div class="day">
+<div class="now"></div><div class="rail"></div>
+<div class="m" style="top:0"><span class="time">07:30</span><span class="dot"></span>
+<div class="txt"><b>Wandelen met de buren</b><p>Zie welke honden nu in de buurt lopen. Je plek deel je alleen als je zelf een wandeling start.</p></div>
+<div class="ui"><span class="tile" style="background:rgba(232,75,122,.14)"></span><div><b>3 honden wandelen nu</b><span>binnen 1 km · Strijp</span></div><span class="chip rasp">Live</span></div></div>
+<div class="m" style="top:150px"><span class="time">10:15</span><span class="dot"></span>
+<div class="txt"><b>De dierenarts scant de QR-code</b><p>Vaccinaties, chipnummer en eerdere bezoeken in de browser van de kliniek, zonder app.</p></div>
+<div class="ui"><span class="tile" style="background:rgba(0,122,255,.12)"></span><div><b>QR-dierenpaspoort</b><span>7 dagen geldig · altijd in te trekken</span></div><span class="chip mint">Gevaccineerd</span></div></div>
+<div class="m fade" style="top:300px"><span class="time">14:00</span><span class="dot"></span>
+<div class="txt"><b>De factuur wordt een declaratie</b><p>De kliniek stuurt de factuur via dezelfde link. Jij maakt er een concept-declaratie van.</p></div>
+<div class="ui"><span class="tile" style="background:rgba(232,138,58,.16)"></span><div><b>Factuur van de kliniek</b><span>Concept-declaratie klaar</span></div><span class="chip lilac">Verzekerd</span></div></div>
+<div class="m fade" style="top:420px"><span class="time">19:00</span><span class="dot"></span>
+<div class="txt"><b>Chat met het baasje van Bonnie</b></div><div></div></div>
+</div>
+</body></html>

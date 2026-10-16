@@ -9,7 +9,12 @@ en/guides/, ru/guides/; статьи лежат в site_guides.py), 404.html и 
 в assets/ (нужен Pillow). Тексты правятся здесь и в site_guides.py,
 сгенерированные html руками не трогать. Длинных тире в текстах нет.
 
-passport.html (рендерер QR-ветпаспорта) и privacy/terms скрипт не трогает.
+passport.html (рендерер QR-ветпаспорта) и privacy/terms скрипт не трогает:
+privacy и terms собирает docs/gen_legal.py в репозитории приложения.
+
+Лендинг устроен как один день с собакой и кошкой (Houston и Appolon): у
+каждой отметки времени фрагмент интерфейса приложения, собранный вёрсткой в
+системе приложения (DESIGN.md приложения, «Тёплый спутник»).
 """
 import html
 import json
@@ -26,57 +31,60 @@ UPDATED = "2026-10-14"
 LANGS = ("nl", "en", "ru")
 LANG_PATH = {"nl": "", "en": "en/", "ru": "ru/"}
 OG_LOCALE = {"nl": "nl_NL", "en": "en_GB", "ru": "ru_RU"}
-NBSP = " "
+NBSP = " "
+
+# Публичная ссылка TestFlight (testflight.apple.com/join/…). Пока её нет,
+# кнопки беты на сайте нет вовсе, а честно сказано, что бета закрыта.
+TESTFLIGHT_URL = None
+
+# Подписка «сообщить о запуске» пишет прямо в Supabase (миграция 070).
+# Ключ публикуемый: аноним с ним может только вставить строку в
+# launch_signups и ничего не может прочитать.
+SUPABASE_URL = "https://ltvgxpdcxejxhzemlamj.supabase.co"
+SUPABASE_KEY = "sb_publishable_BkiC7nGdqI_XV7S3NWOWxA_hosVZRnN"
 
 
 def esc(s):
     return html.escape(s, quote=True)
 
 
-def on(selected):
-    return ' class="on"' if selected else ""
-
-
 CURRENT = ' aria-current="true"'
 
 
 # ── Иконки ────────────────────────────────────────────────────────────────────
+# Простые символы в духе SF Symbols для плиток 44×44: один штрих, один вес.
 
-SVG_SIGNAL = ('<svg viewBox="0 0 18 12" fill="currentColor"><rect y="8" width="3" height="4" rx="1"/>'
-              '<rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/>'
-              '<rect x="15" width="3" height="12" rx="1"/></svg>')
-SVG_WIFI = ('<svg viewBox="0 0 16 12" fill="currentColor"><path d="M8 2.2c2.4 0 4.6.9 6.3 2.5l1.2-1.3A10.6 10.6 0 0 0 8 '
-            '.4C5.2.4 2.5 1.4.5 3.4l1.2 1.3A8.8 8.8 0 0 1 8 2.2zm0 3.6c1.4 0 2.7.5 3.7 1.4l1.2-1.3A7.4 7.4 0 0 0 8 4c-1.9 '
-            '0-3.6.7-4.9 1.9l1.2 1.3c1-.9 2.3-1.4 3.7-1.4zm0 3.5c-.6 0-1.2.2-1.6.6L8 11.6l1.6-1.7c-.4-.4-1-.6-1.6-.6z"/></svg>')
-SVG_BATT = ('<svg viewBox="0 0 27 12" fill="none"><rect x=".5" y=".5" width="23" height="11" rx="3.5" stroke="currentColor" '
-            'opacity=".4"/><rect x="2" y="2" width="20" height="8" rx="2" fill="currentColor"/><path d="M25 4v4c.8-.3 '
-            '1.4-1.1 1.4-2S25.8 4.3 25 4z" fill="currentColor" opacity=".45"/></svg>')
-SVG_HEART = ('<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.3l-1.5-1.3C5.4 15.4 2 12.3 2 8.5 2 5.4 4.4 3 7.5 '
-             '3c1.7 0 3.4.8 4.5 2.1C13.1 3.8 14.8 3 16.5 3 19.6 3 22 5.4 22 8.5c0 3.8-3.4 6.9-8.5 11.5z"/></svg>')
-TAB_ICONS = [
-    '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.3 2.6a1 1 0 0 1 1.4 0l8.6 7.9a1 1 0 0 1-.7 1.7H19v8a1.8 '
-    '1.8 0 0 1-1.8 1.8h-2.7v-6h-5v6H6.8A1.8 1.8 0 0 1 5 20.2v-8H3.4a1 1 0 0 1-.7-1.7z"/></svg>',
-    SVG_HEART,
-    '<svg viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd"><path d="M5 4h14a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H5a3 '
-    '3 0 0 1-3-3V7a3 3 0 0 1 3-3zm3.5 3.5a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM4 17.5V18h16v-2.6l-4.6-4.6-5.4 5.4-2.3-2.3z"/></svg>',
-    '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.2 3h15.6l1.9 5.4A3 3 0 0 1 19 12.2V20a1 1 0 0 1-1 1h-4v-5h-4v5H6a1 '
-    '1 0 0 1-1-1v-7.8A3 3 0 0 1 2.3 8.4z"/></svg>',
-    '<svg viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd"><path d="M6 2h12a3 3 0 0 1 3 3v14a3 3 0 0 1-3 3H6a3 3 '
-    '0 0 1-3-3V5a3 3 0 0 1 3-3zm6 13.6l.6-.5c2.2-2 3.6-3.2 3.6-4.8A2.1 2.1 0 0 0 14 8.2c-.8 0-1.5.4-2 1-.5-.6-1.2-1-2-1a2.1 '
-    '2.1 0 0 0-2.2 2.1c0 1.6 1.4 2.8 3.6 4.8z"/></svg>',
-]
-SVG_X = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round">'
-         '<path d="M6 6l12 12M18 6L6 18"/></svg>')
-SVG_I = '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2.4"/><rect x="9.8" y="9" width="4.4" height="12" rx="2.2"/></svg>'
-SVG_MAIL = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" '
-            'stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/>'
-            '<path d="M4 7.5l8 6 8-6"/></svg>')
-SVG_CHEVRON = ('<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" '
-               'stroke-linejoin="round"><path d="M2.5 4.5L6 8l3.5-3.5"/></svg>')
+def icon(paths, fill=False):
+    attrs = 'fill="currentColor"' if fill else ('fill="none" stroke="currentColor" stroke-width="2" '
+                                                 'stroke-linecap="round" stroke-linejoin="round"')
+    return f'<svg viewBox="0 0 24 24" {attrs} aria-hidden="true">{paths}</svg>'
+
+
+I_WALK = icon('<circle cx="13" cy="4.5" r="1.8"/><path d="M10 21l2.2-6.2L15 17v4"/><path d="M8 11.5l2.8-3.2 3.4 1 '
+              '2.3 3.2"/><path d="M12.2 14.8l-1.4-6.5"/>')
+I_BELL = icon('<path d="M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/>')
+I_SHIELD = icon('<path d="M12 3l7 3v5.5c0 4.4-3 8-7 9.5-4-1.5-7-5.1-7-9.5V6z"/><path d="M8.8 12.2l2.2 2.2 4.2-4.4"/>')
+I_DOC = icon('<path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><path d="M9.5 12h6M9.5 15.5h6"/>')
+I_HEART = icon('<path d="M12 20.3l-1.4-1.3C5.6 14.6 3 12.2 3 8.9 3 6.2 5.1 4 7.7 4c1.6 0 3.2.8 4.3 2.1C13.1 4.8 '
+               '14.7 4 16.3 4 18.9 4 21 6.2 21 8.9c0 3.3-2.6 5.7-7.6 10.1z"/>', fill=True)
+I_HOUSE = icon('<path d="M4 11l8-7 8 7"/><path d="M6 9.5V20h12V9.5"/><path d="M10 20v-5h4v5"/>')
+I_PIN = icon('<path d="M12 21s-6.5-6.2-6.5-11.3a6.5 6.5 0 0 1 13 0C18.5 14.8 12 21 12 21z"/><circle cx="12" cy="9.7" r="2.3"/>')
+I_BAG = icon('<path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/>')
+I_SCISSORS = icon('<circle cx="6.5" cy="17" r="2.5"/><circle cx="17.5" cy="17" r="2.5"/><path d="M8.3 15.3L18 4M15.7 '
+                  '15.3L6 4"/>')
+I_PAW = icon('<circle cx="7" cy="9" r="1.8"/><circle cx="11" cy="6" r="1.8"/><circle cx="15" cy="6.5" r="1.8"/>'
+             '<circle cx="18" cy="10" r="1.8"/><path d="M12 12c-3 0-5.5 3.2-5.5 5.4 0 1.5 1.2 2.1 2.6 2.1 1.1 0 1.9-.6 '
+             '2.9-.6s1.8.6 2.9.6c1.4 0 2.6-.6 2.6-2.1C17.5 15.2 15 12 12 12z"/>', fill=True)
+I_CHEV_L = icon('<path d="M14.5 6l-6 6 6 6"/>')
+I_CHEV_R = icon('<path d="M9.5 6l6 6-6 6"/>')
+I_ARROW = icon('<path d="M5 12h13M13 6.5l5.5 5.5-5.5 5.5"/>')
+I_LOCK = icon('<rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/>')
+SVG_MAIL = icon('<rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7.5l8 6 8-6"/>')
 
 
 def fake_qr(seed=11, n=25):
-    """Узор «как QR» для макета. Не настоящий код: сканировать нечего."""
+    """Узор «как QR» для иллюстрации. Не настоящий код: сканировать нечего.
+    Настоящий QR владельца на сайт больше не попадает (в нём живая ссылка)."""
     rnd = random.Random(seed)
     cells = [[rnd.random() < .5 for _ in range(n)] for _ in range(n)]
     for r0, c0 in ((0, 0), (0, n - 7), (n - 7, 0)):
@@ -97,109 +105,107 @@ def fake_qr(seed=11, n=25):
                 d.append(f"M{start} {r}h{c - start}v1h-{c - start}z")
             else:
                 c += 1
-    return (f'<svg viewBox="0 0 {n} {n}" shape-rendering="crispEdges">'
+    return (f'<svg viewBox="0 0 {n} {n}" shape-rendering="crispEdges" aria-hidden="true">'
             f'<path fill="currentColor" d="{"".join(d)}"/></svg>')
 
 
-def eur(cents, lang):
-    s = f"{cents / 100:.2f}"
-    if lang == "en":
-        return "€" + s
-    s = s.replace(".", ",")
-    return f"€{NBSP}{s}" if lang == "nl" else f"{s}{NBSP}€"
-
-
 # ── Тексты ────────────────────────────────────────────────────────────────────
+#
+# Главы дня: у каждой свой смысловой цвет приложения (мята здоровье,
+# малиновый пары, синий клиники и места рядом). Отметки дня ссылаются на главу
+# по ключу.
 
 T = {
     "nl": {
-        "title": "PaWow: alles voor je huisdier in één app",
-        "desc": ("PaWow is een iPhone-app voor huisdiereigenaren in Nederland: vind speelmaatjes in de buurt, houd "
-                 "vaccinaties en dierenartsbezoeken bij, deel een QR-dierenpaspoort met je dierenarts en vind "
-                 "dierenartsen en trimsalons om de hoek."),
+        "title": "PaWow: de dag van je huisdier, in één app",
+        "desc": ("PaWow is een iPhone-app voor honden- en kattenbaasjes in Nederland: vaccinaties en een "
+                 "QR-dierenpaspoort voor de dierenarts, facturen die declaraties worden, wandelmaatjes en matches, "
+                 "asielen, rasverenigingen en diensten in de buurt."),
         "skip": "Naar de inhoud",
-        "nav": [("features", "Functies"), ("how", "Hoe het werkt"), ("partners", "Partnerlinks"), ("contact", "Contact")],
+        "nav": [("gezondheid", "Gezondheid"), ("buren", "Buren"), ("buurt", "In de buurt")],
         "nav_guide": "Gids",
-        "eyebrow": "Nu in bèta voor iPhone",
-        "h1": 'Alles voor je huisdier, <span class="g">in één app</span>',
-        "lead": ("Vind speelmaatjes in de buurt, houd vaccinaties en dierenartsbezoeken bij en deel het dierenpaspoort "
-                 "met één QR-code. PaWow is gemaakt voor honden- en kattenbaasjes in Nederland."),
-        "cta": "Bekijk wat PaWow kan",
-        "cta_guide": "Lees de gids",
-        "soon": "<b>Binnenkort in de App Store</b> · nu in bèta via TestFlight",
-        "features_kicker": "Functies",
-        "features_h2": "Wat je met PaWow kunt",
-        "features_lead": "Van de eerste ontmoeting in het park tot de jaarlijkse controle: alles rond je huisdier op één plek.",
-        "features": [
-            ("💞", "Matchen", "Vind speelmaatjes of een partner voor je hond of kat bij jou in de buurt. Filter op ras "
-                             "en afstand, en chat met de eigenaar zodra het klikt."),
-            ("🩺", "Gezondheidsdossier", "Vaccinaties, medicijnen en bezoeken aan de dierenarts op één plek, met "
-                                        "herinneringen op je telefoon."),
-            ("🔳", "QR-dierenpaspoort", "De dierenarts scant een QR-code en ziet meteen vaccinaties, chipnummer en eerdere "
-                                       "bezoeken. De kliniek kan via dezelfde link de factuur terugsturen."),
-            ("🐕", "Samen wandelen", "Zie welke honden er nu bij jou in de buurt lopen en ga samen een rondje. Je plek deel "
-                                    "je alleen als je zelf een wandeling start."),
-            ("📸", "Feed", "Deel foto's van je huisdier en zie wat andere baasjes delen. Leuk profiel gezien? Geef direct "
-                          "een like."),
-            ("📍", "Diensten in de buurt", "Dierenartsen, trimsalons en dierenwinkels bij jou in de buurt, op de kaart."),
-            ("🛍️", "Productcatalogus", "Voer, speelgoed en verzorging van webwinkels als bol en Zooplus, afgestemd op "
-                                      "jouw dier. Je bestelt gewoon bij de winkel."),
-            ("🏠", "Adopteren", "Dieren uit asielen in de buurt die een nieuw thuis zoeken."),
+        "h1": "Een dag met Houston en Appolon.",
+        "lead": ("PaWow zet alles van je hond of kat in één app: vaccinaties en het QR-paspoort, wandelmaatjes en "
+                 "matches, asielen en trimsalons om de hoek. Zo ziet een gewone dinsdag eruit met Houston, een hond, "
+                 "en Appolon, een kat."),
+        "chapters": {"health": "Gezondheid en papieren", "buren": "Buren en maatjes", "buurt": "In de buurt"},
+        "chapters_label": "Drie hoofdstukken",
+        "beta_btn": "Probeer de bèta",
+        "beta_hint": "Via TestFlight, de app van Apple voor testversies. Voor iPhone met iOS 17 of nieuwer.",
+        "beta_closed": ("De bèta is nu besloten: we testen met een kleine groep baasjes. Laat je e-mailadres achter, dan "
+                        "hoor je het als hij opengaat of als PaWow in de App Store staat."),
+        "notify_h": "Laat het me weten bij de lancering",
+        "notify_h_alt": "Liever wachten op de App Store?",
+        "notify_label": "E-mailadres",
+        "notify_ph": "jij@voorbeeld.nl",
+        "notify_btn": "Aanmelden",
+        "notify_consent": "Ik wil een e-mail als de bèta opengaat of PaWow in de App Store staat.",
+        "notify_privacy": "Privacy",
+        "notify_fine": "Alleen je e-mailadres en taal. Geen trackers.",
+        "msg": {"sending": "Even geduld…", "ok": "Gelukt. We mailen je zodra het zover is.",
+                "bad": "Dat e-mailadres lijkt niet te kloppen. Kijk het even na.",
+                "busy": "Het is nu erg druk. Probeer het over een minuut opnieuw.",
+                "offline": "Geen verbinding. Probeer het opnieuw als je weer online bent."},
+        "day_h": "Een dinsdag met Houston en Appolon",
+        "day_lead": "De schermen zijn nagebouwd uit de app; de dag is een voorbeeld.",
+        "weekday": "dinsdag",
+        "moments": [
+            {"id": "buren", "time": "07:30", "ch": "buren", "kind": "walk",
+             "h": "Ochtendrondje met de buren",
+             "p": ("Zie welke honden er nu in de buurt wandelen en loop samen een rondje. Je plek deel je alleen als "
+                   "je zelf een wandeling start, en dan afgerond tot een huizenblok.")},
+            {"id": "gezondheid", "time": "09:00", "ch": "health", "kind": "reminder",
+             "h": "Een seintje voor Appolon",
+             "p": "Ontwormen, vaccinaties, medicijnen: PaWow herinnert je op tijd, voor je kat net zo goed als voor je hond."},
+            {"id": "", "time": "10:15", "ch": "health", "kind": "passport",
+             "h": "De dierenarts scant het QR-paspoort",
+             "p": ("Vaccinaties, chipnummer en eerdere bezoeken in de browser van de kliniek, zonder app. De link is "
+                   "7 dagen geldig en je trekt hem in wanneer je wilt.")},
+            {"id": "", "time": "14:00", "ch": "health", "kind": "invoice",
+             "h": "Van factuur naar declaratie",
+             "p": ("De kliniek stuurt de factuur via dezelfde link. Jij maakt er een concept-declaratie van voor je "
+                   "verzekeraar, zonder overtypen.")},
+            {"id": "buurt", "time": "17:30", "ch": "buurt", "kind": "nearby",
+             "h": "Trimsalon, asiel of rasvereniging",
+             "p": ("Dierenartsen en trimsalons op de kaart, met een aanvraag bij partnersalons. Asielen en "
+                   "rasverenigingen met een link naar hun eigen pagina's, en voer en speelgoed van bol.")},
+            {"id": "", "time": "21:00", "ch": "buren", "kind": "match",
+             "h": "Een match voor Houston",
+             "p": "Houston en Bonnie vinden elkaar leuk. Nu kunnen de baasjes chatten en een speelafspraak maken."},
         ],
-        "health_kicker": "Gezondheid",
-        "health_h2": "Het dierenpaspoort, altijd bij de hand",
-        "health_text": ("Vaccinaties, medicijnen, chipnummer en bezoeken aan de dierenarts: in PaWow staat alles op één "
-                        "plek, ook als het papieren paspoort thuis in een la ligt."),
-        "health_points": [
-            "Herinneringen voor de volgende vaccinatie, controle of medicijnen, gewoon op je telefoon.",
-            "Een QR-link voor de dierenarts: 7 dagen geldig en op elk moment in te trekken.",
-            "De kliniek stuurt de factuur via dezelfde link terug, zodat jij hem kunt doorsturen naar je verzekeraar.",
-        ],
-        "catalog_kicker": "Catalogus",
-        "catalog_h2": "Spullen voor je dier, zonder eindeloos zoeken",
-        "catalog_text": ("In de catalogus vind je voer, speelgoed, accessoires en verzorgingsproducten van webwinkels als bol "
-                         "en Zooplus, afgestemd op het soort dier dat je hebt."),
-        "catalog_points": [
-            "Gefilterd op soort: voor honden, voor katten of alles.",
-            "Prijs, korting en levertijd in één oogopslag. Prijzen werken we meerdere keren per dag bij.",
-            "Je bestelt en betaalt bij de winkel zelf, met hun service en retourbeleid.",
-        ],
-        "catalog_link": "Zo werken onze partnerlinks →",
-        "how_kicker": "Hoe het werkt",
-        "how_h2": "In drie stappen op weg",
-        "steps": [
-            ("Maak een profiel", "Naam, soort, ras, geboortedatum en een foto. Meer dieren? Je wisselt met één tik."),
-            ("Zet de gezondheid op een rij", "Voeg vaccinaties en bezoeken toe, en PaWow herinnert je eraan als er iets "
-                                            "aankomt."),
-            ("Ontdek de buurt", "Matches, wandelmaatjes, dierenartsen en trimsalons om de hoek."),
-        ],
-        "guides_kicker": "Gids",
-        "guides_h2": "Gids voor baasjes",
-        "guides_lead": ("Praktische artikelen die we zelf schrijven: over de eerste weken met een pup, op reis met je "
-                        "huisdier en de regels voor het uitlaten."),
-        "guides_all": "Alle artikelen in de gids →",
-        "read": "Lees verder →",
-        "min": "min lezen",
-        "partners_kicker": "Partnerlinks",
-        "partners_h2": "Transparant over partnerlinks",
-        "partners_lead": "PaWow verdient aan partnerlinks, niet aan jouw gegevens. Zo werkt het:",
-        "partners": [
-            ("Partnerprogramma van bol", "PaWow neemt deel aan het partnerprogramma van bol. Producten en prijzen in de "
-                                         "catalogus komen van bol, en ‘Kopen’ brengt je naar bol.com. PaWow is een "
-                                         "onafhankelijke app en geen onderdeel van bol."),
-            ("Commissie, geen meerprijs", "Koop je iets via een link in onze catalogus, dan krijgt PaWow een kleine "
-                                          "commissie van de winkel. Jij betaalt niets extra."),
-            ("Je koopt bij de winkel", "We verkopen zelf niets. Bestellen, betalen, bezorgen en retourneren regel je met "
-                                       "de winkel, onder hun voorwaarden."),
-            ("De winkel is leidend", "Prijzen werken we meerdere keren per dag bij, maar de prijs op de site van de winkel is altijd "
-                                     "leidend."),
-            ("Duidelijk gemarkeerd", "Partnerlinks zijn in de app als zodanig gemarkeerd, en we geven geen "
-                                     "persoonsgegevens door aan de winkel."),
-            ("Eerlijk advies", "Onze artikelen schrijven we zelf. Een commissie verandert niets aan wat we aanraden."),
-        ],
-        "privacy_kicker": "Privacy",
-        "privacy_h2": "Je gegevens blijven van jou",
-        "privacy_text": "We bewaren alleen wat nodig is om de app te laten werken, en jij houdt de regie.",
+        "m": {
+            "walk_h": "3 honden wandelen nu", "walk_sub": "binnen 1 km",
+            "walkers": [("molly", "Molly", "Samojeed", "400 m"), ("oscar", "Oscar", "Golden retriever", "650 m"),
+                        ("toby", "Toby", "Beagle", "900 m")],
+            "live": "Nu",
+            "notif": [("Appolon: ontwormen vandaag", "Tik om af te vinken", "nu"),
+                      ("Houston: herhaling Nobivac over 12 dagen", "Plan een afspraak bij je dierenarts", "8 min")],
+            "pass_url": "pawmatch-passport/passport",
+            "pass_h": "Dierenpaspoort van Houston", "pass_sub": "Jack Russell-terriër · Reu · Chip •••• 4127",
+            "vacc": [("Cocktail (DHPPi)", "geldig tot mrt 2027"), ("Kennelhoest", "geldig tot jan 2027")],
+            "badge_ok": "Geldig", "pass_until": "Link geldig tot ma 20 okt",
+            "inv_h": "Factuur van de kliniek", "inv_sub": "Consult en vaccinatie · € 86,50",
+            "claim_h": "Concept-declaratie", "claim_sub": "Klaar om naar je verzekeraar te sturen",
+            "claim_badge": "Verzekerd",
+            "near": [("79", "Asielen", "met een link naar hun eigen site"),
+                     ("56", "Rasverenigingen", "van de Raad van Beheer"),
+                     ("775", "Producten van bol", "ongeveer, elke 6 uur bijgewerkt")],
+            "stats_note": "Partnerlinks: koop je via de catalogus, dan betaalt bol PaWow een kleine commissie.",
+            "booking_h": "Aanvraag bij een trimsalon", "booking_sub": "do 10:30 · wassen en knippen",
+            "booking_badge": "Bevestigd",
+            "match_h": "Wederzijdse match", "match_sub": "Bonnie · Jack Russell-terriër",
+            "chat": [("Zin in een rondje in het park morgen?", False), ("Graag! 18:00 bij de vijver?", True)],
+        },
+        "screens_h": "Zo ziet PaWow er echt uit",
+        "prev": "Vorige schermen", "next": "Volgende schermen",
+        "screens_lead": ("Echte schermen uit de bèta. Houston en Appolon zijn echte huisdieren; de profielen bij "
+                         "Matchen zijn demoprofielen."),
+        "shots": [("home", "Thuis: Houston in één oogopslag", "Homescherm van PaWow met Houston, een Jack Russell-terriër"),
+                  ("cat", "Ook voor je kat", "Homescherm van PaWow met Appolon, een Maine coon"),
+                  ("health", "Gezondheid en verzekering", "Gezondheid in PaWow: vaccinaties, verzekering en het QR-dierenpaspoort"),
+                  ("match", "Matchen in de buurt (demoprofiel)", "Matchen in PaWow: het demoprofiel van Bonnie"),
+                  ("adopt", "Asielen bij jou in de buurt", "Lijst van asielen in PaWow met afstand en diersoorten")],
+        "privacy_h": "Je gegevens blijven van jou",
         "privacy_points": [
             "Opgeslagen in datacenters in de EU.",
             "Medische gegevens zie alleen jij, en de dierenarts als jij een QR-link deelt.",
@@ -208,386 +214,352 @@ T = {
             "Account verwijderen? Dan wissen we alles, ook je dieren en berichten.",
         ],
         "privacy_link": "Lees het volledige privacybeleid",
-        "faq_kicker": "Vragen",
-        "faq_h2": "Veelgestelde vragen",
+        "partners_h": "Hoe PaWow geld verdient",
+        "partners_lead": ("Met partnerlinks, niet met jouw gegevens. Koop je iets via de catalogus, dan krijgt PaWow een "
+                          "kleine commissie van bol. Jij betaalt niets extra."),
+        "partners_more": "Meer over partnerlinks",
+        "partners": [
+            ("Partnerprogramma van bol", "PaWow neemt deel aan het partnerprogramma van bol. Producten en prijzen in de "
+                                         "catalogus komen van bol, en ‘Kopen’ brengt je naar bol.com. PaWow is een "
+                                         "onafhankelijke app en geen onderdeel van bol."),
+            ("Je koopt bij de winkel", "We verkopen zelf niets. Bestellen, betalen, bezorgen en retourneren regel je met "
+                                       "bol, onder hun voorwaarden."),
+            ("De winkel is leidend", "Prijzen werken we elke 6 uur bij, maar de prijs op bol.com is altijd leidend."),
+            ("Duidelijk gemarkeerd", "Partnerlinks zijn in de app als zodanig gemarkeerd, en we geven geen "
+                                     "persoonsgegevens door aan de winkel."),
+            ("Eerlijk advies", "Onze artikelen schrijven we zelf. Een commissie verandert niets aan wat we aanraden."),
+        ],
+        "guides_h": "Uit de gids",
+        "guides_all": "Alle artikelen",
+        "read": "Lees verder",
+        "min": "min lezen",
+        "faq_h": "Veelgestelde vragen",
         "faq": [
-            ("Wanneer staat PaWow in de App Store?",
-             "We testen de app nu via TestFlight met een kleine groep baasjes. Zodra PaWow in de App Store staat, vind "
-             "je de link op deze pagina."),
-            ("Is er een Android-versie?", "Nog niet: PaWow is er voorlopig alleen voor iPhone."),
-            ("In welke talen is de app beschikbaar?", "In het Nederlands, Engels en Russisch."),
+            ("Hoe kom ik in de bèta?",
+             "De bèta loopt via TestFlight, de app van Apple voor testversies. Op dit moment is hij besloten. Meld je "
+             "hierboven aan, dan mailen we je zodra je mee kunt doen of zodra PaWow in de App Store staat."),
+            ("Is er een Android-versie?", "Nog niet: PaWow is er voorlopig alleen voor iPhone, met iOS 17 of nieuwer."),
+            ("In welke talen is de app beschikbaar?", "In het Nederlands, Engels en Russisch. Je wisselt in de app zelf."),
             ("Voor welke dieren is PaWow?",
              "Voor honden, katten, vogels, konijnen en andere huisdieren. Samen wandelen is er alleen voor honden."),
             ("Wie kan de gegevens van mijn huisdier zien?",
              "Naam, ras en foto van je huisdier zien andere gebruikers bij het matchen, in de feed en op de wandelkaart. "
              "Medische gegevens, documenten en berichten zie alleen jij, plus degene met wie je chat of een QR-link deelt."),
             ("Verkoopt PaWow zelf producten?",
-             'Nee. De catalogus verwijst naar webwinkels; daar bestel en betaal je. Lees <a href="#partners">hoe '
+             'Nee. De catalogus verwijst naar bol; daar bestel en betaal je. Lees <a href="#partners">hoe '
              'partnerlinks werken</a>.'),
         ],
-        "about_kicker": "Over ons",
-        "about_h2": "Over PaWow",
-        "about": [
-            "PaWow is een onafhankelijke app voor huisdiereigenaren in Nederland. We bouwen hem stap voor stap, samen met "
-            "de eerste gebruikers. Elke reactie helpt.",
-            "Ben je dierenarts, trimsalon of asiel en wil je in PaWow zichtbaar zijn? Laat het ons weten.",
-        ],
-        "contact_h3": "Contact",
-        "contact_text": "Vragen, ideeën of samenwerken? We horen graag van je.",
-        "contact_btn": "Mail ons",
+        "final_h": "Wees erbij als PaWow opengaat",
+        "final_lead": "Eén e-mail als de bèta opengaat of PaWow in de App Store staat. Meer niet.",
         "legal_privacy": "Privacybeleid",
         "legal_terms": "Gebruiksvoorwaarden",
         "legal_lang": "nl",
-        "foot_tag": "Alles voor je huisdier, in één app.",
+        "foot_tag": "De dag van je huisdier, in één app.",
         "foot_partner": "PaWow neemt deel aan het partnerprogramma van bol en is een onafhankelijke app.",
         "foot_cookies": "Deze website plaatst geen cookies en gebruikt geen trackers.",
-        "shots": {"home": "Homescherm van PaWow met Houston, een Jack Russell", "match": "Matchen in PaWow: het profiel van Bonnie, een Jack Russell in de buurt", "health": "Gezondheid in PaWow: vaccinaties, verzekering en het QR-dierenpaspoort", "feed": "De feed van PaWow met foto's van andere honden", "catalog": "De catalogus in PaWow met hondenspeelgoed van bol", "passport": "Het QR-dierenpaspoort van Houston in PaWow"},
-        "gallery_kicker": "In de app", "gallery_h2": "Zo ziet PaWow eruit", "gallery_lead": "Echte schermen uit de bèta, geen illustraties.",
-        "gallery": [("home", "Alles op één scherm"), ("match", "Speelmaatjes in de buurt"), ("feed", "Foto's van andere baasjes"), ("health", "Vaccinaties en paspoort"), ("catalog", "Producten voor je huisdier")],
-        "m": {
-            "pet": "Max", "chips": ["🐾 Jack Russell", "Dichtbij · 5 km"], "dist": "740 m",
-            "name": "Luna", "age": "2 jaar", "meta": "Border Collie · Teef", "bio": "Rent het liefst achter een bal aan 🎾",
-            "next": ("Bella", "3 jaar", "Poedel · Teef", "Dol op wandelingen in het bos 🌳", "1,2 km"),
-            "tabs": ["Home", "Match", "Feed", "Diensten", "Gezondheid"],
-            "health": "Gezondheid", "pets": ["Max", "Pip"], "qr_t": "QR-dierenpaspoort", "qr_s": "Laat de dierenarts scannen",
-            "qr_v": "7 dagen geldig", "vacc": "VACCINATIES",
-            "vaccs": [("Cocktailenting", "12 mrt 2026", "tot mrt 2027", "ok"),
-                      ("Leptospirose", "12 mrt 2026", "tot mrt 2027", "ok"),
-                      ("Rabiës", "4 nov 2025", "over 3 weken", "warn")],
-            "visits": "AFSPRAKEN", "visit": ("Jaarlijkse controle", "Dierenkliniek · 10:30", "28 okt"),
-            "services": "Diensten", "seg": ["Kaart", "Catalogus", "Afspraken"],
-            "cats": [("🥩", "Voer"), ("🎾", "Speelgoed"), ("🦮", "Accessoires"), ("✂️", "Verzorging")],
-            "species": ["Voor honden", "Voor katten", "Alle"],
-            "products": [("🍖", "Hondenbrokken lam & rijst, 12 kg", "bol.com", 3999, 4799),
-                         ("🥫", "Natvoer kip, 12 × 400 g", "zooplus", 1849, None),
-                         ("🦴", "Kauwbotten rund, 3 stuks", "bol.com", 799, None),
-                         ("🐟", "Puppybrokken zalm, 3 kg", "zooplus", 1699, 1999)],
-        },
+        "foot_contact": "Vragen of samenwerken?",
+        "cta_mini_h": "PaWow is in bèta",
+        "cta_mini_p": "Alles van je hond of kat in één app. Laat je e-mailadres achter, dan hoor je het als je mee kunt doen.",
+        "cta_mini_btn": "Laat het me weten",
     },
     "en": {
-        "title": "PaWow: everything for your pet in one app",
-        "desc": ("PaWow is an iPhone app for pet owners in the Netherlands: find playmates nearby, keep track of "
-                 "vaccinations and vet visits, share a QR vet passport with your clinic and find vets and groomers "
-                 "around the corner."),
+        "title": "PaWow: your pet's day, in one app",
+        "desc": ("PaWow is an iPhone app for dog and cat owners in the Netherlands: vaccinations and a QR vet passport "
+                 "for your vet, invoices that become insurance claims, walking buddies and matches, shelters, breed "
+                 "clubs and services nearby."),
         "skip": "Skip to content",
-        "nav": [("features", "Features"), ("how", "How it works"), ("partners", "Affiliate links"), ("contact", "Contact")],
+        "nav": [("health", "Health"), ("neighbours", "Neighbours"), ("nearby", "Nearby")],
         "nav_guide": "Guides",
-        "eyebrow": "Now in beta for iPhone",
-        "h1": 'Everything for your pet, <span class="g">in one app</span>',
-        "lead": ("Find playmates nearby, keep vaccinations and vet visits in one place and share the vet passport with a "
-                 "single QR code. PaWow is made for dog and cat owners in the Netherlands."),
-        "cta": "See what PaWow does",
-        "cta_guide": "Read the guides",
-        "soon": "<b>Coming soon to the App Store</b> · now in beta on TestFlight",
-        "features_kicker": "Features",
-        "features_h2": "What you can do with PaWow",
-        "features_lead": "From the first meeting in the park to the yearly check-up: everything about your pet in one place.",
-        "features": [
-            ("💞", "Matching", "Find playmates or a mate for your dog or cat nearby. Filter by breed and distance, and "
-                              "chat with the owner once it clicks."),
-            ("🩺", "Health record", "Vaccinations, medication and vet visits in one place, with reminders on your phone."),
-            ("🔳", "QR vet passport", "Your vet scans a QR code and instantly sees vaccinations, the microchip number and "
-                                     "past visits. The clinic can send the invoice back through the same link."),
-            ("🐕", "Walk together", "See which dogs are out for a walk nearby and join them. Your location is only shared "
-                                   "when you start a walk yourself."),
-            ("📸", "Feed", "Share photos of your pet and see what other owners post. Like a profile? Send a like right "
-                          "away."),
-            ("📍", "Services nearby", "Vets, groomers and pet shops near you, on the map."),
-            ("🛍️", "Product catalog", "Food, toys and care products from web shops such as bol and Zooplus, matched to "
-                                     "your pet. You order from the shop as usual."),
-            ("🏠", "Adoption", "Animals from nearby shelters looking for a new home."),
+        "h1": "A day with Houston and Appolon.",
+        "lead": ("PaWow puts everything about your dog or cat in one app: vaccinations and the QR passport, walking "
+                 "buddies and matches, shelters and groomers around the corner. This is an ordinary Tuesday with "
+                 "Houston, a dog, and Appolon, a cat."),
+        "chapters": {"health": "Health and paperwork", "buren": "Neighbours and buddies", "buurt": "Nearby"},
+        "chapters_label": "Three chapters",
+        "beta_btn": "Try the beta",
+        "beta_hint": "Through TestFlight, Apple's app for test versions. For iPhone with iOS 17 or later.",
+        "beta_closed": ("The beta is invite-only for now: we are testing with a small group of owners. Leave your email "
+                        "and we will let you know when it opens or when PaWow is in the App Store."),
+        "notify_h": "Tell me at launch",
+        "notify_h_alt": "Rather wait for the App Store?",
+        "notify_label": "Email address",
+        "notify_ph": "you@example.com",
+        "notify_btn": "Sign up",
+        "notify_consent": "Email me when the beta opens or PaWow is in the App Store.",
+        "notify_privacy": "Privacy",
+        "notify_fine": "Only your email address and language. No trackers.",
+        "msg": {"sending": "One moment…", "ok": "Done. We will email you when it is time.",
+                "bad": "That email address does not look right. Please check it.",
+                "busy": "It is very busy right now. Please try again in a minute.",
+                "offline": "No connection. Please try again when you are back online."},
+        "day_h": "A Tuesday with Houston and Appolon",
+        "day_lead": "The screens are rebuilt from the app; the day is an example.",
+        "weekday": "Tuesday",
+        "moments": [
+            {"id": "neighbours", "time": "07:30", "ch": "buren", "kind": "walk",
+             "h": "A morning walk with the neighbours",
+             "p": ("See which dogs are out walking nearby and join them. Your location is shared only when you start a "
+                   "walk yourself, and then rounded to a city block.")},
+            {"id": "health", "time": "09:00", "ch": "health", "kind": "reminder",
+             "h": "A reminder for Appolon",
+             "p": "Deworming, vaccinations, medication: PaWow reminds you in time, for your cat as much as your dog."},
+            {"id": "", "time": "10:15", "ch": "health", "kind": "passport",
+             "h": "The vet scans the QR passport",
+             "p": ("Vaccinations, microchip number and past visits in the clinic's browser, no app needed. The link "
+                   "works for 7 days and you can revoke it whenever you like.")},
+            {"id": "", "time": "14:00", "ch": "health", "kind": "invoice",
+             "h": "From invoice to claim",
+             "p": ("The clinic sends the invoice through the same link. You turn it into a claim draft for your "
+                   "insurer, without retyping anything.")},
+            {"id": "nearby", "time": "17:30", "ch": "buurt", "kind": "nearby",
+             "h": "Groomer, shelter or breed club",
+             "p": ("Vets and groomers on the map, with booking requests to partner salons. Shelters and breed clubs "
+                   "with a link to their own pages, plus food and toys from bol.")},
+            {"id": "", "time": "21:00", "ch": "buren", "kind": "match",
+             "h": "A match for Houston",
+             "p": "Houston and Bonnie like each other. Now the owners can chat and set up a play date."},
         ],
-        "health_kicker": "Health",
-        "health_h2": "The vet passport, always at hand",
-        "health_text": ("Vaccinations, medication, the microchip number and vet visits: PaWow keeps it all in one place, "
-                        "even when the paper passport is in a drawer at home."),
-        "health_points": [
-            "Reminders for the next vaccination, check-up or medication, right on your phone.",
-            "A QR link for the vet: valid for 7 days and revocable at any time.",
-            "The clinic sends the invoice back through the same link, so you can forward it to your insurer.",
-        ],
-        "catalog_kicker": "Catalog",
-        "catalog_h2": "Supplies for your pet, without endless searching",
-        "catalog_text": ("The catalog brings together food, toys, accessories and care products from web shops such as bol "
-                         "and Zooplus, matched to the kind of pet you have."),
-        "catalog_points": [
-            "Filtered by species: for dogs, for cats or everything.",
-            "Price, discount and delivery time at a glance. Prices are refreshed several times a day.",
-            "You order and pay at the shop itself, with its service and return policy.",
-        ],
-        "catalog_link": "How our affiliate links work →",
-        "how_kicker": "How it works",
-        "how_h2": "Up and running in three steps",
-        "steps": [
-            ("Create a profile", "Name, species, breed, birth date and a photo. More pets? Switch with a single tap."),
-            ("Get health in order", "Add vaccinations and visits, and PaWow reminds you when something is due."),
-            ("Discover your area", "Matches, walking buddies, vets and groomers around the corner."),
-        ],
-        "guides_kicker": "Guides",
-        "guides_h2": "Guides for pet owners",
-        "guides_lead": ("Practical articles we write ourselves: about the first weeks with a puppy, travelling with your "
-                        "pet and the rules for walking your dog."),
-        "guides_all": "All guides →",
-        "read": "Read more →",
-        "min": "min read",
-        "partners_kicker": "Affiliate links",
-        "partners_h2": "Open about affiliate links",
-        "partners_lead": "PaWow earns from affiliate links, not from your data. Here is how it works:",
-        "partners": [
-            ("bol partner programme", "PaWow takes part in the bol partner programme. Products and prices in the catalog "
-                                      "come from bol, and ‘Buy’ takes you to bol.com. PaWow is an independent app and is "
-                                      "not part of bol."),
-            ("Commission, no mark-up", "If you buy something through a link in our catalog, the shop pays PaWow a small "
-                                       "commission. You pay nothing extra."),
-            ("You buy from the shop", "We don't sell anything ourselves. Ordering, payment, delivery and returns are "
-                                      "handled by the shop, under its terms."),
-            ("The shop's price counts", "We refresh prices several times a day, but the price on the shop's website always prevails."),
-            ("Clearly labelled", "Affiliate links are labelled as such in the app, and we don't pass your personal data "
-                                 "to the shop."),
-            ("Honest advice", "We write our articles ourselves. A commission doesn't change what we recommend."),
-        ],
-        "privacy_kicker": "Privacy",
-        "privacy_h2": "Your data stays yours",
-        "privacy_text": "We keep only what the app needs to work, and you stay in control.",
+        "m": {
+            "walk_h": "3 dogs walking now", "walk_sub": "within 1 km",
+            "walkers": [("molly", "Molly", "Samoyed", "400 m"), ("oscar", "Oscar", "Golden Retriever", "650 m"),
+                        ("toby", "Toby", "Beagle", "900 m")],
+            "live": "Now",
+            "notif": [("Appolon: deworming today", "Tap to tick it off", "now"),
+                      ("Houston: Nobivac booster in 12 days", "Book a vet appointment", "8 min")],
+            "pass_url": "pawmatch-passport/passport",
+            "pass_h": "Houston's pet passport", "pass_sub": "Jack Russell Terrier · Male · Chip •••• 4127",
+            "vacc": [("DHPPi combination", "valid until Mar 2027"), ("Kennel cough", "valid until Jan 2027")],
+            "badge_ok": "Valid", "pass_until": "Link valid until Mon 20 Oct",
+            "inv_h": "Invoice from the clinic", "inv_sub": "Consultation and vaccination · €86.50",
+            "claim_h": "Claim draft", "claim_sub": "Ready to send to your insurer",
+            "claim_badge": "Insured",
+            "near": [("79", "Shelters", "with a link to their own site"),
+                     ("56", "Breed clubs", "from the Raad van Beheer"),
+                     ("775", "Products from bol", "roughly, refreshed every 6 hours")],
+            "stats_note": "Affiliate links: if you buy through the catalog, bol pays PaWow a small commission.",
+            "booking_h": "Request at a groomer", "booking_sub": "Thu 10:30 · wash and trim",
+            "booking_badge": "Confirmed",
+            "match_h": "Mutual match", "match_sub": "Bonnie · Jack Russell Terrier",
+            "chat": [("Fancy a walk in the park tomorrow?", False), ("Love to! 18:00 by the pond?", True)],
+        },
+        "screens_h": "What PaWow really looks like",
+        "prev": "Previous screens", "next": "Next screens",
+        "screens_lead": ("Real screens from the beta. Houston and Appolon are real pets; the profiles in Match are demo "
+                         "profiles."),
+        "shots": [("home", "Home: Houston at a glance", "PaWow home screen with Houston, a Jack Russell Terrier"),
+                  ("cat", "For your cat too", "PaWow home screen with Appolon, a Maine Coon"),
+                  ("health", "Health and insurance", "Health in PaWow: vaccinations, insurance and the QR vet passport"),
+                  ("match", "Matching nearby (demo profile)", "Matching in PaWow: Bonnie's demo profile"),
+                  ("adopt", "Shelters near you", "List of shelters in PaWow with distance and species")],
+        "privacy_h": "Your data stays yours",
         "privacy_points": [
-            "Stored in data centres in the EU.",
-            "Medical records are visible only to you, and to your vet if you share a QR link.",
-            "Other people only see your pet's location rounded.",
-            "We never sell your data or use it for advertising.",
+            "Stored in data centers in the EU.",
+            "Medical records are visible only to you, and to the vet if you share a QR link.",
+            "Others only see your pet's location rounded.",
+            "We do not sell your data or use it for advertising.",
             "Delete your account and we erase everything, including your pets and messages.",
         ],
         "privacy_link": "Read the full privacy policy",
-        "faq_kicker": "Questions",
-        "faq_h2": "Frequently asked questions",
+        "partners_h": "How PaWow makes money",
+        "partners_lead": ("With affiliate links, not with your data. If you buy something through the catalog, bol pays "
+                          "PaWow a small commission. You pay nothing extra."),
+        "partners_more": "More about affiliate links",
+        "partners": [
+            ("bol affiliate program", "PaWow takes part in the bol affiliate program. Products and prices in the catalog "
+                                      "come from bol, and ‘Buy’ takes you to bol.com. PaWow is an independent app and "
+                                      "not part of bol."),
+            ("You buy from the store", "We sell nothing ourselves. Ordering, paying, delivery and returns are between you "
+                                       "and bol, under their terms."),
+            ("The store's price counts", "We refresh prices every 6 hours, but the price on bol.com always applies."),
+            ("Clearly labeled", "Affiliate links are labeled as such in the app, and we never pass personal data to the "
+                                "store."),
+            ("Honest advice", "We write our articles ourselves. A commission does not change what we recommend."),
+        ],
+        "guides_h": "From the guides",
+        "guides_all": "All articles",
+        "read": "Read more",
+        "min": "min read",
+        "faq_h": "Frequently asked questions",
         "faq": [
-            ("When will PaWow be in the App Store?",
-             "We are testing the app on TestFlight with a small group of owners. As soon as PaWow is in the App Store, "
-             "you'll find the link on this page."),
-            ("Is there an Android version?", "Not yet: for now PaWow is iPhone-only."),
-            ("Which languages is the app available in?", "Dutch, English and Russian."),
+            ("How do I get into the beta?",
+             "The beta runs on TestFlight, Apple's app for test versions. Right now it is invite-only. Sign up above and "
+             "we will email you as soon as you can join or PaWow is in the App Store."),
+            ("Is there an Android version?", "Not yet: for now PaWow is iPhone only, with iOS 17 or later."),
+            ("Which languages does the app support?", "Dutch, English and Russian. You can switch inside the app."),
             ("Which animals is PaWow for?",
              "Dogs, cats, birds, rabbits and other pets. Walking together is for dogs only."),
             ("Who can see my pet's data?",
-             "Your pet's name, breed and photo are visible to other users in matching, in the feed and on the walks map. "
-             "Medical records, documents and messages are visible only to you and to whoever you chat with or share a "
-             "QR link with."),
+             "Other users see your pet's name, breed and photo in matching, the feed and on the walks map. Medical "
+             "records, documents and messages are visible only to you, plus whoever you chat with or share a QR link with."),
             ("Does PaWow sell products itself?",
-             'No. The catalog links to web shops, where you order and pay. Read <a href="#partners">how affiliate links '
+             'No. The catalog links to bol, where you order and pay. Read <a href="#partners">how affiliate links '
              'work</a>.'),
         ],
-        "about_kicker": "About",
-        "about_h2": "About PaWow",
-        "about": [
-            "PaWow is an independent app for pet owners in the Netherlands. We are building it step by step, together with "
-            "our first users. Every bit of feedback helps.",
-            "Are you a vet, groomer or shelter and would you like to be visible in PaWow? Let us know.",
-        ],
-        "contact_h3": "Contact",
-        "contact_text": "Questions, ideas or a partnership? We'd love to hear from you.",
-        "contact_btn": "Email us",
+        "final_h": "Be there when PaWow opens",
+        "final_lead": "One email when the beta opens or PaWow is in the App Store. Nothing more.",
         "legal_privacy": "Privacy policy",
-        "legal_terms": "Terms of service",
+        "legal_terms": "Terms of use",
         "legal_lang": "en",
-        "foot_tag": "Everything for your pet, in one app.",
-        "foot_partner": "PaWow takes part in the bol partner programme and is an independent app.",
+        "foot_tag": "Your pet's day, in one app.",
+        "foot_partner": "PaWow takes part in the bol affiliate program and is an independent app.",
         "foot_cookies": "This website sets no cookies and uses no trackers.",
-        "shots": {"home": "PaWow home screen with Houston, a Jack Russell", "match": "Matching in PaWow: the profile of Bonnie, a Jack Russell nearby", "health": "Health in PaWow: vaccinations, insurance and the QR vet passport", "feed": "The PaWow feed with photos of other dogs", "catalog": "The PaWow catalog with dog toys from bol", "passport": "Houston's QR vet passport in PaWow"},
-        "gallery_kicker": "In the app", "gallery_h2": "This is what PaWow looks like", "gallery_lead": "Real screens from the beta, not illustrations.",
-        "gallery": [("home", "Everything on one screen"), ("match", "Playmates nearby"), ("feed", "Photos from other owners"), ("health", "Vaccinations and passport"), ("catalog", "Pet supplies")],
-        "m": {
-            "pet": "Max", "chips": ["🐾 Jack Russell", "Nearby · 5 km"], "dist": "740 m",
-            "name": "Luna", "age": "2 years", "meta": "Border Collie · Female", "bio": "Would chase a ball all day 🎾",
-            "next": ("Bella", "3 years", "Poodle · Female", "Loves walks in the woods 🌳", "1.2 km"),
-            "tabs": ["Home", "Match", "Feed", "Services", "Health"],
-            "health": "Health", "pets": ["Max", "Pip"], "qr_t": "QR vet passport", "qr_s": "Let your vet scan it",
-            "qr_v": "Valid 7 days", "vacc": "VACCINATIONS",
-            "vaccs": [("Core vaccine (DHP)", "12 Mar 2026", "until Mar 2027", "ok"),
-                      ("Leptospirosis", "12 Mar 2026", "until Mar 2027", "ok"),
-                      ("Rabies", "4 Nov 2025", "due in 3 weeks", "warn")],
-            "visits": "APPOINTMENTS", "visit": ("Annual check-up", "Vet clinic · 10:30", "28 Oct"),
-            "services": "Services", "seg": ["Map", "Catalog", "Bookings"],
-            "cats": [("🥩", "Food"), ("🎾", "Toys"), ("🦮", "Accessories"), ("✂️", "Grooming")],
-            "species": ["For dogs", "For cats", "All"],
-            "products": [("🍖", "Dry dog food lamb & rice, 12 kg", "bol.com", 3999, 4799),
-                         ("🥫", "Wet food chicken, 12 × 400 g", "zooplus", 1849, None),
-                         ("🦴", "Beef chew bones, 3 pack", "bol.com", 799, None),
-                         ("🐟", "Puppy food salmon, 3 kg", "zooplus", 1699, 1999)],
-        },
+        "foot_contact": "Questions or partnerships?",
+        "cta_mini_h": "PaWow is in beta",
+        "cta_mini_p": "Everything about your dog or cat in one app. Leave your email and we will tell you when you can join.",
+        "cta_mini_btn": "Tell me",
     },
     "ru": {
-        "title": "PaWow: всё для питомца в одном приложении",
-        "desc": ("PaWow: приложение для iPhone для владельцев питомцев в Нидерландах. Друзья и пара для питомца рядом, "
-                 "прививки и визиты к ветеринару, QR-ветпаспорт для клиники, ветклиники и груминг-салоны поблизости."),
+        "title": "PaWow: день вашего питомца в одном приложении",
+        "desc": ("PaWow: приложение для iPhone для владельцев собак и кошек в Нидерландах. Прививки и QR-ветпаспорт "
+                 "для врача, счета, которые становятся страховыми декларациями, соседи по прогулкам и пары, приюты, "
+                 "клубы пород и услуги рядом."),
         "skip": "К содержимому",
-        "nav": [("features", "Возможности"), ("how", "Как это работает"), ("partners", "Партнёрские ссылки"),
-                ("contact", "Контакты")],
+        "nav": [("zdorovye", "Здоровье"), ("sosedi", "Соседи"), ("ryadom", "Рядом")],
         "nav_guide": "Гайды",
-        "eyebrow": "Бета-версия для iPhone",
-        "h1": 'Всё для питомца <span class="g">в одном приложении</span>',
-        "lead": ("Находите друзей и пару для питомца рядом, храните прививки и визиты к ветеринару в одном месте и "
-                 "показывайте ветпаспорт одним QR-кодом. PaWow сделан для владельцев собак и кошек в Нидерландах."),
-        "cta": "Что умеет PaWow",
-        "cta_guide": "Читать гайды",
-        "soon": "<b>Скоро в App Store</b> · сейчас бета в TestFlight",
-        "features_kicker": "Возможности",
-        "features_h2": "Что можно делать в PaWow",
-        "features_lead": "От первого знакомства в парке до ежегодного осмотра: всё о питомце в одном месте.",
-        "features": [
-            ("💞", "Матч", "Друзья для игр или пара для собаки или кошки рядом с вами. Фильтр по породе и расстоянию, а "
-                          "когда симпатия взаимна, можно написать владельцу."),
-            ("🩺", "Медкарта", "Прививки, препараты и визиты к ветеринару в одном месте, с напоминаниями на телефоне."),
-            ("🔳", "QR-ветпаспорт", "Ветеринар сканирует QR-код и сразу видит прививки, номер чипа и прошлые визиты. По "
-                                   "той же ссылке клиника может прислать счёт."),
-            ("🐕", "Прогулки вместе", "Смотрите, какие собаки гуляют рядом прямо сейчас, и присоединяйтесь. Своё место "
-                                     "вы показываете, только когда сами начинаете прогулку."),
-            ("📸", "Лента", "Делитесь фото питомца и смотрите, что публикуют другие. Понравился профиль? Поставьте лайк "
-                           "прямо из ленты."),
-            ("📍", "Услуги рядом", "Ветклиники, груминг-салоны и зоомагазины поблизости, на карте."),
-            ("🛍️", "Каталог товаров", "Корм, игрушки и средства ухода из интернет-магазинов bol и Zooplus с учётом "
-                                     "вида питомца. Заказ как обычно, на сайте магазина."),
-            ("🏠", "Усыновление", "Животные из приютов поблизости, которые ищут дом."),
+        "h1": "День с Хьюстоном и Апполоном.",
+        "lead": ("PaWow собирает всё о собаке или кошке в одном приложении: прививки и QR-паспорт, соседей по "
+                 "прогулкам и пары, приюты и груминг за углом. Вот обычный вторник с Хьюстоном, это собака, и "
+                 "Апполоном, это кот."),
+        "chapters": {"health": "Здоровье и бумаги", "buren": "Соседи и пары", "buurt": "Рядом"},
+        "chapters_label": "Три главы",
+        "beta_btn": "Попробовать бету",
+        "beta_hint": "Через TestFlight, приложение Apple для тестовых версий. Для iPhone с iOS 17 или новее.",
+        "beta_closed": ("Бета сейчас закрытая: мы тестируем с небольшой группой владельцев. Оставьте email, и мы "
+                        "напишем, когда она откроется или PaWow появится в App Store."),
+        "notify_h": "Сообщить о запуске",
+        "notify_h_alt": "Хотите дождаться App Store?",
+        "notify_label": "Email",
+        "notify_ph": "vy@primer.nl",
+        "notify_btn": "Подписаться",
+        "notify_consent": "Напишите мне, когда откроется бета или PaWow появится в App Store.",
+        "notify_privacy": "Конфиденциальность",
+        "notify_fine": "Только email и язык. Без трекеров.",
+        "msg": {"sending": "Секунду…", "ok": "Готово. Напишем, когда придёт время.",
+                "bad": "Похоже, в адресе ошибка. Проверьте его, пожалуйста.",
+                "busy": "Сейчас слишком много подписок. Попробуйте через минуту.",
+                "offline": "Нет соединения. Попробуйте ещё раз, когда появится интернет."},
+        "day_h": "Вторник с Хьюстоном и Апполоном",
+        "day_lead": "Экраны собраны по образцу приложения; день взят для примера.",
+        "weekday": "вторник",
+        "moments": [
+            {"id": "sosedi", "time": "07:30", "ch": "buren", "kind": "walk",
+             "h": "Утренняя прогулка с соседями",
+             "p": ("Видно, какие собаки сейчас гуляют рядом, и можно пойти вместе. Ваше место видно, только если вы "
+                   "сами начали прогулку, и то с точностью до квартала.")},
+            {"id": "zdorovye", "time": "09:00", "ch": "health", "kind": "reminder",
+             "h": "Напоминание для Апполона",
+             "p": "Глистогонное, прививки, лекарства: PaWow напомнит вовремя, и про кошку, и про собаку."},
+            {"id": "", "time": "10:15", "ch": "health", "kind": "passport",
+             "h": "Врач сканирует QR-паспорт",
+             "p": ("Прививки, номер чипа и прошлые визиты открываются в браузере клиники, без приложения. Ссылка "
+                   "действует 7 дней, и её можно отозвать в любой момент.")},
+            {"id": "", "time": "14:00", "ch": "health", "kind": "invoice",
+             "h": "Счёт становится декларацией",
+             "p": ("Клиника присылает счёт по той же ссылке. Вы делаете из него черновик декларации для страховой, "
+                   "ничего не перепечатывая.")},
+            {"id": "ryadom", "time": "17:30", "ch": "buurt", "kind": "nearby",
+             "h": "Груминг, приют или клуб породы",
+             "p": ("Ветклиники и салоны на карте, с заявкой в салоны-партнёры. Приюты и клубы пород со ссылками на "
+                   "их сайты, а ещё корм и игрушки с bol.")},
+            {"id": "", "time": "21:00", "ch": "buren", "kind": "match",
+             "h": "Пара для Хьюстона",
+             "p": "Хьюстон и Бонни понравились друг другу. Теперь хозяева могут списаться и договориться о встрече."},
         ],
-        "health_kicker": "Здоровье",
-        "health_h2": "Ветпаспорт всегда под рукой",
-        "health_text": ("Прививки, препараты, номер чипа и визиты к ветеринару: в PaWow всё в одном месте, даже если "
-                        "бумажный паспорт остался дома в ящике стола."),
-        "health_points": [
-            "Напоминания о следующей прививке, осмотре или приёме препарата, прямо на телефоне.",
-            "QR-ссылка для ветеринара: действует 7 дней, отозвать можно в любой момент.",
-            "По той же ссылке клиника присылает счёт, и вы пересылаете его в страховую.",
-        ],
-        "catalog_kicker": "Каталог",
-        "catalog_h2": "Всё нужное для питомца без долгих поисков",
-        "catalog_text": ("В каталоге собраны корм, игрушки, аксессуары и средства ухода из интернет-магазинов bol и "
-                         "Zooplus, с учётом того, какой у вас питомец."),
-        "catalog_points": [
-            "Фильтр по виду: для собак, для кошек или всё.",
-            "Цена, скидка и срок доставки сразу видны. Цены обновляются несколько раз в сутки.",
-            "Заказ и оплата на сайте магазина, с его сервисом и условиями возврата.",
-        ],
-        "catalog_link": "Как работают партнёрские ссылки →",
-        "how_kicker": "Как это работает",
-        "how_h2": "Три шага, и готово",
-        "steps": [
-            ("Создайте анкету", "Кличка, вид, порода, дата рождения и фото. Несколько питомцев? Переключение одним "
-                               "касанием."),
-            ("Наведите порядок в здоровье", "Добавьте прививки и визиты, и PaWow напомнит, когда подойдёт срок."),
-            ("Откройте свой район", "Матчи, компания для прогулок, ветклиники и груминг-салоны рядом."),
-        ],
-        "guides_kicker": "Гайды",
-        "guides_h2": "Гайды для владельцев",
-        "guides_lead": ("Практичные статьи, которые мы пишем сами: первые недели со щенком, поездки с питомцем и "
-                        "правила выгула."),
-        "guides_all": "Все гайды →",
-        "read": "Читать →",
-        "min": "мин чтения",
-        "partners_kicker": "Партнёрские ссылки",
-        "partners_h2": "Честно о партнёрских ссылках",
-        "partners_lead": "PaWow зарабатывает на партнёрских ссылках, а не на ваших данных. Как это устроено:",
-        "partners": [
-            ("Партнёрская программа bol", "PaWow участвует в партнёрской программе bol. Товары и цены в каталоге от bol, "
-                                          "а «Купить» ведёт на bol.com. PaWow независимое приложение и не входит в bol."),
-            ("Комиссия без наценки", "Если вы покупаете что-то по ссылке из нашего каталога, магазин платит PaWow "
-                                     "небольшую комиссию. Для вас цена не меняется."),
-            ("Покупка в магазине", "Сами мы ничего не продаём. Заказ, оплата, доставка и возврат проходят через "
-                                     "магазин, по его правилам."),
-            ("Главная цена у магазина", "Цены мы обновляем несколько раз в сутки, но решает цена на сайте магазина."),
-            ("Чёткая пометка", "Партнёрские ссылки в приложении помечены, а ваши личные данные магазину мы не "
-                               "передаём."),
-            ("Честные советы", "Статьи мы пишем сами. Комиссия не влияет на то, что мы советуем."),
-        ],
-        "privacy_kicker": "Приватность",
-        "privacy_h2": "Ваши данные остаются вашими",
-        "privacy_text": "Мы храним только то, что нужно для работы приложения, а управляете ими вы.",
+        "m": {
+            "walk_h": "3 собаки гуляют сейчас", "walk_sub": "в пределах 1 км",
+            "walkers": [("molly", "Molly", "самоед", "400 м"), ("oscar", "Oscar", "золотистый ретривер", "650 м"),
+                        ("toby", "Toby", "бигль", "900 м")],
+            "live": "Сейчас",
+            "notif": [("Апполон: глистогонное сегодня", "Нажмите, чтобы отметить", "сейчас"),
+                      ("Хьюстон: ревакцинация Nobivac через 12 дней", "Запишитесь к ветеринару", "8 мин")],
+            "pass_url": "pawmatch-passport/passport",
+            "pass_h": "Ветпаспорт Хьюстона", "pass_sub": "Джек-рассел-терьер · Мальчик · Чип •••• 4127",
+            "vacc": [("Комплексная (DHPPi)", "действует до мар. 2027"), ("Питомниковый кашель", "действует до янв. 2027")],
+            "badge_ok": "Действует", "pass_until": "Ссылка до пн, 20 окт.",
+            "inv_h": "Счёт от клиники", "inv_sub": "Приём и прививка · 86,50 €",
+            "claim_h": "Черновик декларации", "claim_sub": "Можно отправить в страховую",
+            "claim_badge": "Застрахован",
+            "near": [("79", "Приютов", "со ссылкой на их сайт"),
+                     ("56", "Клубов пород", "Raad van Beheer"),
+                     ("775", "Товаров bol", "примерно, обновление каждые 6 часов")],
+            "stats_note": "Ссылки партнёрские: если вы покупаете через каталог, bol платит PaWow небольшую комиссию.",
+            "booking_h": "Заявка в салон", "booking_sub": "чт 10:30 · мытьё и стрижка",
+            "booking_badge": "Подтверждено",
+            "match_h": "Взаимное совпадение", "match_sub": "Bonnie · джек-рассел-терьер",
+            "chat": [("Погуляем завтра в парке?", False), ("С удовольствием! В 18:00 у пруда?", True)],
+        },
+        "screens_h": "Как PaWow выглядит на самом деле",
+        "prev": "Предыдущие экраны", "next": "Следующие экраны",
+        "screens_lead": ("Настоящие экраны из беты. Хьюстон и Апполон настоящие питомцы; анкеты в «Матче» "
+                         "демонстрационные."),
+        "shots": [("home", "Главная: Хьюстон с одного взгляда", "Главный экран PaWow с Хьюстоном, джек-рассел-терьером"),
+                  ("cat", "И для кошки тоже", "Главный экран PaWow с Апполоном, мейн-куном"),
+                  ("health", "Здоровье и страховка", "Здоровье в PaWow: прививки, страховка и QR-ветпаспорт"),
+                  ("match", "Пары рядом (демо-анкета)", "Матч в PaWow: демо-анкета Бонни"),
+                  ("adopt", "Приюты рядом с вами", "Список приютов в PaWow с расстоянием и видами животных")],
+        "privacy_h": "Ваши данные остаются вашими",
         "privacy_points": [
             "Хранятся в дата-центрах в ЕС.",
-            "Медицинские записи видите только вы и ветеринар, если вы поделились QR-ссылкой.",
-            "Другим пользователям местоположение питомца показывается только округлённым.",
-            "Мы не продаём данные и не используем их для рекламы.",
-            "Если удалить аккаунт, мы сотрём всё, включая питомцев и переписку.",
+            "Медицинские записи видите только вы, и врач, если вы поделились QR-ссылкой.",
+            "Другие видят местоположение питомца только округлённо.",
+            "Мы не продаём ваши данные и не используем их для рекламы.",
+            "Удалите аккаунт, и мы сотрём всё, включая питомцев и переписку.",
         ],
-        "privacy_link": "Полная политика конфиденциальности",
-        "faq_kicker": "Вопросы",
-        "faq_h2": "Частые вопросы",
+        "privacy_link": "Политика конфиденциальности целиком",
+        "partners_h": "Как PaWow зарабатывает",
+        "partners_lead": ("На партнёрских ссылках, а не на ваших данных. Если вы покупаете что-то через каталог, bol "
+                          "платит PaWow небольшую комиссию. Для вас цена та же."),
+        "partners_more": "Подробнее о партнёрских ссылках",
+        "partners": [
+            ("Партнёрская программа bol", "PaWow участвует в партнёрской программе bol. Товары и цены в каталоге берутся "
+                                          "у bol, а кнопка «Купить» ведёт на bol.com. PaWow независимое приложение и не "
+                                          "часть bol."),
+            ("Покупка в магазине", "Сами мы ничего не продаём. Заказ, оплата, доставка и возврат идут через bol, по их "
+                                   "условиям."),
+            ("Главная цена у магазина", "Цены мы обновляем каждые 6 часов, но действует всегда цена на bol.com."),
+            ("Явная пометка", "Партнёрские ссылки в приложении помечены, и личные данные магазину мы не передаём."),
+            ("Честные советы", "Статьи мы пишем сами. Комиссия не меняет того, что мы советуем."),
+        ],
+        "guides_h": "Из гайдов",
+        "guides_all": "Все статьи",
+        "read": "Читать",
+        "min": "мин чтения",
+        "faq_h": "Частые вопросы",
         "faq": [
-            ("Когда PaWow появится в App Store?",
-             "Сейчас мы тестируем приложение в TestFlight с небольшой группой владельцев. Как только PaWow выйдет в App "
-             "Store, ссылка появится на этой странице."),
-            ("Есть ли версия для Android?", "Пока нет: PaWow сейчас только для iPhone."),
-            ("На каких языках приложение?", "На нидерландском, английском и русском."),
+            ("Как попасть в бету?",
+             "Бета идёт через TestFlight, приложение Apple для тестовых версий. Сейчас она закрытая. Оставьте email "
+             "выше, и мы напишем, как только вы сможете присоединиться или PaWow появится в App Store."),
+            ("Есть ли версия для Android?", "Пока нет: сейчас PaWow только для iPhone с iOS 17 или новее."),
+            ("На каких языках приложение?", "На нидерландском, английском и русском. Язык меняется прямо в приложении."),
             ("Для каких животных PaWow?",
-             "Для собак, кошек, птиц, кроликов и других питомцев. Совместные прогулки есть только для собак."),
+             "Для собак, кошек, птиц, кроликов и других питомцев. Совместные прогулки только для собак."),
             ("Кто видит данные моего питомца?",
-             "Кличку, породу и фото питомца видят другие пользователи: в подборе пар, в ленте и на карте прогулок. "
+             "Кличку, породу и фото питомца другие пользователи видят в подборе пар, в ленте и на карте прогулок. "
              "Медицинские записи, документы и переписку видите только вы и тот, с кем вы переписываетесь или кому "
              "отправили QR-ссылку."),
             ("PaWow сам продаёт товары?",
-             'Нет. Каталог ведёт в интернет-магазины, заказ и оплата там. Подробнее: <a href="#partners">как работают '
+             'Нет. Каталог ведёт на bol, там вы заказываете и платите. Читайте, <a href="#partners">как устроены '
              'партнёрские ссылки</a>.'),
         ],
-        "about_kicker": "О нас",
-        "about_h2": "О PaWow",
-        "about": [
-            "Мы делаем PaWow, независимое приложение для владельцев питомцев в Нидерландах, шаг за шагом и вместе с "
-            "первыми пользователями. Любой отзыв помогает.",
-            "Вы ветклиника, груминг-салон или приют и хотите появиться в PaWow? Напишите нам.",
-        ],
-        "contact_h3": "Контакты",
-        "contact_text": "Вопросы, идеи или сотрудничество? Будем рады письму.",
-        "contact_btn": "Написать",
+        "final_h": "Узнайте первыми, когда PaWow откроется",
+        "final_lead": "Одно письмо, когда откроется бета или PaWow появится в App Store. Больше ничего.",
         "legal_privacy": "Политика конфиденциальности",
         "legal_terms": "Условия использования",
         "legal_lang": "ru",
-        "foot_tag": "Всё для питомца в одном приложении.",
-        "foot_partner": "PaWow участвует в партнёрской программе bol и остаётся независимым приложением.",
-        "foot_cookies": "Этот сайт не ставит cookies и не использует трекеры.",
-        "shots": {"home": "Главный экран PaWow с Хьюстоном, джек-расселом", "match": "Матч в PaWow: анкета Бонни, джек-рассела по соседству", "health": "Здоровье в PaWow: прививки, страховка и QR-ветпаспорт", "feed": "Лента PaWow с фотографиями других собак", "catalog": "Каталог PaWow с игрушками для собак из bol", "passport": "QR-ветпаспорт Хьюстона в PaWow"},
-        "gallery_kicker": "В приложении", "gallery_h2": "Так выглядит PaWow", "gallery_lead": "Настоящие экраны из бета-версии, а не иллюстрации.",
-        "gallery": [("home", "Всё на одном экране"), ("match", "Друзья по соседству"), ("feed", "Фото других владельцев"), ("health", "Прививки и паспорт"), ("catalog", "Товары для питомцев")],
-        "m": {
-            "pet": "Макс", "chips": ["🐾 Джек-рассел", "Рядом · 5 км"], "dist": "740 м",
-            "name": "Луна", "age": "2 года", "meta": "Бордер-колли · девочка", "bio": "Готова гонять мяч весь день 🎾",
-            "next": ("Белла", "3 года", "Пудель · девочка", "Обожает гулять в лесу 🌳", "1,2 км"),
-            "tabs": ["Главная", "Матч", "Лента", "Услуги", "Здоровье"],
-            "health": "Здоровье", "pets": ["Макс", "Пип"], "qr_t": "QR-ветпаспорт", "qr_s": "Покажите ветеринару",
-            "qr_v": "7 дней", "vacc": "ПРИВИВКИ",
-            "vaccs": [("Комплексная (DHP)", "12 мар 2026", "до мар 2027", "ok"),
-                      ("Лептоспироз", "12 мар 2026", "до мар 2027", "ok"),
-                      ("Бешенство", "4 ноя 2025", "через 3 нед", "warn")],
-            "visits": "ВИЗИТЫ", "visit": ("Ежегодный осмотр", "Ветклиника · 10:30", "28 окт"),
-            "services": "Услуги", "seg": ["Карта", "Каталог", "Записи"],
-            "cats": [("🥩", "Корм"), ("🎾", "Игрушки"), ("🦮", "Аксессуары"), ("✂️", "Уход")],
-            "species": ["Для собак", "Для кошек", "Все"],
-            "products": [("🍖", "Сухой корм ягнёнок и рис, 12 кг", "bol.com", 3999, 4799),
-                         ("🥫", "Влажный корм курица, 12 × 400 г", "zooplus", 1849, None),
-                         ("🦴", "Жевательные кости, 3 шт.", "bol.com", 799, None),
-                         ("🐟", "Корм для щенков лосось, 3 кг", "zooplus", 1699, 1999)],
-        },
+        "foot_tag": "День вашего питомца в одном приложении.",
+        "foot_partner": "PaWow участвует в партнёрской программе bol и является независимым приложением.",
+        "foot_cookies": "Сайт не ставит cookies и не использует трекеры.",
+        "foot_contact": "Вопросы или сотрудничество?",
+        "cta_mini_h": "PaWow в бете",
+        "cta_mini_p": "Всё о собаке или кошке в одном приложении. Оставьте email, и мы напишем, когда можно будет присоединиться.",
+        "cta_mini_btn": "Сообщить мне",
     },
 }
 
-
-# ── Макеты экранов ────────────────────────────────────────────────────────────
-
-def status_bar():
-    return f'<div class="island"></div><div class="sb"><span>9:41</span><span>{SVG_SIGNAL}{SVG_WIFI}{SVG_BATT}</span></div>'
-
-
-def tabbar(m, active):
-    items = "".join(
-        f'<span{on(i == active)}>{icon}{esc(label)}</span>'
-        for i, (icon, label) in enumerate(zip(TAB_ICONS, m["tabs"]))
-    )
-    return f'<div class="tabbar">{items}</div>'
-
-
-def phone_shot(root, lang, screen, alt, eager=False):
-    """Реальный скриншот приложения в рамке телефона. Остров рисуется поверх:
-    simctl снимает экран без выреза."""
-    loading = 'fetchpriority="high"' if eager else 'loading="lazy"'
-    return (f'<div class="phone"><div class="screen shot"><div class="island"></div>'
-            f'<img src="{root}assets/shots/{lang}-{screen}.webp" alt="{esc(alt)}" width="600" height="1304" '
-            f'{loading} decoding="async"></div></div>')
+# Цвет главы: класс на чипах и метках времени, значения в site.css.
+# Малиновый в DESIGN.md значит «нажми», поэтому у глав его нет: соседи и пары
+# сиренью, как бейдж «Ищет пару» в приложении.
+CH_CLASS = {"health": "c-health", "buren": "c-buren", "buurt": "c-buurt"}
 
 
 # ── Каркас страницы ───────────────────────────────────────────────────────────
@@ -605,28 +577,106 @@ def rel(root, path):
     return (root + path) or "./"
 
 
-# Класс js на <html> ставится до стилей: без него (JS выключен) блоки с
-# классом reveal не прячутся и видны сразу.
+# Класс js на <html> ставится до стилей: без него (JS выключен) ничего не
+# прячется под анимацию, и страница видна сразу целиком.
 JS_FLAG = "<script>document.documentElement.classList.add('js')</script>\n"
 
-# Блоки проявляются, когда доходят до экрана. Наблюдатель отписывается от
-# показанного блока: анимация срабатывает один раз.
-REVEAL_SCRIPT = """<script>
+# Один скрипт на все страницы. Движение один раз на элемент и только
+# transform/opacity; при «уменьшить движение» всё сразу на месте.
+SITE_SCRIPT = """<script>
 (function () {
-  var items = document.querySelectorAll('.reveal');
-  if (!('IntersectionObserver' in window)) { items.forEach(function (el) { el.classList.add('in'); }); return; }
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
-  items.forEach(function (el) { io.observe(el); });
-})();
-(function () {
-  // Меню языка: открыто только одно, закрывается по клику мимо и по Esc.
-  var menus = Array.prototype.slice.call(document.querySelectorAll('.lang-menu'));
-  menus.forEach(function (m) {
-    m.addEventListener('toggle', function () {
-      if (m.open) menus.forEach(function (o) { if (o !== m) o.open = false; });
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasIO = 'IntersectionObserver' in window;
+
+  // День: часы крутят цифры к времени текущей отметки, фон «сейчас»
+  // переходит на неё (opacity), маркер едет по линейке (transform), а
+  // фрагмент интерфейса собирается, когда отметка показалась на экране.
+  var day = document.querySelector('.day');
+  if (day) {
+    var moments = [].slice.call(day.querySelectorAll('.moment'));
+    var marker = day.querySelector('.marker');
+    var cols = [].slice.call(day.querySelectorAll('.clock .col'));
+    var current = null;
+    var place = function (m) {
+      if (!marker) return;
+      var t = m.querySelector('.m-time');
+      // offsetTop отметки считается от списка, а маркер стоит в дорожке.
+      // Над меткой времени, чтобы не закрывать цифры.
+      var y = m.offsetTop + m.offsetParent.offsetTop + t.offsetTop - 20;
+      marker.style.transform = 'translateY(' + y + 'px)';
+    };
+    var see = function (m) { m.classList.add('seen'); };
+    var activate = function (m) {
+      if (m === current) return;
+      current = m;
+      // Всё, что выше текущей отметки, тоже собрано: при быстрой прокрутке
+      // пролистанный фрагмент не должен остаться пустым.
+      var before = true;
+      moments.forEach(function (o) {
+        o.classList.toggle('is-now', o === m);
+        if (before) see(o);
+        if (o === m) before = false;
+      });
+      var d = m.dataset.time.replace(':', '').split('');
+      cols.forEach(function (c, i) { c.style.setProperty('--n', d[i]); });
+      place(m);
+    };
+    if (reduce || !hasIO) { moments.forEach(see); }
+    else {
+      day.classList.add('live');
+      var vis = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { see(e.target); vis.unobserve(e.target); } });
+      }, { threshold: 0.2 });
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) activate(e.target); });
+      }, { rootMargin: '-42% 0px -42% 0px' });
+      moments.forEach(function (m) { vis.observe(m); io.observe(m); });
+      activate(moments[0]);
+      window.addEventListener('resize', function () { if (current) place(current); });
+    }
+  }
+
+  // Галерея настоящих экранов: кнопки листают ленту на одну карточку.
+  var strip = document.getElementById('shots');
+  document.querySelectorAll('.shots-nav .round').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var card = strip.querySelector('.shot');
+      var step = card ? card.getBoundingClientRect().width + 20 : 320;
+      strip.scrollBy({ left: step * +b.dataset.dir, behavior: reduce ? 'auto' : 'smooth' });
     });
+  });
+
+  // Подписка «сообщить о запуске»: прямо в Supabase (только вставка).
+  document.querySelectorAll('form.notify').forEach(function (f) {
+    var status = f.querySelector('.status');
+    var btn = f.querySelector('button');
+    var msg = JSON.parse(f.dataset.msg);
+    f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (f.website.value) { f.classList.add('done'); status.textContent = msg.ok; return; }
+      if (!f.checkValidity()) { f.reportValidity(); return; }
+      btn.disabled = true;
+      status.textContent = msg.sending;
+      fetch('__API__/rest/v1/launch_signups', {
+        method: 'POST',
+        headers: { apikey: '__KEY__', 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+        body: JSON.stringify({ email: f.email.value.trim(), lang: f.dataset.lang, consent: true })
+      }).then(function (r) {
+        // 409: адрес уже в списке. Отвечаем так же, как на новый: по ответу
+        // нельзя узнать, подписан ли чужой адрес.
+        if (r.ok || r.status === 409) { f.classList.add('done'); status.textContent = msg.ok; return; }
+        return r.json().catch(function () { return {}; }).then(function (j) {
+          status.textContent = j && j.code === 'P0001' ? msg.busy : msg.bad;
+          btn.disabled = false;
+        });
+      }).catch(function () { status.textContent = msg.offline; btn.disabled = false; });
+    });
+  });
+
+  // Меню языка: открыто только одно, закрывается по клику мимо и по Esc.
+  var menus = [].slice.call(document.querySelectorAll('.lang-menu'));
+  menus.forEach(function (m) {
+    m.addEventListener('toggle', function () { if (m.open) menus.forEach(function (o) { if (o !== m) o.open = false; }); });
   });
   document.addEventListener('click', function (e) {
     menus.forEach(function (m) { if (m.open && !m.contains(e.target)) m.open = false; });
@@ -637,7 +687,7 @@ REVEAL_SCRIPT = """<script>
   });
 })();
 </script>
-"""
+""".replace("__API__", SUPABASE_URL).replace("__KEY__", SUPABASE_KEY)
 
 
 def head(*, lang, title, desc, path, root, alternates=None, early="", extra=""):
@@ -654,7 +704,8 @@ def head(*, lang, title, desc, path, root, alternates=None, early="", extra=""):
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
 <link rel="canonical" href="{canonical}">
-{alt}<meta name="theme-color" content="#e84b7a">
+{alt}<meta name="theme-color" content="#f2f2f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="PaWow">
 <meta property="og:title" content="{esc(title)}">
@@ -670,39 +721,36 @@ def head(*, lang, title, desc, path, root, alternates=None, early="", extra=""):
 """
 
 
+# Языки названиями: флаг обозначает страну, а не язык, и русский под флагом
+# России отталкивал часть русскоязычных экспатов.
 LANG_NAMES = {"nl": "Nederlands", "en": "English", "ru": "Русский"}
-# Флаг страны для языка: английский под британским флагом.
-LANG_FLAGS = {"nl": "nl", "en": "gb", "ru": "ru"}
 LANG_MENU_LABEL = {"nl": "Taal kiezen", "en": "Choose language", "ru": "Выбрать язык"}
 CHEVRON = ('<svg class="chev" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5l3 3 3-3" fill="none" '
            'stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>')
 
 
 def lang_menu(root, lang, paths, up=False):
-    """Выпадающий список языков с флагами: компактнее трёх кнопок, особенно
-    на телефоне. Без JS работает как обычный <details>; скрипт в подвале
-    только закрывает его по клику мимо и по Esc. В подвале список
+    """Выпадающий список языков. Без JS работает как обычный <details>;
+    скрипт только закрывает его по клику мимо и по Esc. В подвале список
     раскрывается вверх (`up`), иначе уходил бы за край страницы."""
     items = "".join(
         f'<li><a href="{rel(root, paths[code])}" hreflang="{code}" lang="{code}"{CURRENT if code == lang else ""}>'
-        f'<span class="flag flag-{LANG_FLAGS[code]}" aria-hidden="true"></span>{LANG_NAMES[code]}</a></li>'
+        f'{LANG_NAMES[code]}</a></li>'
         for code in LANGS
     )
     return (f'<details class="lang-menu{" up" if up else ""}">'
-            f'<summary aria-label="{LANG_MENU_LABEL[lang]}: {LANG_NAMES[lang]}">'
-            f'<span class="flag flag-{LANG_FLAGS[lang]}" aria-hidden="true"></span>{lang.upper()}{CHEVRON}</summary>'
+            f'<summary aria-label="{LANG_MENU_LABEL[lang]}: {LANG_NAMES[lang]}">{lang.upper()}{CHEVRON}</summary>'
             f'<ul>{items}</ul></details>')
 
 
 def header(*, t, root, lang, on_landing, paths):
     home = rel(root, LANG_PATH[lang])
     pre = "" if on_landing else home
-    links = [f'<a href="{pre}#{anchor}">{esc(label)}</a>' for anchor, label in t["nav"][:2]]
+    links = [f'<a href="{pre}#{anchor}">{esc(label)}</a>' for anchor, label in t["nav"]]
     links.append(f'<a class="keep" href="{rel(root, GUIDE_DIR[lang])}">{esc(t["nav_guide"])}</a>')
-    links += [f'<a href="{pre}#{anchor}">{esc(label)}</a>' for anchor, label in t["nav"][2:]]
     return f"""<a class="skip" href="#main">{esc(t["skip"])}</a>
 <header class="top"><div class="wrap">
-<a class="brand" href="{home}"><img src="{root}assets/logo-128.png" alt="" width="34" height="34">PaWow</a>
+<a class="brand" href="{home}"><img src="{root}assets/logo-128.png" alt="" width="32" height="32">PaWow</a>
 <nav class="nav" aria-label="Menu">{"".join(links)}</nav>
 {lang_menu(root, lang, paths)}
 </div></header>
@@ -714,25 +762,24 @@ def footer(*, t, root, lang, on_landing, paths):
     pre = "" if on_landing else home
     ll = t["legal_lang"]
     return f"""<footer class="foot"><div class="wrap">
-<div>
+<div class="foot-main">
 <a class="brand" href="{home}"><img src="{root}assets/logo-128.png" alt="" width="28" height="28">PaWow</a>
 <p>{esc(t["foot_tag"])}</p>
-<p>{esc(t["foot_partner"])}</p>
-<p>{esc(t["foot_cookies"])}</p>
-<p>© 2026 PaWow · <a href="mailto:{EMAIL}">{EMAIL}</a></p>
+<p>{esc(t["foot_contact"])} <a href="mailto:{EMAIL}">{EMAIL}</a></p>
 </div>
-<div>
-<nav aria-label="Footer">
-<a href="{pre}#features">{esc(t["nav"][0][1])}</a>
+<nav class="foot-nav" aria-label="Footer">
 <a href="{rel(root, GUIDE_DIR[lang])}">{esc(t["nav_guide"])}</a>
-<a href="{pre}#partners">{esc(t["nav"][2][1])}</a>
+<a href="{pre}#partners">{esc(t["partners_h"])}</a>
 <a href="{root}privacy.html?lang={ll}">{esc(t["legal_privacy"])}</a>
 <a href="{root}terms.html?lang={ll}">{esc(t["legal_terms"])}</a>
 </nav>
 <div class="foot-lang">{lang_menu(root, lang, paths, up=True)}</div>
+<div class="foot-fine">
+<p>{esc(t["foot_partner"])} {esc(t["foot_cookies"])}</p>
+<p>© 2026 PaWow</p>
 </div>
 </div></footer>
-{REVEAL_SCRIPT}</body>
+{SITE_SCRIPT}</body>
 </html>
 """
 
@@ -741,12 +788,139 @@ def guide_path(g, lang):
     return GUIDE_DIR[lang] + g["slug"][lang] + ".html"
 
 
-def guide_card(g, lang, root, t, i=0):
-    return (f'<a class="guide reveal" style="--i:{i}" href="{root}{guide_path(g, lang)}">'
-            f'<div class="thumb" aria-hidden="true"><span>{g["emoji"]}</span></div>'
-            f'<div class="body"><div class="meta"><span>{g["minutes"]} {esc(t["min"])}</span></div>'
-            f'<h3>{esc(g["title"][lang])}</h3><p>{esc(g["excerpt"][lang])}</p>'
-            f'<span class="go">{esc(t["read"])}</span></div></a>')
+def guide_card(g, lang, root, t, i=0, level="h3"):
+    """`level`: в индексе гида карточки идут сразу под h1, там они h2."""
+    return (f'<a class="guide" href="{root}{guide_path(g, lang)}">'
+            f'<{level}>{esc(g["title"][lang])}</{level}><p>{esc(g["excerpt"][lang])}</p>'
+            f'<span class="guide-foot"><span class="go">{esc(t["read"])}{I_ARROW}</span>'
+            f'<span class="meta">{g["minutes"]} {esc(t["min"])}</span></span></a>')
+
+
+# ── Форма подписки ────────────────────────────────────────────────────────────
+
+def notify_form(t, root, lang, fid):
+    """Форма «сообщить о запуске». Без JS отправить её некуда (сайт
+    статический), поэтому без JS она честно ведёт на почту."""
+    ll = t["legal_lang"]
+    msg = esc(json.dumps(t["msg"], ensure_ascii=False))
+    return f"""<form class="notify" id="{fid}" data-lang="{lang}" data-msg="{msg}" action="mailto:{EMAIL}" method="post" novalidate>
+<label class="field-label" for="{fid}-email">{esc(t["notify_label"])}</label>
+<div class="field-row">
+<input id="{fid}-email" name="email" type="email" inputmode="email" autocomplete="email" required maxlength="254" placeholder="{esc(t["notify_ph"])}">
+<button class="btn btn-primary" type="submit">{esc(t["notify_btn"])}</button>
+</div>
+<label class="consent"><input type="checkbox" name="consent" required><span>{esc(t["notify_consent"])} <a href="{root}privacy.html?lang={ll}">{esc(t["notify_privacy"])}</a></span></label>
+<input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+<p class="status" role="status" aria-live="polite"></p>
+</form>"""
+
+
+def action_card(t, root, lang, fid, final=False):
+    if final:
+        # В конце страницы заголовок и объяснение уже стоят рядом с карточкой.
+        top = (f'<a class="btn btn-primary btn-wide" href="{esc(TESTFLIGHT_URL)}">{esc(t["beta_btn"])}</a><hr>'
+               if TESTFLIGHT_URL else "")
+        return f'<div class="act-card">{top}{notify_form(t, root, lang, fid)}<p class="fine">{I_LOCK}{esc(t["notify_fine"])}</p></div>'
+    if TESTFLIGHT_URL:
+        top = (f'<a class="btn btn-primary btn-wide" href="{esc(TESTFLIGHT_URL)}">{esc(t["beta_btn"])}</a>'
+               f'<p class="hint">{esc(t["beta_hint"])}</p><hr>'
+               f'<h2 class="act-h">{esc(t["notify_h_alt"])}</h2>')
+    else:
+        top = f'<h2 class="act-h">{esc(t["notify_h"])}</h2><p class="hint">{esc(t["beta_closed"])}</p>'
+    return (f'<div class="act-card" id="aanmelden">{top}{notify_form(t, root, lang, fid)}'
+            f'<p class="fine">{I_LOCK}{esc(t["notify_fine"])}</p></div>')
+
+
+# ── Фрагменты интерфейса для отметок дня ──────────────────────────────────────
+#
+# Это вёрстка по образцу экранов приложения, а не скриншоты: она резкая на
+# любом экране, переводится вместе со страницей и умеет собираться по частям.
+# Классы u-* в site.css повторяют компоненты DESIGN.md приложения.
+
+def row(icon_svg, tone, title, sub, badge="", badge_tone="", extra=""):
+    b = f'<span class="badge {badge_tone}">{esc(badge)}</span>' if badge else ""
+    return (f'<div class="u-row a"{extra}><span class="tile {tone}">{icon_svg}</span>'
+            f'<span class="u-txt"><b>{esc(title)}</b><span>{esc(sub)}</span></span>{b}</div>')
+
+
+def ui_walk(m):
+    # Без loading="lazy": карточка прогулки стоит в первом экране.
+    rows = "".join(
+        f'<div class="u-row a" style="--d:{i + 1}"><img class="ava" src="__ROOT__assets/avatars/{f}.webp" alt="" '
+        f'width="40" height="40" decoding="async">'
+        f'<span class="u-txt"><b>{esc(n)}</b><span>{esc(b)}</span></span><span class="dist">{esc(d)}</span></div>'
+        for i, (f, n, b, d) in enumerate(m["walkers"]))
+    return (f'<div class="u-card">'
+            f'<div class="u-head a"><span class="tile c-buren">{I_WALK}</span><span class="u-txt"><b>{esc(m["walk_h"])}</b>'
+            f'<span>{esc(m["walk_sub"])}</span></span><span class="badge c-health">{esc(m["live"])}</span></div>'
+            f'{rows}</div>')
+
+
+def ui_reminder(m):
+    notes = "".join(
+        f'<div class="u-notif a" style="--d:{i}"><img src="__ROOT__assets/logo-128.png" alt="" width="38" height="38">'
+        f'<span class="u-txt"><span class="n-top"><b>PaWow</b><span>{esc(w)}</span></span>'
+        f'<b>{esc(h)}</b><span>{esc(s)}</span></span></div>'
+        for i, (h, s, w) in enumerate(m["notif"]))
+    return f'<div class="u-stack">{notes}</div>'
+
+
+def ui_passport(m):
+    vacc = "".join(row(I_SHIELD, "c-health", n, v, m["badge_ok"], "c-health", f' style="--d:{i + 2}"')
+                   for i, (n, v) in enumerate(m["vacc"]))
+    return (f'<div class="u-browser">'
+            f'<div class="u-bar a"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>'
+            f'<span class="url">{I_LOCK}{esc(m["pass_url"])}</span></div>'
+            f'<div class="u-page"><div class="u-head a" style="--d:1"><span class="qr">{fake_qr()}</span>'
+            f'<span class="u-txt"><b>{esc(m["pass_h"])}</b><span>{esc(m["pass_sub"])}</span></span></div>'
+            f'{vacc}<p class="u-foot a" style="--d:4">{esc(m["pass_until"])}</p></div></div>')
+
+
+def ui_invoice(m):
+    invoice = row(I_DOC, "c-attn", m["inv_h"], m["inv_sub"])
+    claim = row(I_SHIELD, "c-lilac", m["claim_h"], m["claim_sub"], m["claim_badge"], "c-lilac", ' style="--d:2"')
+    return (f'<div class="u-flow"><div class="u-card">{invoice}</div>'
+            f'<span class="u-arrow a" style="--d:1">{I_ARROW}</span>'
+            f'<div class="u-card">{claim}</div></div>')
+
+
+def ui_nearby(m):
+    """Цифры строками списка, как в приложении: плитка, подпись, значение."""
+    tones = (("c-health", I_HOUSE), ("c-lilac", I_PAW), ("c-neutral", I_BAG))
+    rows = "".join(
+        f'<div class="u-row a" style="--d:{i}"><span class="tile {tone}">{ico}</span>'
+        f'<span class="u-txt"><b>{esc(label)}</b><span>{esc(sub)}</span></span><span class="val">{n}</span></div>'
+        for i, ((n, label, sub), (tone, ico)) in enumerate(zip(m["near"], tones)))
+    booking = row(I_SCISSORS, "c-neutral", m["booking_h"], m["booking_sub"], m["booking_badge"], "c-health",
+                  ' style="--d:3"')
+    return (f'<div class="u-near"><div class="u-card">{rows}</div><div class="u-card">{booking}</div>'
+            f'<p class="u-note a" style="--d:4">{esc(m["stats_note"])}</p></div>')
+
+
+def ui_match(m):
+    bubbles = "".join(f'<p class="bubble a{" me" if me else ""}" style="--d:{i + 2}">{esc(txt)}</p>'
+                      for i, (txt, me) in enumerate(m["chat"]))
+    # Взаимное совпадение: тот фирменный момент, ради которого в DESIGN.md
+    # держат градиент малинового в сирень.
+    return (f'<div class="u-card">{row(I_HEART, "t-brand", m["match_h"], m["match_sub"])}'
+            f'<div class="u-chat">{bubbles}</div></div>')
+
+
+UI = {"walk": ui_walk, "reminder": ui_reminder, "passport": ui_passport, "invoice": ui_invoice,
+      "nearby": ui_nearby, "match": ui_match}
+
+
+def clock(time):
+    """Часы дня: каждая цифра стоит в своей колонке с лентой 0-9, скрипт
+    прокручивает ленту. Без JS видно первое время."""
+    cols = []
+    for ch in time:
+        if ch == ":":
+            cols.append('<span class="sep">:</span>')
+        else:
+            strip = "".join(f"<span>{d}</span>" for d in range(10))
+            cols.append(f'<span class="col" style="--n:{ch}"><span class="strip">{strip}</span></span>')
+    return "".join(cols)
 
 
 # ── Лендинг ───────────────────────────────────────────────────────────────────
@@ -765,31 +939,35 @@ def landing(lang):
     path = LANG_PATH[lang]
     root = root_of(path)
     guides_href = rel(root, GUIDE_DIR[lang])
+    ll = t["legal_lang"]
     ld = {
         "@context": "https://schema.org", "@type": "MobileApplication", "name": "PaWow",
-        "operatingSystem": "iOS", "applicationCategory": "LifestyleApplication",
+        "operatingSystem": "iOS 17", "applicationCategory": "LifestyleApplication",
         "description": t["desc"], "url": BASE + path, "inLanguage": lang,
         "image": BASE + "assets/logo-512.png",
         "publisher": {"@type": "Organization", "name": "PaWow", "email": EMAIL, "url": BASE},
     }
-    features = "".join(f'<article class="card reveal" style="--i:{i % 4}"><div class="ico" aria-hidden="true">{e}</div>'
-                       f'<h3>{esc(h)}</h3><p>{esc(p)}</p></article>' for i, (e, h, p) in enumerate(t["features"]))
-    health_points = "".join(f"<li>{esc(p)}</li>" for p in t["health_points"])
-    catalog_points = "".join(f"<li>{esc(p)}</li>" for p in t["catalog_points"])
-    steps = "".join(f'<li class="card reveal" style="--i:{i}"><h3>{esc(h)}</h3><p>{esc(p)}</p></li>'
-                    for i, (h, p) in enumerate(t["steps"]))
+    chapters = "".join(f'<li><a class="chip {CH_CLASS[k]}" href="#{next(mm["id"] for mm in t["moments"] if mm["ch"] == k)}">'
+                       f'<i aria-hidden="true"></i>{esc(v)}</a></li>' for k, v in t["chapters"].items())
+    moments = []
+    for i, mo in enumerate(t["moments"]):
+        mid = f' id="{mo["id"]}"' if mo["id"] else ""
+        ui = UI[mo["kind"]](m).replace("__ROOT__", root)
+        now = " is-now" if i == 0 else ""
+        moments.append(
+            f'<li class="moment{now}" data-time="{mo["time"]}"{mid}>'
+            f'<time class="m-time {CH_CLASS[mo["ch"]]}" datetime="{mo["time"]}">{mo["time"]}</time>'
+            f'<div class="m-text"><h3><span class="vh">{esc(t["chapters"][mo["ch"]])}: </span>{esc(mo["h"])}</h3>'
+            f'<p>{esc(mo["p"])}</p></div>'
+            f'<div class="m-ui u-{mo["kind"]}">{ui}</div></li>')
+    shots = "".join(
+        f'<figure class="shot"><div class="frame"><img{" class=\"fit\"" if s == "adopt" else ""} src="{root}assets/shots/{lang}-{s}.webp" '
+        f'alt="{esc(alt)}" width="600" height="840" loading="lazy" decoding="async"></div><figcaption>{esc(cap)}</figcaption></figure>'
+        for s, cap, alt in t["shots"])
+    privacy = "".join(f"<li>{esc(p)}</li>" for p in t["privacy_points"])
+    partners = "".join(f"<li><b>{esc(h)}</b> {esc(p)}</li>" for h, p in t["partners"])
     guides = "".join(guide_card(g, lang, root, t, i) for i, g in enumerate(GUIDES))
-    partners = "".join(f'<li class="reveal" style="--i:{i}"><b>{esc(h)}</b>{esc(p)}</li>'
-                       for i, (h, p) in enumerate(t["partners"]))
-    privacy_points = "".join(f"<li>{esc(p)}</li>" for p in t["privacy_points"])
-    faq = "".join(f'<details class="reveal" style="--i:{i}"><summary>{esc(q)}</summary><p>{a}</p></details>'
-                  for i, (q, a) in enumerate(t["faq"]))
-    about = "".join(f"<p>{esc(p)}</p>" for p in t["about"])
-    gallery = "".join(
-        f'<figure class="shot-item reveal" style="--i:{i}">{phone_shot(root, lang, screen, t["shots"][screen])}'
-        f'<figcaption>{esc(caption)}</figcaption></figure>'
-        for i, (screen, caption) in enumerate(t["gallery"]))
-    ll = t["legal_lang"]
+    faq = "".join(f'<details><summary>{esc(q)}</summary><p>{a}</p></details>' for q, a in t["faq"])
 
     page = head(lang=lang, title=t["title"], desc=t["desc"], path=path, root=root, alternates=LANG_PATH,
                 early=PASSPORT_REDIRECT if lang == "nl" else "",
@@ -797,83 +975,56 @@ def landing(lang):
     page += "<body>\n" + header(t=t, root=root, lang=lang, on_landing=True, paths=LANG_PATH)
     page += f"""<main id="main">
 
-<section class="hero"><div class="wrap">
-<div>
-<span class="eyebrow">{esc(t["eyebrow"])}</span>
-<h1>{t["h1"]}</h1>
+<section class="hero"><div class="wrap hero-grid">
+<div class="hero-copy">
+<h1>{esc(t["h1"])}</h1>
 <p class="lead">{esc(t["lead"])}</p>
-<div class="ctas"><a class="btn btn-primary" href="#features">{esc(t["cta"])}</a>
-<a class="btn btn-ghost" href="{guides_href}">{esc(t["cta_guide"])}</a></div>
-<p class="soon"><span class="dot" aria-hidden="true"></span><span>{t["soon"]}</span></p>
 </div>
-<div class="hero-phones">
-<div class="hero-back">{phone_shot(root, lang, "home", t["shots"]["home"])}</div>
-<div class="hero-phone">{phone_shot(root, lang, "match", t["shots"]["match"], eager=True)}</div>
+{action_card(t, root, lang, "notify-top")}
+</div></section>
+
+<section class="day" aria-labelledby="day-h"><div class="wrap">
+<h2 id="day-h" class="vh">{esc(t["day_h"])}</h2>
+<div class="day-top"><ul class="chapters" aria-label="{esc(t["chapters_label"])}">{chapters}</ul>
+<p class="day-note">{esc(t["day_lead"])}</p></div>
+<div class="day-grid">
+<div class="clock-wrap" aria-hidden="true"><div class="clock"><span class="digits">{clock(t["moments"][0]["time"])}</span>
+<span class="weekday">{esc(t["weekday"])}</span></div></div>
+<div class="track">
+<span class="marker" aria-hidden="true"></span>
+<ol class="moments">{"".join(moments)}</ol>
+</div>
 </div>
 </div></section>
 
-<section id="features"><div class="wrap">
-<div class="sec-head reveal"><span class="kicker">{esc(t["features_kicker"])}</span><h2>{esc(t["features_h2"])}</h2>
-<p>{esc(t["features_lead"])}</p></div>
-<div class="features">{features}</div>
-</div></section>
-
-<section id="screens" class="screens">
-<div class="wrap"><div class="sec-head reveal"><span class="kicker">{esc(t["gallery_kicker"])}</span>
-<h2>{esc(t["gallery_h2"])}</h2><p>{esc(t["gallery_lead"])}</p></div></div>
-<div class="gallery" tabindex="0" aria-label="{esc(t["gallery_h2"])}">{gallery}</div>
+<section class="screens" aria-labelledby="screens-h"><div class="wrap">
+<div class="sec-head sec-split"><div><h2 id="screens-h">{esc(t["screens_h"])}</h2><p>{esc(t["screens_lead"])}</p></div>
+<div class="shots-nav"><button type="button" class="round" data-dir="-1" aria-label="{esc(t["prev"])}" aria-controls="shots">{I_CHEV_L}</button>
+<button type="button" class="round" data-dir="1" aria-label="{esc(t["next"])}" aria-controls="shots">{I_CHEV_R}</button></div></div>
+</div>
+<div class="shots" id="shots" tabindex="0" role="region" aria-labelledby="screens-h">{shots}</div>
 </section>
 
-<section><div class="wrap spot">
-<div class="spot-media reveal">{phone_shot(root, lang, "passport", t["shots"]["passport"])}</div>
-<div class="reveal" style="--i:1"><span class="kicker">{esc(t["health_kicker"])}</span><h2>{esc(t["health_h2"])}</h2>
-<p>{esc(t["health_text"])}</p><ul class="checks">{health_points}</ul></div>
+<section class="trust" id="privacy"><div class="wrap trust-grid">
+<div class="card"><h2>{esc(t["privacy_h"])}</h2><ul class="checks">{privacy}</ul>
+<a class="more" href="{root}privacy.html?lang={ll}">{esc(t["privacy_link"])}{I_ARROW}</a></div>
+<div class="card" id="partners"><h2>{esc(t["partners_h"])}</h2><p>{esc(t["partners_lead"])}</p>
+<details class="more-details"><summary>{esc(t["partners_more"])}</summary><ul class="plain">{partners}</ul></details></div>
 </div></section>
 
-<section><div class="wrap spot rev">
-<div class="spot-media reveal">{phone_shot(root, lang, "catalog", t["shots"]["catalog"])}</div>
-<div class="reveal" style="--i:1"><span class="kicker">{esc(t["catalog_kicker"])}</span><h2>{esc(t["catalog_h2"])}</h2>
-<p>{esc(t["catalog_text"])}</p><ul class="checks">{catalog_points}</ul>
-<a class="more-link" href="#partners">{esc(t["catalog_link"])}</a></div>
-</div></section>
-
-<section id="how"><div class="wrap">
-<div class="sec-head reveal"><span class="kicker">{esc(t["how_kicker"])}</span><h2>{esc(t["how_h2"])}</h2></div>
-<ol class="steps">{steps}</ol>
-</div></section>
-
-<section id="guides"><div class="wrap">
-<div class="sec-head reveal"><span class="kicker">{esc(t["guides_kicker"])}</span><h2>{esc(t["guides_h2"])}</h2>
-<p>{esc(t["guides_lead"])}</p></div>
+<section class="guides-sec" aria-labelledby="guides-h"><div class="wrap">
+<div class="sec-row"><h2 id="guides-h">{esc(t["guides_h"])}</h2><a class="more" href="{guides_href}">{esc(t["guides_all"])}{I_ARROW}</a></div>
 <div class="guides">{guides}</div>
-<p class="after"><a class="more-link" href="{guides_href}">{esc(t["guides_all"])}</a></p>
 </div></section>
 
-<section id="partners"><div class="wrap"><div class="panel">
-<div class="sec-head reveal"><span class="kicker">{esc(t["partners_kicker"])}</span><h2>{esc(t["partners_h2"])}</h2>
-<p>{esc(t["partners_lead"])}</p></div>
-<ul class="points">{partners}</ul>
-</div></div></section>
-
-<section id="privacy"><div class="wrap split">
-<div class="reveal"><span class="kicker">{esc(t["privacy_kicker"])}</span><h2>{esc(t["privacy_h2"])}</h2>
-<p class="lead" style="font-size:17px">{esc(t["privacy_text"])}</p>
-<a class="more-link" href="{root}privacy.html?lang={ll}">{esc(t["privacy_link"])} →</a></div>
-<ul class="checks reveal" style="--i:1">{privacy_points}</ul>
-</div></section>
-
-<section id="faq"><div class="wrap">
-<div class="sec-head reveal"><span class="kicker">{esc(t["faq_kicker"])}</span><h2>{esc(t["faq_h2"])}</h2></div>
+<section class="faq-sec" id="faq" aria-labelledby="faq-h"><div class="wrap faq-grid">
+<h2 id="faq-h">{esc(t["faq_h"])}</h2>
 <div class="faq">{faq}</div>
 </div></section>
 
-<section id="contact"><div class="wrap">
-<div class="sec-head reveal"><span class="kicker">{esc(t["about_kicker"])}</span><h2>{esc(t["about_h2"])}</h2></div>
-<div class="about">
-<div class="card reveal">{about}</div>
-<div class="card contact reveal" style="--i:1"><h3>{esc(t["contact_h3"])}</h3><p>{esc(t["contact_text"])}</p>
-<a class="btn" href="mailto:{EMAIL}" aria-label="{esc(t["contact_btn"])}: {EMAIL}">{SVG_MAIL}<span>{EMAIL}</span></a></div>
-</div>
+<section class="final" aria-labelledby="final-h"><div class="wrap final-grid">
+<div class="final-copy"><h2 id="final-h">{esc(t["final_h"])}</h2><p>{esc(t["final_lead"])}</p></div>
+{action_card(t, root, lang, "notify-end", final=True)}
 </div></section>
 
 </main>
@@ -884,21 +1035,29 @@ def landing(lang):
 
 # ── Гид ───────────────────────────────────────────────────────────────────────
 
+def cta_mini(t, lang, root):
+    """Конец статьи гида: совет из приложения раньше ничем не заканчивался."""
+    href = rel(root, LANG_PATH[lang]) + "#aanmelden"
+    return (f'<aside class="cta-mini"><img src="{root}assets/logo-128.png" alt="" width="48" height="48">'
+            f'<div><h2>{esc(t["cta_mini_h"])}</h2><p>{esc(t["cta_mini_p"])}</p></div>'
+            f'<a class="btn btn-primary" href="{href}">{esc(t["cta_mini_btn"])}</a></aside>')
+
+
 def gids_index(lang):
     t, gt = T[lang], GIDS[lang]
     path = GUIDE_DIR[lang]
     root = root_of(path)
     page = head(lang=lang, title=gt["title"], desc=gt["desc"], path=path, root=root, alternates=GUIDE_DIR)
     page += "<body>\n" + header(t=t, root=root, lang=lang, on_landing=False, paths=GUIDE_DIR)
-    cards = "".join(guide_card(g, lang, root, t, i) for i, g in enumerate(GUIDES))
+    cards = "".join(guide_card(g, lang, root, t, i, level="h2") for i, g in enumerate(GUIDES))
     page += f"""<main id="main">
 <div class="wrap page-head">
 <nav class="crumbs" aria-label="{esc(gt["crumbs"])}"><a href="{rel(root, LANG_PATH[lang])}">{esc(gt["home"])}</a> / {esc(gt["kicker"])}</nav>
-<span class="kicker">{esc(gt["kicker"])}</span>
 <h1>{esc(gt["h1"])}</h1>
 <p>{esc(gt["lead"])}</p>
 </div>
-<section style="padding-top:32px"><div class="wrap"><div class="guides">{cards}</div></div></section>
+<section class="guides-sec" aria-label="{esc(gt["h1"])}"><div class="wrap"><div class="guides">{cards}</div>
+{cta_mini(t, lang, root)}</div></section>
 </main>
 """
     page += footer(t=t, root=root, lang=lang, on_landing=False, paths=GUIDE_DIR)
@@ -930,8 +1089,9 @@ def article(g, lang):
 <div class="meta"><span>{g["minutes"]} {esc(t["min"])}</span><span><time datetime="{UPDATED}">{esc(gt["updated"])}</time></span>
 <span>{esc(gt["by"])}</span></div>
 {g["body"][lang]}
+{cta_mini(t, lang, root)}
 </article>
-<aside class="related"><h2>{esc(gt["more"])}</h2><div class="guides">{related}</div></aside>
+<aside class="related wrap"><h2>{esc(gt["more"])}</h2><div class="guides">{related}</div></aside>
 </main>
 """
     page += footer(t=t, root=root, lang=lang, on_landing=False, paths=paths)
@@ -946,8 +1106,8 @@ def not_found():
                 extra='<meta name="robots" content="noindex">\n')
     page += "<body>\n" + header(t=t, root=root, lang="nl", on_landing=False, paths=LANG_PATH)
     page += f"""<main id="main"><div class="center-page"><div>
-<div style="font-size:64px" aria-hidden="true">🐾</div>
-<h1 style="font-size:40px">Pagina niet gevonden</h1>
+<img src="{root}assets/logo-128.png" alt="" width="72" height="72">
+<h1>Pagina niet gevonden</h1>
 <p>Deze pagina bestaat niet (meer). <span lang="en">This page doesn't exist.</span></p>
 <p><a class="btn btn-primary" href="{root}">Naar de homepage</a></p>
 </div></div></main>
@@ -959,10 +1119,18 @@ def not_found():
 # ── Картинки ──────────────────────────────────────────────────────────────────
 
 def images():
-    from PIL import Image, ImageDraw, ImageFilter, ImageFont
+    from PIL import Image, ImageDraw, ImageFont
+    from PIL.PngImagePlugin import PngInfo
 
     assets = ROOT / "assets"
     logo = Image.open(assets / "logo-512.png").convert("RGBA")
+
+    def origin(text):
+        """Происхождение картинки внутри файла (чанк impeccable:prompt): ни одна
+        из них не сгенерирована, все собраны здесь из логотипа владельца."""
+        info = PngInfo()
+        info.add_text("impeccable:prompt", f"Origin: {text} Built by tools/build_site.py; not AI-generated.")
+        return info
 
     def rounded(img, radius):
         mask = Image.new("L", img.size, 0)
@@ -971,22 +1139,19 @@ def images():
         out.putalpha(mask)
         return out
 
-    logo.resize((180, 180), Image.LANCZOS).convert("RGB").save(assets / "icon-180.png", optimize=True)
-    logo.resize((128, 128), Image.LANCZOS).convert("RGB").save(assets / "logo-128.png", optimize=True)
-    rounded(logo.resize((64, 64), Image.LANCZOS), 14).save(assets / "favicon-64.png", optimize=True)
+    from_logo = "resized from assets/logo-512.png, the PaWow app logo (owner asset)."
+    logo.resize((180, 180), Image.LANCZOS).convert("RGB").save(assets / "icon-180.png", optimize=True,
+                                                               pnginfo=origin(from_logo))
+    logo.resize((128, 128), Image.LANCZOS).convert("RGB").save(assets / "logo-128.png", optimize=True,
+                                                               pnginfo=origin(from_logo))
+    rounded(logo.resize((64, 64), Image.LANCZOS), 14).save(assets / "favicon-64.png", optimize=True,
+                                                           pnginfo=origin(from_logo))
 
-    # Превью для ссылок (Open Graph), 1200×630.
+    # Превью для ссылок (Open Graph), 1200×630: холст и карточки приложения,
+    # без пятен света и градиентов.
     w, h = 1200, 630
-    og = Image.new("RGB", (w, h), (251, 248, 250))
-    # Пятна света: размытые эллипсы: у маски нулевые края, и квадрат слоя не виден.
-    for (cx, cy, color) in ((260, 180, (255, 79, 139)), (1000, 140, (168, 85, 247)), (900, 620, (255, 79, 139))):
-        glow = Image.new("L", (900, 900), 0)
-        ImageDraw.Draw(glow).ellipse((200, 200, 700, 700), fill=70)
-        glow = glow.filter(ImageFilter.GaussianBlur(110))
-        layer = Image.new("RGB", (900, 900), color)
-        og.paste(layer, (cx - 450, cy - 450), glow)
-    big = rounded(logo.resize((240, 240), Image.LANCZOS), 56)
-    og.paste(big, (110, (h - 240) // 2), big)
+    og = Image.new("RGB", (w, h), (242, 242, 247))
+    d = ImageDraw.Draw(og)
 
     def font(size, weight):
         try:
@@ -996,17 +1161,31 @@ def images():
         except Exception:
             return ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", size)
 
-    d = ImageDraw.Draw(og)
-    x = 400
-    d.text((x, 190), "PaWow", font=font(112, "Bold"), fill=(28, 28, 30))
-    d.text((x, 330), "Alles voor je huisdier,", font=font(46, "Semibold"), fill=(93, 89, 101))
-    d.text((x, 388), "in één app", font=font(46, "Semibold"), fill=(181, 23, 79))
-    pill = "Nu in bèta voor iPhone"
+    big = rounded(logo.resize((132, 132), Image.LANCZOS), 30)
+    og.paste(big, (90, 90), big)
+    d.text((90, 262), "De dag van je huisdier,", font=font(64, "Bold"), fill=(28, 28, 30))
+    d.text((90, 338), "in één app.", font=font(64, "Bold"), fill=(28, 28, 30))
+    d.text((90, 436), "Vaccinaties, QR-paspoort, matches en asielen.", font=font(28, "Regular"),
+           fill=(92, 92, 97))
+    pill = "Bèta voor iPhone"
     pf = font(26, "Semibold")
     tw = d.textlength(pill, font=pf)
-    d.rounded_rectangle((x, 470, x + tw + 44, 470 + 48), radius=24, fill=(253, 232, 239))
-    d.text((x + 22, 479), pill, font=pf, fill=(181, 23, 79))
-    og.save(assets / "og.png", optimize=True)
+    d.rounded_rectangle((90, 500, 90 + tw + 44, 548), radius=24, fill=(253, 232, 239))
+    d.text((112, 509), pill, font=pf, fill=(181, 23, 79))
+    # Справа три карточки-главы.
+    # Цвета глав как на странице: мята, сирень, синий (малиновый только у действий).
+    cards = [((29, 158, 117), "Gezondheid en papieren"), ((123, 104, 238), "Buren en maatjes"),
+             ((0, 122, 255), "In de buurt")]
+    for i, (color, label) in enumerate(cards):
+        x0, y0 = 770, 150 + i * 118
+        d.rounded_rectangle((x0, y0, x0 + 370, y0 + 96), radius=16, fill=(255, 255, 255))
+        tint = tuple(int(c * .14 + 255 * .86) for c in color)
+        d.rounded_rectangle((x0 + 22, y0 + 26, x0 + 66, y0 + 70), radius=12, fill=tint)
+        d.ellipse((x0 + 37, y0 + 41, x0 + 51, y0 + 55), fill=color)
+        d.text((x0 + 84, y0 + 34), label, font=font(23, "Semibold"), fill=(28, 28, 30))
+    og.save(assets / "og.png", optimize=True,
+            pnginfo=origin("Open Graph card drawn with Pillow: system canvas, the PaWow logo, headline text and "
+                           "three chapter cards."))
 
 
 # ── Сборка ────────────────────────────────────────────────────────────────────
@@ -1022,19 +1201,19 @@ def typo(page, lang):
     parts = re.split(r"(<script.*?</script>|<style.*?</style>|<[^>]+>)", page, flags=re.S)
     for i in range(0, len(parts), 2):
         text = re.sub(r"(\d) (?=\S)", "\\1" + NBSP, parts[i])
-        text = text.replace("QR-", "QR\u2011")   # неразрывный дефис: «QR-» не отрывается от «кода»
+        text = text.replace("QR-", "QR‑")   # неразрывный дефис: «QR-» не отрывается от «кода»
         if lang == "ru":
             text = re.sub(RU_SHORT, lambda m: m.group(0)[:-1] + NBSP, text)
         parts[i] = text
     return "".join(parts)
 
 
-def write(rel, content, lang="nl"):
+def write(rel_path, content, lang="nl"):
     content = typo(content, lang)
-    path = ROOT / rel
+    path = ROOT / rel_path
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content, encoding="utf-8")
-    print(f"  {rel}  {len(content.encode()) // 1024} KB")
+    print(f"  {rel_path}  {len(content.encode()) // 1024} KB")
 
 
 def main():

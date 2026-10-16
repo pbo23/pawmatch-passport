@@ -1,0 +1,62 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/assigned.html"
+        ],
+        "createdAt": "2026-10-16T12:53:25.848Z",
+        "reason": "Claude: throwaway decision sketch; dimmed items are intentional depth, real build uses darker muted ink"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/notifications.html"
+        ],
+        "createdAt": "2026-10-16T12:53:25.866Z",
+        "reason": "Claude: throwaway decision sketch; dimmed items are intentional depth, real build uses darker muted ink"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/timeline.html"
+        ],
+        "createdAt": "2026-10-16T12:53:25.885Z",
+        "reason": "Claude: throwaway decision sketch; dimmed items are intentional depth, real build uses darker muted ink"
+      },
+      {
+        "rule": "tight-leading",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/assigned.html"
+        ],
+        "createdAt": "2026-10-16T13:59:41.095Z",
+        "reason": "Claude: spent decision sketch, display headings set tight on purpose; not shipped"
+      },
+      {
+        "rule": "tight-leading",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/notifications.html"
+        ],
+        "createdAt": "2026-10-16T13:59:41.109Z",
+        "reason": "Claude: spent decision sketch, display headings set tight on purpose; not shipped"
+      },
+      {
+        "rule": "tight-leading",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/timeline.html"
+        ],
+        "createdAt": "2026-10-16T13:59:41.122Z",
+        "reason": "Claude: spent decision sketch, display headings set tight on purpose; not shipped"
+      }
+    ]
+  }
+}
