@@ -124,10 +124,10 @@ T = {
         "skip": "Naar de inhoud",
         "nav": [("gezondheid", "Gezondheid"), ("buren", "Buren"), ("buurt", "In de buurt")],
         "nav_guide": "Gids",
-        "h1": "Een dag met Houston en Appolon.",
-        "lead": ("PaWow zet alles van je hond of kat in één app: vaccinaties en het QR-paspoort, wandelmaatjes en "
-                 "matches, asielen en trimsalons om de hoek. Zo ziet een gewone dinsdag eruit met Houston, een hond, "
-                 "en Appolon, een kat."),
+        "h1": "Een dag met Houston en Appolon",
+        "lead": ("Houston, een jack russell, wandelt met de buren en regelt zijn eerste date. Appolon, een maine coon, "
+                 "krijgt zijn vaccinaties op tijd. En de factuur van de dierenarts is in een paar tikken een "
+                 "concept-declaratie. Scroll door hun dinsdag: daar is één app voor."),
         "chapters": {"health": "Gezondheid en papieren", "buren": "Buren en maatjes", "buurt": "In de buurt"},
         "chapters_label": "Drie hoofdstukken",
         "beta_btn": "Probeer de bèta",
@@ -270,10 +270,10 @@ T = {
         "skip": "Skip to content",
         "nav": [("health", "Health"), ("neighbours", "Neighbours"), ("nearby", "Nearby")],
         "nav_guide": "Guides",
-        "h1": "A day with Houston and Appolon.",
-        "lead": ("PaWow puts everything about your dog or cat in one app: vaccinations and the QR passport, walking "
-                 "buddies and matches, shelters and groomers around the corner. This is an ordinary Tuesday with "
-                 "Houston, a dog, and Appolon, a cat."),
+        "h1": "A day with Houston and Appolon",
+        "lead": ("Houston the Jack Russell walks with the neighbours and sets up his first date. Appolon the Maine "
+                 "Coon gets his vaccinations on time. And the vet's invoice becomes a claim draft in a few taps. "
+                 "Scroll through their Tuesday: there's one app for all of it."),
         "chapters": {"health": "Health and paperwork", "buren": "Neighbours and buddies", "buurt": "Nearby"},
         "chapters_label": "Three chapters",
         "beta_btn": "Try the beta",
@@ -416,10 +416,10 @@ T = {
         "skip": "К содержимому",
         "nav": [("zdorovye", "Здоровье"), ("sosedi", "Соседи"), ("ryadom", "Рядом")],
         "nav_guide": "Гайды",
-        "h1": "День с Хьюстоном и Апполоном.",
-        "lead": ("PaWow собирает всё о собаке или кошке в одном приложении: прививки и QR-паспорт, соседей по "
-                 "прогулкам и пары, приюты и груминг за углом. Вот обычный вторник с Хьюстоном, это собака, и "
-                 "Апполоном, это кот."),
+        "h1": "День с Хьюстоном и Апполоном",
+        "lead": ("Джек-рассел Хьюстон гуляет с соседями и договаривается о первом свидании. Мейн-кун Апполон "
+                 "получает прививки вовремя. А счёт от ветеринара за пару нажатий становится черновиком "
+                 "декларации. Листайте их вторник: на всё это одно приложение."),
         "chapters": {"health": "Здоровье и бумаги", "buren": "Соседи и пары", "buurt": "Рядом"},
         "chapters_label": "Три главы",
         "beta_btn": "Попробовать бету",
@@ -1164,7 +1164,7 @@ def images():
     big = rounded(logo.resize((132, 132), Image.LANCZOS), 30)
     og.paste(big, (90, 90), big)
     d.text((90, 262), "De dag van je huisdier,", font=font(64, "Bold"), fill=(28, 28, 30))
-    d.text((90, 338), "in één app.", font=font(64, "Bold"), fill=(28, 28, 30))
+    d.text((90, 338), "in één app", font=font(64, "Bold"), fill=(28, 28, 30))
     d.text((90, 436), "Vaccinaties, QR-paspoort, matches en asielen.", font=font(28, "Regular"),
            fill=(92, 92, 97))
     pill = "Bèta voor iPhone"
