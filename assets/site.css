@@ -3,47 +3,31 @@
    смысловые цвета ролей, системный SF Pro. Генератор: tools/build_site.py. */
 
 :root {
-  --canvas: #f2f2f7;
-  --card: #ffffff;
-  --fill: #f2f2f7;
-  --ink: #1c1c1e;
-  --muted: #5c5c61;
-  --line: #d8d8dd;
-  --blush: #fde8ef;
-  --on-ci: #ffffff;
+  /* Сайт всегда тёмный (решение владельца 2026-10-17): светлая версия на
+     телефоне читалась хуже. Цвета тёмной темы приложения. */
+  --canvas: #000000;
+  --card: #1c1c1e;
+  --fill: #2c2c2e;
+  --ink: #f5f5f7;
+  --muted: #aeaeb2;
+  --line: #38383a;
+  --blush: #4a2030;
+  --on-ci: #1c1c1e;
 
   --rasp: #e84b7a;          /* действие: только кнопки и выбранное */
-  --rasp-ink: #b5174f;      /* малиновый текст и ссылки, AA на светлом */
-  --rasp-tint: rgba(232, 75, 122, .12);
-  --mint: #1d9e75;  --mint-ink: #127052;  --mint-tint: rgba(29, 158, 117, .14);
-  --lilac: #7b68ee; --lilac-ink: #4f3fc0; --lilac-tint: rgba(123, 104, 238, .14);
-  --apri: #e88a3a;  --apri-ink: #9a4f10;  --apri-tint: rgba(232, 138, 58, .16);
-  --blue: #007aff;  --blue-ink: #0058b8;  --blue-tint: rgba(0, 122, 255, .12);
+  --rasp-ink: #ff86ab;      /* малиновый текст и ссылки, AA на тёмном */
+  --rasp-tint: rgba(232, 75, 122, .22);
+  --mint: #1d9e75;  --mint-ink: #4fd1a5;  --mint-tint: rgba(29, 158, 117, .24);
+  --lilac: #7b68ee; --lilac-ink: #b2a7ff; --lilac-tint: rgba(123, 104, 238, .26);
+  --apri: #e88a3a;  --apri-ink: #ffb26b;  --apri-tint: rgba(232, 138, 58, .24);
+  --blue: #007aff;  --blue-ink: #5aa9ff;  --blue-tint: rgba(0, 122, 255, .24);
 
   --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --ease: cubic-bezier(.2, .8, .2, 1);
   --wrap: 1180px;
-  color-scheme: light dark;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --canvas: #000000;
-    --card: #1c1c1e;
-    --fill: #2c2c2e;
-    --ink: #f5f5f7;
-    --muted: #aeaeb2;
-    --line: #38383a;
-    --blush: #4a2030;
-    --on-ci: #1c1c1e;
-    --rasp-ink: #ff86ab;
-    --rasp-tint: rgba(232, 75, 122, .22);
-    --mint-ink: #4fd1a5;  --mint-tint: rgba(29, 158, 117, .24);
-    --lilac-ink: #b2a7ff; --lilac-tint: rgba(123, 104, 238, .26);
-    --apri-ink: #ffb26b;  --apri-tint: rgba(232, 138, 58, .24);
-    --blue-ink: #5aa9ff;  --blue-tint: rgba(0, 122, 255, .24);
-  }
+  /* Тёмные полосы прокрутки, поля формы и чекбоксы в любом режиме системы. */
+  color-scheme: dark;
 }
 
 *, *::before, *::after { box-sizing: border-box }

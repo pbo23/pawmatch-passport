@@ -16,6 +16,7 @@ privacy и terms собирает docs/gen_legal.py в репозитории п
 каждой отметки времени фрагмент интерфейса приложения, собранный вёрсткой в
 системе приложения (DESIGN.md приложения, «Тёплый спутник»).
 """
+import hashlib
 import html
 import json
 import random
@@ -707,6 +708,11 @@ SITE_SCRIPT = """<script>
 """.replace("__API__", SUPABASE_URL).replace("__KEY__", SUPABASE_KEY)
 
 
+# Версия стилей по содержимому: без неё браузеры и кеш GitHub Pages
+# показывали посетителям прошлый site.css после правки.
+CSS_VERSION = hashlib.sha256((ROOT / "assets/site.css").read_bytes()).hexdigest()[:10]
+
+
 def head(*, lang, title, desc, path, root, alternates=None, early="", extra=""):
     canonical = BASE + path
     alt = ""
@@ -721,8 +727,8 @@ def head(*, lang, title, desc, path, root, alternates=None, early="", extra=""):
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
 <link rel="canonical" href="{canonical}">
-{alt}<meta name="theme-color" content="#f2f2f7" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+{alt}<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#000000">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="PaWow">
 <meta property="og:title" content="{esc(title)}">
@@ -733,7 +739,7 @@ def head(*, lang, title, desc, path, root, alternates=None, early="", extra=""):
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="{root}assets/favicon-64.png" type="image/png">
 <link rel="apple-touch-icon" href="{root}assets/icon-180.png">
-<link rel="stylesheet" href="{root}assets/site.css">
+<link rel="stylesheet" href="{root}assets/site.css?v={CSS_VERSION}">
 {extra}</head>
 """
 
