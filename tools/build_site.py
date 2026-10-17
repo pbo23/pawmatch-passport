@@ -117,16 +117,16 @@ def fake_qr(seed=11, n=25):
 
 T = {
     "nl": {
-        "title": "PaWow: het hele leven van je huisdier, in je broekzak",
+        "title": "Het hele leven van je huisdier, in je broekzak",
         "desc": ("PaWow is een iPhone-app voor honden- en kattenbaasjes in Nederland: vaccinaties en een "
                  "QR-dierenpaspoort voor de dierenarts, facturen die declaraties worden, wandelmaatjes en matches, "
-                 "asielen, rasverenigingen en diensten in de buurt."),
+                 "asielen, rasverenigingen en diensten in de buurt, en voer en speelgoed bestellen."),
         "skip": "Naar de inhoud",
         "nav": [("gezondheid", "Gezondheid"), ("buren", "Buren"), ("buurt", "In de buurt")],
         "nav_guide": "Gids",
         "h1": "Het hele leven van je huisdier, in je broekzak",
-        "lead": ("Gezondheid en papieren, buren en maatjes, asielen, trimsalons en voer om de hoek. Alles rond je hond "
-                 "of kat, in één app."),
+        "lead": ("Gezondheid en papieren, buren en maatjes, asielen en trimsalons om de hoek, en voer en speelgoed "
+                 "bestellen. Alles rond je hond of kat, in één app."),
         "chapters": {"health": "Gezondheid en papieren", "buren": "Buren en maatjes", "buurt": "In de buurt"},
         "chapters_label": "Drie hoofdstukken",
         "beta_btn": "Probeer de bèta",
@@ -203,6 +203,8 @@ T = {
         "shots": [("home", "Thuis: Houston in één oogopslag", "Homescherm van PaWow met Houston, een Jack Russell-terriër"),
                   ("health", "Gezondheid en verzekering, ook voor je kat",
                    "Gezondheid in PaWow voor Appolon, een Maine coon: vaccinaties, verzekering en het QR-dierenpaspoort"),
+                  ("catalog", "Voer en speelgoed bestellen",
+                   "Catalogus in PaWow met hondenvoer en verzorgingsproducten met prijzen"),
                   ("match", "Matchen in de buurt (demoprofiel)", "Matchen in PaWow: het demoprofiel van Bonnie"),
                   ("adopt", "Asielen bij jou in de buurt", "Lijst van asielen in PaWow met afstand en diersoorten")],
         "privacy_h": "Je gegevens blijven van jou",
@@ -263,16 +265,16 @@ T = {
         "cta_mini_btn": "Laat het me weten",
     },
     "en": {
-        "title": "PaWow: your pet's whole life, in your pocket",
+        "title": "Your pet's whole life, in your pocket",
         "desc": ("PaWow is an iPhone app for dog and cat owners in the Netherlands: vaccinations and a QR vet passport "
                  "for your vet, invoices that become insurance claims, walking buddies and matches, shelters, breed "
-                 "clubs and services nearby."),
+                 "clubs and services nearby, plus food and toys to order."),
         "skip": "Skip to content",
         "nav": [("health", "Health"), ("neighbours", "Neighbours"), ("nearby", "Nearby")],
         "nav_guide": "Guides",
         "h1": "Your pet's whole life, in your pocket",
-        "lead": ("Health and paperwork, neighbours and buddies, shelters, groomers and food nearby. Everything about "
-                 "your dog or cat, in one app."),
+        "lead": ("Health and paperwork, neighbours and buddies, shelters and groomers nearby, plus food and toys to "
+                 "order. Everything about your dog or cat, in one app."),
         "chapters": {"health": "Health and paperwork", "buren": "Neighbours and buddies", "buurt": "Nearby"},
         "chapters_label": "Three chapters",
         "beta_btn": "Try the beta",
@@ -349,6 +351,8 @@ T = {
         "shots": [("home", "Home: Houston at a glance", "PaWow home screen with Houston, a Jack Russell Terrier"),
                   ("health", "Health and insurance, for your cat too",
                    "Health in PaWow for Appolon, a Maine Coon: vaccinations, insurance and the QR vet passport"),
+                  ("catalog", "Order food and toys",
+                   "Catalog in PaWow with dog food and care products with prices"),
                   ("match", "Matching nearby (demo profile)", "Matching in PaWow: Bonnie's demo profile"),
                   ("adopt", "Shelters near you", "List of shelters in PaWow with distance and species")],
         "privacy_h": "Your data stays yours",
@@ -409,16 +413,16 @@ T = {
         "cta_mini_btn": "Tell me",
     },
     "ru": {
-        "title": "PaWow: вся жизнь питомца в одном кармане",
+        "title": "Вся жизнь питомца в твоём кармане",
         "desc": ("PaWow: приложение для iPhone для владельцев собак и кошек в Нидерландах. Прививки и QR-ветпаспорт "
                  "для врача, счета, которые становятся страховыми декларациями, соседи по прогулкам и пары, приюты, "
-                 "клубы пород и услуги рядом."),
+                 "клубы пород и услуги рядом, а ещё заказ корма и игрушек."),
         "skip": "К содержимому",
         "nav": [("zdorovye", "Здоровье"), ("sosedi", "Соседи"), ("ryadom", "Рядом")],
         "nav_guide": "Гайды",
-        "h1": "Вся жизнь питомца в одном кармане",
-        "lead": ("Здоровье и бумаги, соседи и пары, приюты, груминг и корм рядом. Всё, что касается вашей собаки или "
-                 "кошки, в одном приложении."),
+        "h1": "Вся жизнь питомца в твоём кармане",
+        "lead": ("Здоровье и бумаги, соседи и пары, приюты и груминг рядом, а ещё заказ корма и игрушек. Всё, что "
+                 "касается вашей собаки или кошки, в одном приложении."),
         "chapters": {"health": "Здоровье и бумаги", "buren": "Соседи и пары", "buurt": "Рядом"},
         "chapters_label": "Три главы",
         "beta_btn": "Попробовать бету",
@@ -495,6 +499,8 @@ T = {
         "shots": [("home", "Главная: Хьюстон с одного взгляда", "Главный экран PaWow с Хьюстоном, джек-рассел-терьером"),
                   ("health", "Здоровье и страховка, и для кошки тоже",
                    "Здоровье в PaWow для Апполона, мейн-куна: прививки, страховка и QR-ветпаспорт"),
+                  ("catalog", "Заказ корма и игрушек",
+                   "Каталог в PaWow: корм для собак и товары для ухода с ценами"),
                   ("match", "Пары рядом (демо-анкета)", "Матч в PaWow: демо-анкета Бонни"),
                   ("adopt", "Приюты рядом с вами", "Список приютов в PaWow с расстоянием и видами животных")],
         "privacy_h": "Ваши данные остаются вашими",
@@ -546,7 +552,7 @@ T = {
         "legal_privacy": "Политика конфиденциальности",
         "legal_terms": "Условия использования",
         "legal_lang": "ru",
-        "foot_tag": "Вся жизнь питомца в одном кармане",
+        "foot_tag": "Вся жизнь питомца в твоём кармане",
         "foot_partner": "PaWow участвует в партнёрской программе bol и является независимым приложением.",
         "foot_cookies": "Сайт не ставит cookies и не использует трекеры.",
         "foot_contact": "Вопросы или сотрудничество?",
