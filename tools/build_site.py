@@ -168,7 +168,7 @@ T = {
             {"id": "buurt", "time": "17:30", "ch": "buurt", "kind": "nearby",
              "h": "Trimsalon, asiel of rasvereniging",
              "p": ("Dierenartsen en trimsalons op de kaart, met een aanvraag bij partnersalons. Asielen en "
-                   "rasverenigingen met een link naar hun eigen pagina's, en voer en speelgoed van bol.")},
+                   "rasverenigingen met een link naar hun eigen pagina's, en voer en speelgoed om te bestellen.")},
             {"id": "", "time": "21:00", "ch": "buren", "kind": "match",
              "h": "Een match voor Houston",
              "p": "Houston en Bonnie vinden elkaar leuk. Nu kunnen de baasjes chatten en een speelafspraak maken."},
@@ -190,7 +190,7 @@ T = {
             "near": [("79", "Asielen", "met een link naar hun eigen site"),
                      ("56", "Rasverenigingen", "van de Raad van Beheer"),
                      ("775", "Producten van bol", "ongeveer, elke 6 uur bijgewerkt")],
-            "stats_note": "Partnerlinks: koop je via de catalogus, dan betaalt bol PaWow een kleine commissie.",
+            "stats_note": "Partnerlinks: koop je via de catalogus, dan betaalt de winkel PaWow een kleine commissie.",
             "booking_h": "Aanvraag bij een trimsalon", "booking_sub": "do 10:30 · wassen en knippen",
             "booking_badge": "Bevestigd",
             "match_h": "Wederzijdse match", "match_sub": "Bonnie · Jack Russell-terriër",
@@ -218,15 +218,19 @@ T = {
         "privacy_link": "Lees het volledige privacybeleid",
         "partners_h": "Hoe PaWow geld verdient",
         "partners_lead": ("Met partnerlinks, niet met jouw gegevens. Koop je iets via de catalogus, dan krijgt PaWow een "
-                          "kleine commissie van bol. Jij betaalt niets extra."),
+                          "kleine commissie van de winkel: bol of Zooplus. Jij betaalt niets extra."),
         "partners_more": "Meer over partnerlinks",
         "partners": [
             ("Partnerprogramma van bol", "PaWow neemt deel aan het partnerprogramma van bol. Producten en prijzen in de "
                                          "catalogus komen van bol, en ‘Kopen’ brengt je naar bol.com. PaWow is een "
                                          "onafhankelijke app en geen onderdeel van bol."),
+            ("Zooplus via Awin", "PaWow neemt via het affiliatenetwerk Awin deel aan het partnerprogramma van Zooplus. "
+                                 "‘Kopen’ bij een Zooplus-product brengt je naar zooplus.nl. PaWow is geen onderdeel van "
+                                 "Zooplus of Awin."),
             ("Je koopt bij de winkel", "We verkopen zelf niets. Bestellen, betalen, bezorgen en retourneren regel je met "
-                                       "bol, onder hun voorwaarden."),
-            ("De winkel is leidend", "Prijzen werken we elke 6 uur bij, maar de prijs op bol.com is altijd leidend."),
+                                       "de winkel, onder hun voorwaarden."),
+            ("De winkel is leidend", "Prijzen werken we meerdere keren per dag bij, maar de prijs op de site van de winkel "
+                                     "is altijd leidend."),
             ("Duidelijk gemarkeerd", "Partnerlinks zijn in de app als zodanig gemarkeerd, en we geven geen "
                                      "persoonsgegevens door aan de winkel."),
             ("Eerlijk advies", "Onze artikelen schrijven we zelf. Een commissie verandert niets aan wat we aanraden."),
@@ -248,7 +252,7 @@ T = {
              "Naam, ras en foto van je huisdier zien andere gebruikers bij het matchen, in de feed en op de wandelkaart. "
              "Medische gegevens, documenten en berichten zie alleen jij, plus degene met wie je chat of een QR-link deelt."),
             ("Verkoopt PaWow zelf producten?",
-             'Nee. De catalogus verwijst naar bol; daar bestel en betaal je. Lees <a href="#partners">hoe '
+             'Nee. De catalogus verwijst naar webwinkels als bol en Zooplus; daar bestel en betaal je. Lees <a href="#partners">hoe '
              'partnerlinks werken</a>.'),
         ],
         "final_h": "Wees erbij als PaWow opengaat",
@@ -257,7 +261,8 @@ T = {
         "legal_terms": "Gebruiksvoorwaarden",
         "legal_lang": "nl",
         "foot_tag": "Het hele leven van je huisdier, in je broekzak",
-        "foot_partner": "PaWow neemt deel aan het partnerprogramma van bol en is een onafhankelijke app.",
+        "foot_partner": ("PaWow neemt deel aan de partnerprogramma's van bol en Zooplus (via Awin) en is een "
+                         "onafhankelijke app."),
         "foot_cookies": "Deze website plaatst geen cookies en gebruikt geen trackers.",
         "foot_contact": "Vragen of samenwerken?",
         "cta_mini_h": "PaWow is in bèta",
@@ -316,7 +321,7 @@ T = {
             {"id": "nearby", "time": "17:30", "ch": "buurt", "kind": "nearby",
              "h": "Groomer, shelter or breed club",
              "p": ("Vets and groomers on the map, with booking requests to partner salons. Shelters and breed clubs "
-                   "with a link to their own pages, plus food and toys from bol.")},
+                   "with a link to their own pages, plus food and toys to order.")},
             {"id": "", "time": "21:00", "ch": "buren", "kind": "match",
              "h": "A match for Houston",
              "p": "Houston and Bonnie like each other. Now the owners can chat and set up a play date."},
@@ -338,7 +343,7 @@ T = {
             "near": [("79", "Shelters", "with a link to their own site"),
                      ("56", "Breed clubs", "from the Raad van Beheer"),
                      ("775", "Products from bol", "roughly, refreshed every 6 hours")],
-            "stats_note": "Affiliate links: if you buy through the catalog, bol pays PaWow a small commission.",
+            "stats_note": "Affiliate links: if you buy through the catalog, the shop pays PaWow a small commission.",
             "booking_h": "Request at a groomer", "booking_sub": "Thu 10:30 · wash and trim",
             "booking_badge": "Confirmed",
             "match_h": "Mutual match", "match_sub": "Bonnie · Jack Russell Terrier",
@@ -365,16 +370,19 @@ T = {
         ],
         "privacy_link": "Read the full privacy policy",
         "partners_h": "How PaWow makes money",
-        "partners_lead": ("With affiliate links, not with your data. If you buy something through the catalog, bol pays "
-                          "PaWow a small commission. You pay nothing extra."),
+        "partners_lead": ("With affiliate links, not with your data. If you buy something through the catalog, the shop "
+                          "(bol or Zooplus) pays PaWow a small commission. You pay nothing extra."),
         "partners_more": "More about affiliate links",
         "partners": [
             ("bol affiliate program", "PaWow takes part in the bol affiliate program. Products and prices in the catalog "
                                       "come from bol, and ‘Buy’ takes you to bol.com. PaWow is an independent app and "
                                       "not part of bol."),
+            ("Zooplus via Awin", "PaWow takes part in the Zooplus affiliate program through the Awin network. ‘Buy’ on a "
+                                 "Zooplus product takes you to zooplus.nl. PaWow is not part of Zooplus or Awin."),
             ("You buy from the store", "We sell nothing ourselves. Ordering, paying, delivery and returns are between you "
-                                       "and bol, under their terms."),
-            ("The store's price counts", "We refresh prices every 6 hours, but the price on bol.com always applies."),
+                                       "and the shop, under their terms."),
+            ("The store's price counts", "We refresh prices several times a day, but the price on the shop's site always "
+                                         "applies."),
             ("Clearly labeled", "Affiliate links are labeled as such in the app, and we never pass personal data to the "
                                 "store."),
             ("Honest advice", "We write our articles ourselves. A commission does not change what we recommend."),
@@ -396,7 +404,7 @@ T = {
              "Other users see your pet's name, breed and photo in matching, the feed and on the walks map. Medical "
              "records, documents and messages are visible only to you, plus whoever you chat with or share a QR link with."),
             ("Does PaWow sell products itself?",
-             'No. The catalog links to bol, where you order and pay. Read <a href="#partners">how affiliate links '
+             'No. The catalog links to shops such as bol and Zooplus, where you order and pay. Read <a href="#partners">how affiliate links '
              'work</a>.'),
         ],
         "final_h": "Be there when PaWow opens",
@@ -405,7 +413,7 @@ T = {
         "legal_terms": "Terms of use",
         "legal_lang": "en",
         "foot_tag": "Your pet's whole life, in your pocket",
-        "foot_partner": "PaWow takes part in the bol affiliate program and is an independent app.",
+        "foot_partner": "PaWow takes part in the bol and Zooplus (via Awin) affiliate programs and is an independent app.",
         "foot_cookies": "This website sets no cookies and uses no trackers.",
         "foot_contact": "Questions or partnerships?",
         "cta_mini_h": "PaWow is in beta",
@@ -464,7 +472,7 @@ T = {
             {"id": "ryadom", "time": "17:30", "ch": "buurt", "kind": "nearby",
              "h": "Груминг, приют или клуб породы",
              "p": ("Ветклиники и салоны на карте, с заявкой в салоны-партнёры. Приюты и клубы пород со ссылками на "
-                   "их сайты, а ещё корм и игрушки с bol.")},
+                   "их сайты, а ещё заказ корма и игрушек.")},
             {"id": "", "time": "21:00", "ch": "buren", "kind": "match",
              "h": "Пара для Хьюстона",
              "p": "Хьюстон и Бонни понравились друг другу. Теперь хозяева могут списаться и договориться о встрече."},
@@ -486,7 +494,7 @@ T = {
             "near": [("79", "Приютов", "со ссылкой на их сайт"),
                      ("56", "Клубов пород", "Raad van Beheer"),
                      ("775", "Товаров bol", "примерно, обновление каждые 6 часов")],
-            "stats_note": "Ссылки партнёрские: если вы покупаете через каталог, bol платит PaWow небольшую комиссию.",
+            "stats_note": "Ссылки партнёрские: если вы покупаете через каталог, магазин платит PaWow небольшую комиссию.",
             "booking_h": "Заявка в салон", "booking_sub": "чт 10:30 · мытьё и стрижка",
             "booking_badge": "Подтверждено",
             "match_h": "Взаимное совпадение", "match_sub": "Bonnie · джек-рассел-терьер",
@@ -513,16 +521,19 @@ T = {
         ],
         "privacy_link": "Политика конфиденциальности целиком",
         "partners_h": "Как PaWow зарабатывает",
-        "partners_lead": ("На партнёрских ссылках, а не на ваших данных. Если вы покупаете что-то через каталог, bol "
-                          "платит PaWow небольшую комиссию. Для вас цена та же."),
+        "partners_lead": ("На партнёрских ссылках, а не на ваших данных. Если вы покупаете что-то через каталог, "
+                          "магазин (bol или Zooplus) платит PaWow небольшую комиссию. Для вас цена та же."),
         "partners_more": "Подробнее о партнёрских ссылках",
         "partners": [
             ("Партнёрская программа bol", "PaWow участвует в партнёрской программе bol. Товары и цены в каталоге берутся "
                                           "у bol, а кнопка «Купить» ведёт на bol.com. PaWow независимое приложение и не "
                                           "часть bol."),
-            ("Покупка в магазине", "Сами мы ничего не продаём. Заказ, оплата, доставка и возврат идут через bol, по их "
-                                   "условиям."),
-            ("Главная цена у магазина", "Цены мы обновляем каждые 6 часов, но действует всегда цена на bol.com."),
+            ("Zooplus через Awin", "PaWow участвует в партнёрской программе Zooplus через партнёрскую сеть Awin. Кнопка "
+                                   "«Купить» у товара Zooplus ведёт на zooplus.nl. PaWow не часть Zooplus и Awin."),
+            ("Покупка в магазине", "Сами мы ничего не продаём. Заказ, оплата, доставка и возврат идут через магазин, по "
+                                   "его условиям."),
+            ("Главная цена у магазина", "Цены мы обновляем несколько раз в день, но действует всегда цена на сайте "
+                                        "магазина."),
             ("Явная пометка", "Партнёрские ссылки в приложении помечены, и личные данные магазину мы не передаём."),
             ("Честные советы", "Статьи мы пишем сами. Комиссия не меняет того, что мы советуем."),
         ],
@@ -544,7 +555,7 @@ T = {
              "Медицинские записи, документы и переписку видите только вы и тот, с кем вы переписываетесь или кому "
              "отправили QR-ссылку."),
             ("PaWow сам продаёт товары?",
-             'Нет. Каталог ведёт на bol, там вы заказываете и платите. Читайте, <a href="#partners">как устроены '
+             'Нет. Каталог ведёт в интернет-магазины, например bol и Zooplus, там вы заказываете и платите. Читайте, <a href="#partners">как устроены '
              'партнёрские ссылки</a>.'),
         ],
         "final_h": "Узнайте первыми, когда PaWow откроется",
@@ -553,7 +564,7 @@ T = {
         "legal_terms": "Условия использования",
         "legal_lang": "ru",
         "foot_tag": "Вся жизнь питомца в твоём кармане",
-        "foot_partner": "PaWow участвует в партнёрской программе bol и является независимым приложением.",
+        "foot_partner": "PaWow участвует в партнёрских программах bol и Zooplus (через Awin) и является независимым приложением.",
         "foot_cookies": "Сайт не ставит cookies и не использует трекеры.",
         "foot_contact": "Вопросы или сотрудничество?",
         "cta_mini_h": "PaWow в бете",
