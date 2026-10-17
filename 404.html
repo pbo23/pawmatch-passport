@@ -19,7 +19,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/pawmatch-passport/assets/favicon-64.png" type="image/png">
 <link rel="apple-touch-icon" href="/pawmatch-passport/assets/icon-180.png">
-<link rel="stylesheet" href="/pawmatch-passport/assets/site.css?v=b247b72f8d">
+<link rel="stylesheet" href="/pawmatch-passport/assets/site.css?v=f7bd9bb114">
 <meta name="robots" content="noindex">
 </head>
 <body>
@@ -76,6 +76,26 @@
       marker.style.transform = 'translateY(' + y + 'px)';
     };
     var see = function (m) { m.classList.add('seen'); };
+    // Событие часа: волна, луч сканера, декларация из счёта, смена статуса
+    // заявки, «печатает» и ответ. Разыгрывается один раз, когда до отметки
+    // доходит «сейчас»; пролистанные отметки сразу встают в итог.
+    var play = function (m, act) {
+      if (m.classList.contains('play')) return;
+      m.classList.add('play');
+      var badge = m.querySelector('[data-final]');
+      var typing = m.querySelector('.typing');
+      var reply = m.querySelector('.reply');
+      var finish = function () {
+        if (badge) { badge.textContent = badge.dataset.final; badge.classList.remove('c-attn'); badge.classList.add('c-health'); }
+        if (typing) typing.classList.remove('on');
+        if (reply) reply.classList.remove('pending');
+      };
+      if (!act) { finish(); return; }
+      if (typing && reply) {
+        setTimeout(function () { typing.classList.add('on'); }, 900);
+        setTimeout(finish, 2100);
+      } else { setTimeout(finish, 1300); }
+    };
     var activate = function (m) {
       if (m === current) return;
       current = m;
@@ -84,7 +104,7 @@
       var before = true;
       moments.forEach(function (o) {
         o.classList.toggle('is-now', o === m);
-        if (before) see(o);
+        if (before) { see(o); play(o, o === m); }
         if (o === m) before = false;
       });
       var d = m.dataset.time.replace(':', '').split('');
@@ -94,6 +114,11 @@
     if (reduce || !hasIO) { moments.forEach(see); }
     else {
       day.classList.add('live');
+      // Исходные состояния событий; без JS виден итог.
+      day.querySelectorAll('[data-final]').forEach(function (b) {
+        b.textContent = b.dataset.pending; b.classList.remove('c-health'); b.classList.add('c-attn');
+      });
+      day.querySelectorAll('.reply').forEach(function (r) { r.classList.add('pending'); });
       var vis = new IntersectionObserver(function (es) {
         es.forEach(function (e) { if (e.isIntersecting) { see(e.target); vis.unobserve(e.target); } });
       }, { threshold: 0.2 });
@@ -108,13 +133,21 @@
 
   // Галерея настоящих экранов: кнопки листают ленту на одну карточку.
   var strip = document.getElementById('shots');
-  document.querySelectorAll('.shots-nav .round').forEach(function (b) {
+  var navs = [].slice.call(document.querySelectorAll('.shots-nav .round'));
+  navs.forEach(function (b) {
     b.addEventListener('click', function () {
       var card = strip.querySelector('.shot');
       var step = card ? card.getBoundingClientRect().width + 20 : 320;
       strip.scrollBy({ left: step * +b.dataset.dir, behavior: reduce ? 'auto' : 'smooth' });
     });
   });
+  // Стрелка гаснет, когда листать в её сторону уже некуда.
+  var edges = function () {
+    if (!strip || !navs.length) return;
+    var max = strip.scrollWidth - strip.clientWidth - 4;
+    navs.forEach(function (b) { b.disabled = +b.dataset.dir < 0 ? strip.scrollLeft <= 4 : strip.scrollLeft >= max; });
+  };
+  if (strip) { strip.addEventListener('scroll', edges, { passive: true }); window.addEventListener('resize', edges); edges(); }
 
   // Подписка «сообщить о запуске»: прямо в Supabase (только вставка).
   document.querySelectorAll('form.notify').forEach(function (f) {
@@ -126,6 +159,7 @@
       if (f.website.value) { f.classList.add('done'); status.textContent = msg.ok; return; }
       if (!f.checkValidity()) { f.reportValidity(); return; }
       btn.disabled = true;
+      btn.classList.add('is-busy');
       status.textContent = msg.sending;
       fetch('https://ltvgxpdcxejxhzemlamj.supabase.co/rest/v1/launch_signups', {
         method: 'POST',
@@ -134,12 +168,13 @@
       }).then(function (r) {
         // 409: адрес уже в списке. Отвечаем так же, как на новый: по ответу
         // нельзя узнать, подписан ли чужой адрес.
+        btn.classList.remove('is-busy');
         if (r.ok || r.status === 409) { f.classList.add('done'); status.textContent = msg.ok; return; }
         return r.json().catch(function () { return {}; }).then(function (j) {
           status.textContent = j && j.code === 'P0001' ? msg.busy : msg.bad;
           btn.disabled = false;
         });
-      }).catch(function () { status.textContent = msg.offline; btn.disabled = false; });
+      }).catch(function () { btn.classList.remove('is-busy'); status.textContent = msg.offline; btn.disabled = false; });
     });
   });
 

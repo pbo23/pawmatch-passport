@@ -190,10 +190,10 @@ T = {
             "claim_badge": "Verzekerd",
             "near": [("79", "Asielen", "met een link naar hun eigen site"),
                      ("56", "Rasverenigingen", "van de Raad van Beheer"),
-                     ("775", "Producten van bol", "ongeveer, elke 6 uur bijgewerkt")],
+                     ("775", "Producten voor huisdieren", "ongeveer, elke 6 uur bijgewerkt")],
             "stats_note": "Partnerlinks: koop je via de catalogus, dan betaalt de winkel PaWow een kleine commissie.",
             "booking_h": "Aanvraag bij een trimsalon", "booking_sub": "do 10:30 · wassen en knippen",
-            "booking_badge": "Bevestigd",
+            "booking_badge": "Bevestigd", "booking_pending": "Aangevraagd", "typing": "Aan het typen",
             "match_h": "Wederzijdse match", "match_sub": "Bonnie · Jack Russell-terriër",
             "chat": [("Zin in een rondje in het park morgen?", False), ("Graag! 18:00 bij de vijver?", True)],
         },
@@ -343,10 +343,10 @@ T = {
             "claim_badge": "Insured",
             "near": [("79", "Shelters", "with a link to their own site"),
                      ("56", "Breed clubs", "from the Raad van Beheer"),
-                     ("775", "Products from bol", "roughly, refreshed every 6 hours")],
+                     ("775", "Pet products", "roughly, refreshed every 6 hours")],
             "stats_note": "Affiliate links: if you buy through the catalog, the shop pays PaWow a small commission.",
             "booking_h": "Request at a groomer", "booking_sub": "Thu 10:30 · wash and trim",
-            "booking_badge": "Confirmed",
+            "booking_badge": "Confirmed", "booking_pending": "Requested", "typing": "Typing",
             "match_h": "Mutual match", "match_sub": "Bonnie · Jack Russell Terrier",
             "chat": [("Fancy a walk in the park tomorrow?", False), ("Love to! 18:00 by the pond?", True)],
         },
@@ -494,10 +494,10 @@ T = {
             "claim_badge": "Застрахован",
             "near": [("79", "Приютов", "со ссылкой на их сайт"),
                      ("56", "Клубов пород", "Raad van Beheer"),
-                     ("775", "Товаров bol", "примерно, обновление каждые 6 часов")],
+                     ("775", "Товаров для питомцев", "примерно, обновление каждые 6 часов")],
             "stats_note": "Ссылки партнёрские: если вы покупаете через каталог, магазин платит PaWow небольшую комиссию.",
             "booking_h": "Заявка в салон", "booking_sub": "чт 10:30 · мытьё и стрижка",
-            "booking_badge": "Подтверждено",
+            "booking_badge": "Подтверждено", "booking_pending": "Отправлена", "typing": "Печатает",
             "match_h": "Взаимное совпадение", "match_sub": "Bonnie · джек-рассел-терьер",
             "chat": [("Погуляем завтра в парке?", False), ("С удовольствием! В 18:00 у пруда?", True)],
         },
@@ -624,6 +624,26 @@ SITE_SCRIPT = """<script>
       marker.style.transform = 'translateY(' + y + 'px)';
     };
     var see = function (m) { m.classList.add('seen'); };
+    // Событие часа: волна, луч сканера, декларация из счёта, смена статуса
+    // заявки, «печатает» и ответ. Разыгрывается один раз, когда до отметки
+    // доходит «сейчас»; пролистанные отметки сразу встают в итог.
+    var play = function (m, act) {
+      if (m.classList.contains('play')) return;
+      m.classList.add('play');
+      var badge = m.querySelector('[data-final]');
+      var typing = m.querySelector('.typing');
+      var reply = m.querySelector('.reply');
+      var finish = function () {
+        if (badge) { badge.textContent = badge.dataset.final; badge.classList.remove('c-attn'); badge.classList.add('c-health'); }
+        if (typing) typing.classList.remove('on');
+        if (reply) reply.classList.remove('pending');
+      };
+      if (!act) { finish(); return; }
+      if (typing && reply) {
+        setTimeout(function () { typing.classList.add('on'); }, 900);
+        setTimeout(finish, 2100);
+      } else { setTimeout(finish, 1300); }
+    };
     var activate = function (m) {
       if (m === current) return;
       current = m;
@@ -632,7 +652,7 @@ SITE_SCRIPT = """<script>
       var before = true;
       moments.forEach(function (o) {
         o.classList.toggle('is-now', o === m);
-        if (before) see(o);
+        if (before) { see(o); play(o, o === m); }
         if (o === m) before = false;
       });
       var d = m.dataset.time.replace(':', '').split('');
@@ -642,6 +662,11 @@ SITE_SCRIPT = """<script>
     if (reduce || !hasIO) { moments.forEach(see); }
     else {
       day.classList.add('live');
+      // Исходные состояния событий; без JS виден итог.
+      day.querySelectorAll('[data-final]').forEach(function (b) {
+        b.textContent = b.dataset.pending; b.classList.remove('c-health'); b.classList.add('c-attn');
+      });
+      day.querySelectorAll('.reply').forEach(function (r) { r.classList.add('pending'); });
       var vis = new IntersectionObserver(function (es) {
         es.forEach(function (e) { if (e.isIntersecting) { see(e.target); vis.unobserve(e.target); } });
       }, { threshold: 0.2 });
@@ -656,13 +681,21 @@ SITE_SCRIPT = """<script>
 
   // Галерея настоящих экранов: кнопки листают ленту на одну карточку.
   var strip = document.getElementById('shots');
-  document.querySelectorAll('.shots-nav .round').forEach(function (b) {
+  var navs = [].slice.call(document.querySelectorAll('.shots-nav .round'));
+  navs.forEach(function (b) {
     b.addEventListener('click', function () {
       var card = strip.querySelector('.shot');
       var step = card ? card.getBoundingClientRect().width + 20 : 320;
       strip.scrollBy({ left: step * +b.dataset.dir, behavior: reduce ? 'auto' : 'smooth' });
     });
   });
+  // Стрелка гаснет, когда листать в её сторону уже некуда.
+  var edges = function () {
+    if (!strip || !navs.length) return;
+    var max = strip.scrollWidth - strip.clientWidth - 4;
+    navs.forEach(function (b) { b.disabled = +b.dataset.dir < 0 ? strip.scrollLeft <= 4 : strip.scrollLeft >= max; });
+  };
+  if (strip) { strip.addEventListener('scroll', edges, { passive: true }); window.addEventListener('resize', edges); edges(); }
 
   // Подписка «сообщить о запуске»: прямо в Supabase (только вставка).
   document.querySelectorAll('form.notify').forEach(function (f) {
@@ -674,6 +707,7 @@ SITE_SCRIPT = """<script>
       if (f.website.value) { f.classList.add('done'); status.textContent = msg.ok; return; }
       if (!f.checkValidity()) { f.reportValidity(); return; }
       btn.disabled = true;
+      btn.classList.add('is-busy');
       status.textContent = msg.sending;
       fetch('__API__/rest/v1/launch_signups', {
         method: 'POST',
@@ -682,12 +716,13 @@ SITE_SCRIPT = """<script>
       }).then(function (r) {
         // 409: адрес уже в списке. Отвечаем так же, как на новый: по ответу
         // нельзя узнать, подписан ли чужой адрес.
+        btn.classList.remove('is-busy');
         if (r.ok || r.status === 409) { f.classList.add('done'); status.textContent = msg.ok; return; }
         return r.json().catch(function () { return {}; }).then(function (j) {
           status.textContent = j && j.code === 'P0001' ? msg.busy : msg.bad;
           btn.disabled = false;
         });
-      }).catch(function () { status.textContent = msg.offline; btn.disabled = false; });
+      }).catch(function () { btn.classList.remove('is-busy'); status.textContent = msg.offline; btn.disabled = false; });
     });
   });
 
@@ -834,7 +869,8 @@ def notify_form(t, root, lang, fid):
 </div>
 <label class="consent"><input type="checkbox" name="consent" required><span>{esc(t["notify_consent"])} <a href="{root}privacy.html?lang={ll}">{esc(t["notify_privacy"])}</a></span></label>
 <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-<p class="status" role="status" aria-live="polite"></p>
+<div class="result"><svg class="ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+<p class="status" role="status" aria-live="polite"></p></div>
 </form>"""
 
 
@@ -860,8 +896,8 @@ def action_card(t, root, lang, fid, final=False):
 # любом экране, переводится вместе со страницей и умеет собираться по частям.
 # Классы u-* в site.css повторяют компоненты DESIGN.md приложения.
 
-def row(icon_svg, tone, title, sub, badge="", badge_tone="", extra=""):
-    b = f'<span class="badge {badge_tone}">{esc(badge)}</span>' if badge else ""
+def row(icon_svg, tone, title, sub, badge="", badge_tone="", extra="", badge_attrs=""):
+    b = f'<span class="badge {badge_tone}"{badge_attrs}>{esc(badge)}</span>' if badge else ""
     return (f'<div class="u-row a"{extra}><span class="tile {tone}">{icon_svg}</span>'
             f'<span class="u-txt"><b>{esc(title)}</b><span>{esc(sub)}</span></span>{b}</div>')
 
@@ -874,7 +910,8 @@ def ui_walk(m):
         f'<span class="u-txt"><b>{esc(n)}</b><span>{esc(b)}</span></span><span class="dist">{esc(d)}</span></div>'
         for i, (f, n, b, d) in enumerate(m["walkers"]))
     return (f'<div class="u-card">'
-            f'<div class="u-head a"><span class="tile c-buren">{I_WALK}</span><span class="u-txt"><b>{esc(m["walk_h"])}</b>'
+            f'<div class="u-head a"><span class="tile c-buren">{I_WALK}<i class="ring" aria-hidden="true"></i></span>'
+            f'<span class="u-txt"><b>{esc(m["walk_h"])}</b>'
             f'<span>{esc(m["walk_sub"])}</span></span><span class="badge c-health">{esc(m["live"])}</span></div>'
             f'{rows}</div>')
 
@@ -894,7 +931,7 @@ def ui_passport(m):
     return (f'<div class="u-browser">'
             f'<div class="u-bar a"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>'
             f'<span class="url">{I_LOCK}{esc(m["pass_url"])}</span></div>'
-            f'<div class="u-page"><div class="u-head a" style="--d:1"><span class="qr">{fake_qr()}</span>'
+            f'<div class="u-page"><div class="u-head a" style="--d:1"><span class="qr">{fake_qr()}<i class="scan" aria-hidden="true"></i></span>'
             f'<span class="u-txt"><b>{esc(m["pass_h"])}</b><span>{esc(m["pass_sub"])}</span></span></div>'
             f'{vacc}<p class="u-foot a" style="--d:4">{esc(m["pass_until"])}</p></div></div>')
 
@@ -904,7 +941,7 @@ def ui_invoice(m):
     claim = row(I_SHIELD, "c-lilac", m["claim_h"], m["claim_sub"], m["claim_badge"], "c-lilac", ' style="--d:2"')
     return (f'<div class="u-flow"><div class="u-card">{invoice}</div>'
             f'<span class="u-arrow a" style="--d:1">{I_ARROW}</span>'
-            f'<div class="u-card">{claim}</div></div>')
+            f'<div class="u-card claim">{claim}</div></div>')
 
 
 def ui_nearby(m):
@@ -914,15 +951,21 @@ def ui_nearby(m):
         f'<div class="u-row a" style="--d:{i}"><span class="tile {tone}">{ico}</span>'
         f'<span class="u-txt"><b>{esc(label)}</b><span>{esc(sub)}</span></span><span class="val">{n}</span></div>'
         for i, ((n, label, sub), (tone, ico)) in enumerate(zip(m["near"], tones)))
+    # Без JS виден итог («Подтверждено»); скрипт показывает сначала «Отправлена»
+    # и меняет статус, когда до отметки доходит «сейчас».
     booking = row(I_SCISSORS, "c-neutral", m["booking_h"], m["booking_sub"], m["booking_badge"], "c-health",
-                  ' style="--d:3"')
+                  ' style="--d:3"', f' data-pending="{esc(m["booking_pending"])}" data-final="{esc(m["booking_badge"])}"')
     return (f'<div class="u-near"><div class="u-card">{rows}</div><div class="u-card">{booking}</div>'
             f'<p class="u-note a" style="--d:4">{esc(m["stats_note"])}</p></div>')
 
 
 def ui_match(m):
-    bubbles = "".join(f'<p class="bubble a{" me" if me else ""}" style="--d:{i + 2}">{esc(txt)}</p>'
+    bubbles = "".join(f'<p class="bubble a{" me reply" if me else ""}" style="--d:{i + 2}">{esc(txt)}</p>'
                       for i, (txt, me) in enumerate(m["chat"]))
+    # Индикатор «печатает» стоит перед ответом и виден около секунды.
+    typing = (f'<p class="bubble me typing" role="img" aria-label="{esc(m["typing"])}">'
+              f'<i></i><i></i><i></i></p>')
+    bubbles = bubbles.replace('<p class="bubble a me reply"', typing + '<p class="bubble a me reply"', 1)
     # Взаимное совпадение: тот фирменный момент, ради которого в DESIGN.md
     # держат градиент малинового в сирень.
     return (f'<div class="u-card">{row(I_HEART, "t-brand", m["match_h"], m["match_sub"])}'
